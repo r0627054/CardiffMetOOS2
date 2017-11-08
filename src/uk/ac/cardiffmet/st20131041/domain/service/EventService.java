@@ -1,64 +1,138 @@
 package uk.ac.cardiffmet.st20131041.domain.service;
 import java.util.ArrayList;
-import uk.ac.cardiffmet.st20131041.domain.model.DomainException;
+import uk.ac.cardiffmet.st20131041.domain.db.EventRepository;
+import uk.ac.cardiffmet.st20131041.domain.db.EventRepositoryFactory;
+import uk.ac.cardiffmet.st20131041.domain.db.PersonRepository;
+import uk.ac.cardiffmet.st20131041.domain.db.PersonRepositoryFactory;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
+import uk.ac.cardiffmet.st20131041.domain.model.Person;
 
 /**
- *The EventService class keeps track of all the events in an ArrayList.
+ * The EventService class keeps track of all the events and persons.
  * 
  * @author Dries Janse
  * @Version 1.0
  */
 public class EventService {
-    private ArrayList<Event> events;
-
+    private EventRepository eventRepository;
+    private PersonRepository personRepository;
+    
     /**
-     * The empty constructor initialises the event ArrayList.
+     * EventRepository and personRepository will be initialised depending of the repository type.
+     * The constructor uses the EventRepository and PersonRepository for the object creation.
+     * 
+     * @param repositoryType 
      */
-    public EventService() {
-        this.events = new ArrayList<Event>();
+    public EventService(String repositoryType){
+        this.eventRepository = EventRepositoryFactory.getEventRepository(repositoryType);
+        this.personRepository = PersonRepositoryFactory.getPersonRepository(repositoryType);
     }
 
     /**
-     * Gets the ArrayList with all the events in it.
-     * 
-     * @return ArrayList with all the events
+     * Gets the eventRepository
+     *
+     * @return eventRepositroy
      */
-    public ArrayList<Event> getEvents() {
-        return events;
+    public EventRepository getEventRepository() {
+        return eventRepository;
     }
 
     /**
-     * Sets the ArrayList with Events.
+     * Gets the personRepository
      * 
-     * @exception Throws DomainException if ArrayList with Events is null.
-     * @param events the ArrayList with events
+     * @return personRepository
      */
-    public void setEvents(ArrayList<Event> events) {
-        if(events == null){
-            throw new DomainException("Cannot set events ArrayList, if null!");
-        }
-        this.events = events;
+    public PersonRepository getPersonRepository() {
+        return personRepository;
+    }
+    
+    //--------------------------------
+    // METHODS OF EVENTREPOSITORY
+    //--------------------------------
+    
+    /**
+     * This method makes us of the method of the eventRepository
+     * @see EventRepository#getEvents()
+     * @return  ArrayList of Events
+     */
+    public ArrayList<Event> getEvents(){
+        return this.getEventRepository().getEvents();
+    }
+        
+    /**
+     * This method makes us of the method of the eventRepository
+     * @see EventRepository#setEvents(java.util.ArrayList)
+     * @param events 
+     */
+    public void setEvents(ArrayList<Event> events){
+        this.getEventRepository().setEvents(events);
     }
     
     /**
-     * Adds an Event to the ArrayList with all the events.
-     * 
-     * @exception Throws DomainException if the event is null.
-     * @param event the Event that will be added to the ArrayList
+     * This method makes us of the method of the eventRepository
+     * @see EventRepository#addEvent(uk.ac.cardiffmet.st20131041.domain.model.Event) 
+     * @param event 
      */
     public void addEvent(Event event){
-        if(event == null){
-            throw new DomainException("Event cannot be null.");
-        }
-        events.add(event);
+        this.getEventRepository().addEvent(event);
     }
     
     /**
-     * Gets the number of events.
-     * @return total amount of events 
+     * This method makes us of the method of the eventRepository
+     * @see EventRepository#getNumberOfEvents()
+     * @return 
      */
     public int getNumberOfEvents(){
-        return this.events.size();
+        return this.getEventRepository().getNumberOfEvents();
     }
+    
+    
+    
+    
+    
+    
+    //--------------------------------
+    // METHODS OF EVENTREPOSITORY
+    //--------------------------------
+    
+    /**
+     * This method makes us of the method of the personRepository
+     * @see PersonRepository#getPersons()
+     * @return 
+     */
+    public ArrayList<Person> getPersons(){
+        return this.getPersonRepository().getPersons();
+    }
+    
+    /**
+     * This method makes us of the method of the personRepository
+     * @see PersonRepository#setPersons(java.util.ArrayList) 
+     * @param persons 
+     */
+    public void setPersons(ArrayList<Person> persons){
+        this.getPersonRepository().setPersons(persons);
+    }
+    
+    /**
+     * This method makes us of the method of the personRepository
+     * @see PersonRepository#addPerson(uk.ac.cardiffmet.st20131041.domain.model.Person) 
+     * @param person 
+     */
+    public void addPerson(Person person){
+        this.getPersonRepository().addPerson(person);
+    }
+    
+    /**
+     * This method makes us of the method of the personRepository
+     * @see PersonRepository#getPerson(int)
+     * @param index
+     * @return 
+     */
+    public Person getPerson(int index){
+        return this.getPersonRepository().getPerson(index);
+    }
+    
+    
+    
+    
 }
