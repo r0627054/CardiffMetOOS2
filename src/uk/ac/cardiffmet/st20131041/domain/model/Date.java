@@ -92,8 +92,8 @@ public class Date {
     }
 
     /**
+     * {@inheritDoc}
      * Custom hash code, made use of year, day and month.
-     *
      * @return the hashcode
      */
     @Override
@@ -106,8 +106,8 @@ public class Date {
     }
 
     /**
+     * {@inheritDoc}
      * Custom equals method. Year, day and month must be all the same.
-     *
      * @param obj
      * @return
      */
