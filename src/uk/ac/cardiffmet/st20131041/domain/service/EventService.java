@@ -131,8 +131,4 @@ public class EventService {
     public Person getPerson(int index){
         return this.getPersonRepository().getPerson(index);
     }
-    
-    
-    
-    
 }
