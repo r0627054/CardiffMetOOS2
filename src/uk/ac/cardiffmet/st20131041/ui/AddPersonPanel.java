@@ -6,6 +6,7 @@
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.util.Date;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -35,9 +36,11 @@ public class AddPersonPanel extends javax.swing.JPanel {
         addPersonButton = new javax.swing.JButton();
         firstNameField = new javax.swing.JTextField();
         surnameLabel = new javax.swing.JLabel();
-        birthdayLabel = new javax.swing.JLabel();
+        nicknameLabel = new javax.swing.JLabel();
         birthdayPicker = new org.jdesktop.swingx.JXDatePicker();
         surnameField = new javax.swing.JTextField();
+        birthdayLabel1 = new javax.swing.JLabel();
+        nicknameField = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -54,11 +57,17 @@ public class AddPersonPanel extends javax.swing.JPanel {
         surnameLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
         surnameLabel.setText("Surname");
 
-        birthdayLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
-        birthdayLabel.setText("Birthday");
+        nicknameLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        nicknameLabel.setText("Nickname");
 
         surnameField.setText("Enter sur name.");
         surnameField.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+
+        birthdayLabel1.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        birthdayLabel1.setText("Birthday");
+
+        nicknameField.setText("Enter nickname.");
+        nicknameField.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -67,18 +76,20 @@ public class AddPersonPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(birthdayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addPersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(birthdayPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(firstNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nicknameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nicknameField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(surnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                            .addComponent(surnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(birthdayPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(birthdayLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,11 +102,15 @@ public class AddPersonPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addComponent(birthdayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(birthdayPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nicknameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(birthdayLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(birthdayPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nicknameField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(addPersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68))
         );
@@ -110,10 +125,15 @@ public class AddPersonPanel extends javax.swing.JPanel {
         return this.getSurnameField().getText();
     }
     
+    public String getNicknameText(){
+        return this.getNicknameField().getText();
+    }
+    
     public Date getBirthday(){
         return this.getBirthdayPicker().getDate();
     }
 
+    
     private JXDatePicker getBirthdayPicker() {
         return birthdayPicker;
     }
@@ -125,14 +145,25 @@ public class AddPersonPanel extends javax.swing.JPanel {
     private JTextField getSurnameField() {
         return surnameField;
     }
-       
+
+    private JTextField getNicknameField() {
+        return nicknameField;
+    }
+    
+    
+
+    public JButton getAddPersonButton() {
+        return addPersonButton;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPersonButton;
-    private javax.swing.JLabel birthdayLabel;
+    private javax.swing.JLabel birthdayLabel1;
     private org.jdesktop.swingx.JXDatePicker birthdayPicker;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JTextField nicknameField;
+    private javax.swing.JLabel nicknameLabel;
     private javax.swing.JTextField surnameField;
     private javax.swing.JLabel surnameLabel;
     // End of variables declaration//GEN-END:variables

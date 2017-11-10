@@ -52,6 +52,10 @@ public class PersonRepositoryInMemory implements PersonRepository{
         if(person == null){
             throw new DomainException("Person cannot be null.");
         }
+        if(persons.contains(person)){
+            throw new DomainException("Person already exists with this nickname!");
+        }
+        this.persons.add(person);
     }
     
     /**

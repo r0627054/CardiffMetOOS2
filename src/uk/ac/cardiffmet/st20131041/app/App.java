@@ -1,6 +1,7 @@
 package uk.ac.cardiffmet.st20131041.app;
 
 import javax.swing.ImageIcon;
+import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 import uk.ac.cardiffmet.st20131041.ui.AppFrame;
 
 /**
@@ -36,7 +37,8 @@ public class App {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AppFrame().setVisible(true);
+                //new AppFrame().setVisible(true);
+                new AppFrame(new EventService("MEMORY")).setVisible(true);
             }
         });
     }

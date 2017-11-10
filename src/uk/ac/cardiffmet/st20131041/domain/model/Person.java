@@ -14,7 +14,8 @@ public class Person {
     private String forename;
     private String surname;
     private Date birthday;
-
+    private String nickname;
+    
     /**
      * Empty constructor used for creation of the object afterwards setters can
      * be used separately for validation.
@@ -47,12 +48,15 @@ public class Person {
     /**
      * Sets the forename of the person.
      * 
-     * @exception Throws DomainException if the forename is null.
+     * @exception Throws DomainException if the forename is null of empty.
      * @param forename 
      */
     public void setForename(String forename) {
         if(forename == null){
             throw new DomainException("Forename of a person cannot be null.");
+        }
+        if(forename.trim().isEmpty()){
+            throw new DomainException("Forename of person cannot be empty.");
         }
         this.forename = forename;
     }
@@ -69,12 +73,15 @@ public class Person {
     /**
      * Sets the surname of the person.
      * 
-     * @exception Throws DomainException if the surname is null.
+     * @exception Throws DomainException if the surname is null or empty.
      * @param surname surname of the person
      */
     public void setSurname(String surname) {
         if(surname == null){
             throw new DomainException("Surname of the person cannot be null.");
+        }
+        if(surname.trim().isEmpty()){
+            throw new DomainException("Surname of person cannot be empty.");
         }
         this.surname = surname;
     }
@@ -102,6 +109,31 @@ public class Person {
     }
 
     /**
+     * Gets the (unique name) nickname of the person.
+     * 
+     * @return 
+     */
+    public String getNickname() {
+        return nickname;
+    }
+
+    /**
+     * Sets the (unique name) nickname of the person.
+     * 
+     * @exception  Throws DomainException if the nickname is null or empty.
+     * @param nickname 
+     */
+    public void setNickname(String nickname) {
+        if(nickname == null){
+            throw new DomainException("Nickname of a person cannot be null.");
+        }
+        if(nickname.trim().isEmpty()){
+            throw new DomainException("Nickname of a person cannot be empty");
+        }
+        this.nickname = nickname;
+    }
+   
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -112,7 +144,7 @@ public class Person {
         hash = 79 * hash + Objects.hashCode(this.birthday);
         return hash;
     }
-
+    
     /**
      * {@inheritDoc}
      */
@@ -128,13 +160,7 @@ public class Person {
             return false;
         }
         final Person other = (Person) obj;
-        if (!Objects.equals(this.forename, other.forename)) {
-            return false;
-        }
-        if (!Objects.equals(this.surname, other.surname)) {
-            return false;
-        }
-        if (!Objects.equals(this.birthday, other.birthday)) {
+        if (!Objects.equals(this.nickname, other.nickname)) {
             return false;
         }
         return true;
