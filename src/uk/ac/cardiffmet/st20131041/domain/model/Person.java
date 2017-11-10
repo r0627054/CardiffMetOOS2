@@ -1,5 +1,6 @@
 package uk.ac.cardiffmet.st20131041.domain.model;
 
+import java.util.Date;
 import java.util.Objects;
 /**
  * The Person class is used to store information (forename, surname, birthday) of a person.

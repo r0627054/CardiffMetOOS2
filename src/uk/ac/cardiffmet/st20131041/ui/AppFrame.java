@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.awt.Color;
@@ -150,6 +145,8 @@ public class AppFrame extends javax.swing.JFrame {
 
         sideBarPanel1 = new uk.ac.cardiffmet.st20131041.ui.SideBarPanel();
         headerPanel1 = new uk.ac.cardiffmet.st20131041.ui.HeaderPanel();
+        mainAreaPanel = new javax.swing.JPanel();
+        addPersonPanel1 = new uk.ac.cardiffmet.st20131041.ui.AddPersonPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(857, 587));
@@ -158,12 +155,16 @@ public class AppFrame extends javax.swing.JFrame {
         headerPanel1.setLayout(headerPanel1Layout);
         headerPanel1Layout.setHorizontalGroup(
             headerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         headerPanel1Layout.setVerticalGroup(
             headerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        mainAreaPanel.setBackground(new java.awt.Color(255, 255, 255));
+        mainAreaPanel.setLayout(new java.awt.CardLayout());
+        mainAreaPanel.add(addPersonPanel1, "card2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,7 +173,9 @@ public class AppFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(sideBarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,8 +184,9 @@ public class AppFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(headerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(sideBarPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)))
+                        .addGap(0, 0, 0)
+                        .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sideBarPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -190,7 +194,9 @@ public class AppFrame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private uk.ac.cardiffmet.st20131041.ui.AddPersonPanel addPersonPanel1;
     private uk.ac.cardiffmet.st20131041.ui.HeaderPanel headerPanel1;
+    private javax.swing.JPanel mainAreaPanel;
     private uk.ac.cardiffmet.st20131041.ui.SideBarPanel sideBarPanel1;
     // End of variables declaration//GEN-END:variables
 }

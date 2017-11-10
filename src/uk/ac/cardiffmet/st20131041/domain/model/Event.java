@@ -14,7 +14,7 @@ public class Event {
 
     private String title;
     private String description;
-    private Date date;
+    private CustomDate date;
     private HashMap<Person, String> persons = new HashMap<Person, String>();
     private Location location;
 
@@ -33,7 +33,7 @@ public class Event {
      * @param desciption description of the event
      * @param date date of the event
      */
-    public Event(String title, String desciption, Date date, Location location) {
+    public Event(String title, String desciption, CustomDate date, Location location) {
         this.setTitle(title);
         this.setDescription(description);
         this.setDate(date);
@@ -63,7 +63,7 @@ public class Event {
      *
      * @return the date object of the event
      */
-    public Date getDate() {
+    public CustomDate getDate() {
         return date;
     }
     
@@ -127,7 +127,7 @@ public class Event {
      * @exception Throws DomainException if the date is null
      * @param date
      */
-    public void setDate(Date date) {
+    public void setDate(CustomDate date) {
         if (date == null) {
             throw new DomainException("Event date cannot be null!");
         }

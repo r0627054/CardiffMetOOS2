@@ -7,7 +7,7 @@ package uk.ac.cardiffmet.st20131041.domain.model;
  * @author Dries
  * @Version 1.0
  */
-public class Date {
+public class CustomDate {
 
     private int year;
     private int day;
@@ -20,7 +20,7 @@ public class Date {
      * @param day
      * @param month
      */
-    public Date(int year, int day, int month) {
+    public CustomDate(int year, int day, int month) {
         this.setYear(year);
         this.setDay(day);
         this.setMonth(month);
@@ -122,7 +122,7 @@ public class Date {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Date other = (Date) obj;
+        final CustomDate other = (CustomDate) obj;
         if (this.year != other.year) {
             return false;
         }
