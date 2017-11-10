@@ -129,6 +129,7 @@ public class AppFrame extends javax.swing.JFrame {
     private void addEventPanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setAddEventPanelClickedColor();
+        this.swapPanel(addEventPanel);
     }
 
     private void addEventPanelMouseEntered(java.awt.event.MouseEvent evt) {
@@ -142,8 +143,9 @@ public class AppFrame extends javax.swing.JFrame {
     private void addPersonPanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setAddPersonPanelClickedColor();
+        this.swapPanel(addPersonPanel);
     }
-
+        
     private void addPersonPanelMouseEntered(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAddPersonPanelDefaultHoverColor();
     }
@@ -155,6 +157,7 @@ public class AppFrame extends javax.swing.JFrame {
     private void showTimeLinePanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setShowTimeLinePanelClickedColor();
+        this.swapPanel(timeLinePanel);
     }
 
     private void showTimeLinePanelMouseEntered(java.awt.event.MouseEvent evt) {
@@ -168,6 +171,7 @@ public class AppFrame extends javax.swing.JFrame {
     private void informationPanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setInformationPanelClickedColor();
+        this.swapPanel(informationPanel);
     }
 
     private void informationPanelMouseEntered(java.awt.event.MouseEvent evt) {
@@ -198,9 +202,13 @@ public class AppFrame extends javax.swing.JFrame {
         this.service = service;
     }
     
-    
-   
-
+    private void swapPanel(JPanel p){
+        this.mainAreaPanel.removeAll();
+        this.mainAreaPanel.add(p);
+        this.mainAreaPanel.repaint();
+        this.mainAreaPanel.revalidate();
+    }
+      
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -216,7 +224,7 @@ public class AppFrame extends javax.swing.JFrame {
         addEventPanel = new uk.ac.cardiffmet.st20131041.ui.AddEventPanel();
         addPersonPanel = new uk.ac.cardiffmet.st20131041.ui.AddPersonPanel();
         informationPanel = new uk.ac.cardiffmet.st20131041.ui.InformationPanel();
-        timeLinePanel1 = new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel();
+        timeLinePanel = new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(857, 587));
@@ -250,18 +258,18 @@ public class AppFrame extends javax.swing.JFrame {
 
         mainAreaPanel.add(informationPanel, "card4");
 
-        javax.swing.GroupLayout timeLinePanel1Layout = new javax.swing.GroupLayout(timeLinePanel1);
-        timeLinePanel1.setLayout(timeLinePanel1Layout);
-        timeLinePanel1Layout.setHorizontalGroup(
-            timeLinePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout timeLinePanelLayout = new javax.swing.GroupLayout(timeLinePanel);
+        timeLinePanel.setLayout(timeLinePanelLayout);
+        timeLinePanelLayout.setHorizontalGroup(
+            timeLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 634, Short.MAX_VALUE)
         );
-        timeLinePanel1Layout.setVerticalGroup(
-            timeLinePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        timeLinePanelLayout.setVerticalGroup(
+            timeLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 598, Short.MAX_VALUE)
         );
 
-        mainAreaPanel.add(timeLinePanel1, "card5");
+        mainAreaPanel.add(timeLinePanel, "card5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -297,6 +305,6 @@ public class AppFrame extends javax.swing.JFrame {
     private uk.ac.cardiffmet.st20131041.ui.InformationPanel informationPanel;
     private javax.swing.JPanel mainAreaPanel;
     private uk.ac.cardiffmet.st20131041.ui.SideBarPanel sideBarPanel;
-    private uk.ac.cardiffmet.st20131041.ui.TimeLinePanel timeLinePanel1;
+    private uk.ac.cardiffmet.st20131041.ui.TimeLinePanel timeLinePanel;
     // End of variables declaration//GEN-END:variables
 }

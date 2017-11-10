@@ -113,7 +113,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Container class="uk.ac.cardiffmet.st20131041.ui.TimeLinePanel" name="timeLinePanel1">
+        <Container class="uk.ac.cardiffmet.st20131041.ui.TimeLinePanel" name="timeLinePanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="card5"/>
