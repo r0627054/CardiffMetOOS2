@@ -80,6 +80,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
         <Component class="uk.ac.cardiffmet.st20131041.ui.AddEventPanel" name="addEventPanel">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new uk.ac.cardiffmet.st20131041.ui.AddEventPanel(this.getService())"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="card3"/>
@@ -87,6 +90,9 @@
           </Constraints>
         </Component>
         <Component class="uk.ac.cardiffmet.st20131041.ui.AddPersonPanel" name="addPersonPanel">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new uk.ac.cardiffmet.st20131041.ui.AddPersonPanel(this.getService())"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="card2"/>
@@ -103,12 +109,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="634" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="778" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="598" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="679" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -123,12 +129,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="634" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="778" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="598" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="679" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

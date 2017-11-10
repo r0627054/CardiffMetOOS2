@@ -15,4 +15,6 @@ public interface PersonRepository {
     void setPersons(ArrayList<Person> persons);
     void addPerson(Person person);
     Person getPerson(int index);
+    Person getPerson(String nickname);
+    ArrayList<String> getAllNicknames();
 }

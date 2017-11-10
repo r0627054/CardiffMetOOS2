@@ -85,47 +85,8 @@ public class AppFrame extends javax.swing.JFrame {
                 informationPanelMouseExited(evt);
             }
         });
-        this.getAddPersonPanel1().getAddPersonButton().addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddPersonButtonClicked(evt);
-            }
-        });
     }
     
-    private void AddPersonButtonClicked(java.awt.event.MouseEvent evt) {
-        Person p = new Person();
-        String errors = "";
-        try {
-            p.setForename(this.getAddPersonPanel1().getFirstNameText());
-        } catch (DomainException e) {
-            errors += e.getMessage() + "\n\n";
-        }
-        try {
-            p.setSurname(this.getAddPersonPanel1().getSurnameText());
-        } catch (DomainException e) {
-            errors += e.getMessage()+ "\n\n";
-        }
-        try {
-            p.setBirthday(this.getAddPersonPanel1().getBirthday());
-        } catch (DomainException e) {
-            errors += e.getMessage()+ "\n\n";
-        }
-        try {
-            p.setNickname(this.getAddPersonPanel1().getNicknameText());
-        } catch (DomainException e) {
-            errors += e.getMessage() + "\n\n";
-        }
-        if(!errors.isEmpty()){
-            JOptionPane.showMessageDialog(null, errors);
-        }else{
-            try {
-                this.getService().addPerson(p);
-            } catch (DomainException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        }
-    }
-
     private void addEventPanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setAddEventPanelClickedColor();
@@ -221,8 +182,8 @@ public class AppFrame extends javax.swing.JFrame {
         sideBarPanel = new uk.ac.cardiffmet.st20131041.ui.SideBarPanel();
         headerPanel = new uk.ac.cardiffmet.st20131041.ui.HeaderPanel();
         mainAreaPanel = new javax.swing.JPanel();
-        addEventPanel = new uk.ac.cardiffmet.st20131041.ui.AddEventPanel();
-        addPersonPanel = new uk.ac.cardiffmet.st20131041.ui.AddPersonPanel();
+        addEventPanel = new uk.ac.cardiffmet.st20131041.ui.AddEventPanel(this.getService());
+        addPersonPanel = new uk.ac.cardiffmet.st20131041.ui.AddPersonPanel(this.getService());
         informationPanel = new uk.ac.cardiffmet.st20131041.ui.InformationPanel();
         timeLinePanel = new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel();
 
@@ -249,11 +210,11 @@ public class AppFrame extends javax.swing.JFrame {
         informationPanel.setLayout(informationPanelLayout);
         informationPanelLayout.setHorizontalGroup(
             informationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGap(0, 778, Short.MAX_VALUE)
         );
         informationPanelLayout.setVerticalGroup(
             informationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 598, Short.MAX_VALUE)
+            .addGap(0, 679, Short.MAX_VALUE)
         );
 
         mainAreaPanel.add(informationPanel, "card4");
@@ -262,11 +223,11 @@ public class AppFrame extends javax.swing.JFrame {
         timeLinePanel.setLayout(timeLinePanelLayout);
         timeLinePanelLayout.setHorizontalGroup(
             timeLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGap(0, 778, Short.MAX_VALUE)
         );
         timeLinePanelLayout.setVerticalGroup(
             timeLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 598, Short.MAX_VALUE)
+            .addGap(0, 679, Short.MAX_VALUE)
         );
 
         mainAreaPanel.add(timeLinePanel, "card5");

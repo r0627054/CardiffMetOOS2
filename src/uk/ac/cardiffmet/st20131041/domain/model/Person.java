@@ -30,9 +30,10 @@ public class Person {
      * @param surname surname of the person
      * @param birthday birthday object of the person
      */
-    public Person(String forename, String surname, Date birthday) {
+    public Person(String forename, String surname, String nickname, Date birthday) {
         this.setForename(forename);
         this.setSurname(surname);
+        this.setNickname(nickname);
         this.setBirthday(birthday);
     }
 

@@ -126,9 +126,29 @@ public class EventService {
      * This method makes us of the method of the personRepository
      * @see PersonRepository#getPerson(int)
      * @param index
-     * @return 
+     * @return Person on given index
      */
     public Person getPerson(int index){
         return this.getPersonRepository().getPerson(index);
     }
+    
+    /**
+     * This method makes us of the method of the personRepository
+     * @param nickname
+     * @return Person with the given nickname
+     */
+    public Person getPerson(String nickname){
+        return this.getPersonRepository().getPerson(nickname);
+    }
+    
+    /**
+     * This method makes us of the method of the personRepository
+     * @see PersonRepository#getAllNicknames()
+     * @return arraylist with all the nicknames of the users
+     */
+    public ArrayList<String> getAllPersonNames(){
+        return this.getPersonRepository().getAllNicknames();
+    }
+    
+    
 }

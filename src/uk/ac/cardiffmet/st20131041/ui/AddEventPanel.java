@@ -5,17 +5,65 @@
  */
 package uk.ac.cardiffmet.st20131041.ui;
 
+import java.util.ArrayList;
+import java.util.Map;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import uk.ac.cardiffmet.st20131041.domain.model.DomainException;
+import uk.ac.cardiffmet.st20131041.domain.model.Event;
+import uk.ac.cardiffmet.st20131041.domain.model.Location;
+import uk.ac.cardiffmet.st20131041.domain.model.Person;
+import uk.ac.cardiffmet.st20131041.domain.service.EventService;
+
 /**
  *
  * @author Dries Janse
  */
 public class AddEventPanel extends javax.swing.JPanel {
 
+    private EventService service;
+
     /**
      * Creates new form AddEventPanel
      */
     public AddEventPanel() {
         initComponents();
+    }
+
+    public AddEventPanel(EventService service) {
+        this.setService(service);
+        this.initComponents();
+        this.loadComboBoxNicknames();
+    }
+
+    public EventService getService() {
+        return service;
+    }
+
+    public void setService(EventService service) {
+        this.service = service;
+    }
+
+    public void loadComboBoxNicknames() {
+        for (String s : this.getService().getAllPersonNames()) {
+            this.getPersonComboBox().addItem(s);
+        }
+    }
+
+    public JComboBox<String> getPersonComboBox() {
+        return personComboBox;
+    }
+
+    public JTextArea getDescriptionArea() {
+        return descriptionArea;
+    }
+
+    public JTable getUserTable() {
+        return userTable;
     }
 
     /**
@@ -48,6 +96,8 @@ public class AddEventPanel extends javax.swing.JPanel {
         personRoleField = new javax.swing.JTextField();
         addEventButton = new javax.swing.JButton();
         addPersonToEventButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        userTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -102,7 +152,7 @@ public class AddEventPanel extends javax.swing.JPanel {
         participantsLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 24)); // NOI18N
         participantsLabel.setText("Participants");
 
-        personComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        personComboBox.setModel(new javax.swing.DefaultComboBoxModel<>());
 
         streetNameLabel1.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
         streetNameLabel1.setText("Street name");
@@ -117,10 +167,41 @@ public class AddEventPanel extends javax.swing.JPanel {
         addEventButton.setBackground(new java.awt.Color(54, 128, 45));
         addEventButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         addEventButton.setText("Add Event");
+        addEventButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEventButtonActionPerformed(evt);
+            }
+        });
 
         addPersonToEventButton.setBackground(new java.awt.Color(54, 128, 45));
         addPersonToEventButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         addPersonToEventButton.setText("Add Person");
+        addPersonToEventButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPersonToEventButtonActionPerformed(evt);
+            }
+        });
+
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Person nickname", "Role description"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(userTable);
+        if (userTable.getColumnModel().getColumnCount() > 0) {
+            userTable.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -129,7 +210,6 @@ public class AddEventPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(locationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(participantsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -156,8 +236,10 @@ public class AddEventPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(personRoleField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(addPersonToEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(addPersonToEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(addEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2))
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,11 +281,118 @@ public class AddEventPanel extends javax.swing.JPanel {
                     .addComponent(personComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(personRoleField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addPersonToEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(addEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addPersonToEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersonToEventButtonActionPerformed
+        String selectedNickname = (String) this.getPersonComboBox().getSelectedItem();
+        String description = this.getPersonRoleField().getText();
+        if (!getAllUsernamesAdded().contains(selectedNickname)) {
+            DefaultTableModel model = (DefaultTableModel) this.getUserTable().getModel();
+            model.addRow(new Object[]{selectedNickname, description});
+        }
+    }//GEN-LAST:event_addPersonToEventButtonActionPerformed
+
+    private void addEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventButtonActionPerformed
+
+        Event event = new Event();
+        Location location = new Location();
+        String errors = "";
+        try {
+            event.setDescription(this.getDescriptionArea().getText());
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n";
+        }
+        try {
+            event.setTitle(this.getTitleField().getText());
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n";
+        }
+        try {
+            location.setCountry(this.getCountryField().getText());
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n";
+        }
+        try {
+            location.setPostcode(this.getPostcodeField().getText());
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n";
+        }
+        try {
+            location.setStreetName(this.getStreeteNameField().getText());
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n";
+        }
+        try {
+            location.setHouseNumber(this.getHouseNumberField().getText());
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n";
+        }
+        try {
+            int rows = this.getUserTable().getRowCount();
+            int columns = this.getUserTable().getColumnCount();
+            for (int i = 0; i < rows; i++) {
+                ArrayList<String> result = new ArrayList<>();
+                for (int j = 0; j < columns; j++) {
+                    result.add((String) this.getUserTable().getValueAt(i, j));
+                }
+                event.addPerson(service.getPerson(result.get(0)), result.get(1));
+            }
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n";
+        }
+        try {
+            event.setLocation(location);
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n";
+        }
+        if (errors.isEmpty()) {
+            service.addEvent(event);
+            JOptionPane.showMessageDialog(null, "Event succesfully added!");
+        } else {
+            JOptionPane.showMessageDialog(null, errors);
+        }
+
+
+    }//GEN-LAST:event_addEventButtonActionPerformed
+
+    private ArrayList<String> getAllUsernamesAdded() {
+        ArrayList<String> addedUsers = new ArrayList<>();
+        int rows = this.getUserTable().getRowCount();
+        for (int i = 0; i < rows; i++) {
+            addedUsers.add((String) this.getUserTable().getValueAt(i, 0));
+        }
+        return addedUsers;
+    }
+
+    private JTextField getPersonRoleField() {
+        return personRoleField;
+    }
+
+    public JTextField getCountryField() {
+        return countryField;
+    }
+
+    public JTextField getHouseNumberField() {
+        return houseNumberField;
+    }
+
+    public JTextField getPostcodeField() {
+        return postcodeField;
+    }
+
+    public JTextField getStreeteNameField() {
+        return streeteNameField;
+    }
+
+    public JTextField getTitleField() {
+        return titleField;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -217,6 +406,7 @@ public class AddEventPanel extends javax.swing.JPanel {
     private javax.swing.JTextField houseNumberField;
     private javax.swing.JLabel houseNumberLabel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel locationLabel;
     private javax.swing.JLabel participantsLabel;
     private javax.swing.JComboBox<String> personComboBox;
@@ -228,5 +418,6 @@ public class AddEventPanel extends javax.swing.JPanel {
     private javax.swing.JTextField streeteNameField;
     private javax.swing.JTextField titleField;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }

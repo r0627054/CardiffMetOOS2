@@ -7,8 +7,13 @@ package uk.ac.cardiffmet.st20131041.ui;
 
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.JXDatePicker;
+import uk.ac.cardiffmet.st20131041.domain.db.DatabaseException;
+import uk.ac.cardiffmet.st20131041.domain.model.DomainException;
+import uk.ac.cardiffmet.st20131041.domain.model.Person;
+import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 
 /**
  *
@@ -16,11 +21,18 @@ import org.jdesktop.swingx.JXDatePicker;
  */
 public class AddPersonPanel extends javax.swing.JPanel {
 
+    private EventService service;
+    
     /**
      * Creates new form AddPersonPanel
      */
     public AddPersonPanel() {
         initComponents();
+    }
+    
+    public AddPersonPanel(EventService service){
+        this.setService(service);
+        this.initComponents();
     }
 
     /**
@@ -50,6 +62,11 @@ public class AddPersonPanel extends javax.swing.JPanel {
         addPersonButton.setBackground(new java.awt.Color(54, 128, 45));
         addPersonButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 16)); // NOI18N
         addPersonButton.setText("Add Person");
+        addPersonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPersonButtonActionPerformed(evt);
+            }
+        });
 
         firstNameField.setText("Enter first name.");
         firstNameField.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
@@ -116,6 +133,40 @@ public class AddPersonPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersonButtonActionPerformed
+        Person p = new Person();
+        String errors = "";
+        try {
+            p.setForename(this.getFirstNameText());
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n\n";
+        }
+        try {
+            p.setSurname(this.getSurnameText());
+        } catch (DomainException e) {
+            errors += e.getMessage()+ "\n\n";
+        }
+        try {
+            p.setBirthday(this.getBirthday());
+        } catch (DomainException e) {
+            errors += e.getMessage()+ "\n\n";
+        }
+        try {
+            p.setNickname(this.getNicknameText());
+        } catch (DomainException e) {
+            errors += e.getMessage() + "\n\n";
+        }
+        if(!errors.isEmpty()){
+            JOptionPane.showMessageDialog(null, errors);
+        }else{
+            try {
+                this.getService().addPerson(p);
+            } catch (DatabaseException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_addPersonButtonActionPerformed
+
     
     public String getFirstNameText(){
         return this.getFirstNameField().getText();
@@ -149,13 +200,19 @@ public class AddPersonPanel extends javax.swing.JPanel {
     private JTextField getNicknameField() {
         return nicknameField;
     }
-    
-    
 
     public JButton getAddPersonButton() {
         return addPersonButton;
     }
 
+    public EventService getService() {
+        return service;
+    }
+
+    public void setService(EventService service) {
+        this.service = service;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPersonButton;
     private javax.swing.JLabel birthdayLabel1;

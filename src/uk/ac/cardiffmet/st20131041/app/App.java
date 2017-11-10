@@ -11,6 +11,9 @@ import uk.ac.cardiffmet.st20131041.ui.AppFrame;
 public class App {
       
     public static void main(String[] args) {
+        
+        
+        
                     /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -33,7 +36,7 @@ public class App {
             java.util.logging.Logger.getLogger(AppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
