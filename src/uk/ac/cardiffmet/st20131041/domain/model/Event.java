@@ -116,7 +116,7 @@ public class Event {
             throw new DomainException("Event description cannot be null!");
         }
         if (description.trim().isEmpty()) {
-
+            throw new DomainException("Event description cannot be empty!");
         }
         this.description = description;
     }

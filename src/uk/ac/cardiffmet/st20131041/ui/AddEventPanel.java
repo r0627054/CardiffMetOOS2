@@ -7,6 +7,7 @@ package uk.ac.cardiffmet.st20131041.ui;
 
 import java.util.ArrayList;
 import java.util.Map;
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -307,31 +308,37 @@ public class AddEventPanel extends javax.swing.JPanel {
             event.setDescription(this.getDescriptionArea().getText());
         } catch (DomainException e) {
             errors += e.getMessage() + "\n";
+            this.getDescriptionArea().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             event.setTitle(this.getTitleField().getText());
         } catch (DomainException e) {
             errors += e.getMessage() + "\n";
+            this.getTitleField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             location.setCountry(this.getCountryField().getText());
         } catch (DomainException e) {
             errors += e.getMessage() + "\n";
+            this.getCountryField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             location.setPostcode(this.getPostcodeField().getText());
         } catch (DomainException e) {
             errors += e.getMessage() + "\n";
+            this.getPostcodeField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             location.setStreetName(this.getStreeteNameField().getText());
         } catch (DomainException e) {
             errors += e.getMessage() + "\n";
+            this.getStreeteNameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             location.setHouseNumber(this.getHouseNumberField().getText());
         } catch (DomainException e) {
             errors += e.getMessage() + "\n";
+            this.getHouseNumberField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             int rows = this.getUserTable().getRowCount();
@@ -357,8 +364,6 @@ public class AddEventPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, errors);
         }
-
-
     }//GEN-LAST:event_addEventButtonActionPerformed
 
     private ArrayList<String> getAllUsernamesAdded() {
@@ -392,6 +397,16 @@ public class AddEventPanel extends javax.swing.JPanel {
 
     public JTextField getTitleField() {
         return titleField;
+    }
+    
+    private void allDefaultBorders(){
+        titleField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        descriptionArea.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        countryField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        postcodeField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        streeteNameField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        houseNumberField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        personRoleField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
     }
 
 
