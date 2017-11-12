@@ -17,4 +17,6 @@ public interface EventRepository {
     int getNumberOfEvents();
     Event getEvent(String title);
     boolean containEventWithTitle(String title);
+    ArrayList<Integer> getAllDifferentYears();
+    ArrayList<Event> getAllEventsOfYear(int year);
 }

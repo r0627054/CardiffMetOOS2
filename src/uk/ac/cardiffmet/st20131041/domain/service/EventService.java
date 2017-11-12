@@ -80,19 +80,56 @@ public class EventService {
     /**
      * This method makes us of the method of the eventRepository
      * @see EventRepository#getNumberOfEvents()
-     * @return 
+     * @return number of events
      */
     public int getNumberOfEvents(){
         return this.getEventRepository().getNumberOfEvents();
     }
     
+    /**
+     * This method makes us of the method of the eventRepository
+     * @see EventRepository#getEvent(java.lang.String) 
+     * @param title
+     * @return 
+     */
+    public Event getEvent(String title){
+        return this.getEventRepository().getEvent(title);
+    }
     
+    /**
+     * This method makes us of the method of the eventRepository
+     * @see EventRepository#containEventWithTitle(java.lang.String) 
+     * @param title
+     * @return 
+     */
+    public boolean containEventWithTitle(String title){
+        return this.getEventRepository().containEventWithTitle(title);
+    }
+    
+    /**
+     * This method makes us of the method of the eventRepository
+     * @see EventRepository#getAllDifferentYears() 
+     * @return 
+     */
+    public ArrayList<Integer> getAllDifferentYears(){
+        return this.getEventRepository().getAllDifferentYears();
+    }
+    
+    /**
+     * This method makes us of the method of the eventRepository
+     * @see EventRepository#getAllEventsOfYear(int) 
+     * @param year
+     * @return 
+     */
+    public ArrayList<Event> getAllEventsOfYear(int year){
+        return this.getEventRepository().getAllEventsOfYear(year);
+    }
     
     
     
     
     //--------------------------------
-    // METHODS OF EVENTREPOSITORY
+    // METHODS OF PERSONREPOSITORY
     //--------------------------------
     
     /**

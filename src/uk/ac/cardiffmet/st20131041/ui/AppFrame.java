@@ -120,6 +120,7 @@ public class AppFrame extends javax.swing.JFrame {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setShowTimeLinePanelClickedColor();
         this.swapPanel(timeLinePanel);
+        timeLinePanel.loadYearsInComboBox();
     }
 
     private void showTimeLinePanelMouseEntered(java.awt.event.MouseEvent evt) {
@@ -186,7 +187,7 @@ public class AppFrame extends javax.swing.JFrame {
         addEventPanel = new uk.ac.cardiffmet.st20131041.ui.AddEventPanel(this.getService());
         addPersonPanel = new uk.ac.cardiffmet.st20131041.ui.AddPersonPanel(this.getService());
         informationPanel = new uk.ac.cardiffmet.st20131041.ui.InformationPanel();
-        timeLinePanel = new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel();
+        timeLinePanel = new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel(this.getService());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(857, 587));

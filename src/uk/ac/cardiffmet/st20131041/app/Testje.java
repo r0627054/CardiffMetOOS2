@@ -5,27 +5,24 @@
  */
 package uk.ac.cardiffmet.st20131041.app;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
  * @author Dries Janse
  */
 public class Testje {
+
     public static void main(String[] args) {
-      Date d1 =  new Date(2020, 00, 04);
-      Date d2 =  new Date(2020, 00, 05);
-      System.out.println(overlap(d1, d2));
+        Calendar cal1 = new GregorianCalendar(2015,05,10);
+        Date d1 = new Date(2020, 00, 04);
+        Date d2 = new Date(2020, 00, 05);
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(d1.getTime());
+        System.out.println(cal.get(Calendar.YEAR));
+        System.out.println(d1.getYear());
     }
-    
-    private static boolean overlap(Date endEvent1, Date startEvent2){
-        boolean overlap;
-        if(endEvent1.after(startEvent2) || (!endEvent1.after(startEvent2)&& !endEvent1.before(startEvent2) )){
-            overlap = true;
-        }else{
-            overlap = false;
-        }
-        return overlap;
-    }
-    
+
 }

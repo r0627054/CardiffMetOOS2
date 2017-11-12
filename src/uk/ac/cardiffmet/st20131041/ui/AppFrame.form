@@ -107,6 +107,9 @@
           </Constraints>
         </Component>
         <Component class="uk.ac.cardiffmet.st20131041.ui.TimeLinePanel" name="timeLinePanel">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel(this.getService())"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="card5"/>

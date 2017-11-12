@@ -32,81 +32,97 @@ import uk.ac.cardiffmet.st20131041.domain.model.Location;
 public class Timeline extends JPanel {
 
     private ArrayList<Event> allEvents;
-    private final int dayWidth = 40;
-    private final int originX = 40;
-    private final int originY = 280;
+    private int dayWidth = 40;
+    private int originX = 40;
+    private int originY = 280;
     private int nrDays;
     private int year;
-    private final int labelHeight = 50;
+    private int labelHeight = 50;
 
+    /**
+     * This constructor is only used for testing purpose. It uses mock events
+     * and a mock year of 2020.
+     *
+     */
     public Timeline() {
-        //testing purpose
-        allEvents = new ArrayList<>();
-        Event event1 = new Event("Title1", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(2020, 00, 02), new Date(2020, 00, 03));
-        Event event2 = new Event("Title2", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(2020, 00, 03), new Date(2020, 00, 10));
-        Event event3 = new Event("Title3", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(2020, 00, 07), new Date(2020, 00, 12));
-        Event event4 = new Event("Title4", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(2020, 00, 12), new Date(2020, 00, 24));
-        Event event5 = new Event("Title5", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(2020, 00, 26), new Date(2020, 00, 27));
-        allEvents.add(event1);
-        allEvents.add(event2);
-        allEvents.add(event3);
-        allEvents.add(event4);
-        allEvents.add(event5);
-
         this.setLayout(null);
+        //testing purpose
         this.setYear(2020);
         this.calculateNrDays();
+        determineYOrigin();
         this.setPreferredSize(new Dimension((originX * nrDays) + 125, originY + 150));
-        drawEventsOnLine();
     }
 
+    /**
+     *
+     * @param allEvents an ArrayList of all the events in the given year.
+     * @param year the year for which the time line is drawn
+     */
     public Timeline(ArrayList<Event> allEvents, int year) {
         this.setLayout(null);
         this.setYear(year);
         this.allEvents = allEvents;
         this.calculateNrDays();
+        determineYOrigin();
         this.setPreferredSize(new Dimension((originX * nrDays) + 125, originY + 150));
-        drawEventsOnLine();
     }
 
+    /**
+     * Gets all the events of the time line.
+     *
+     * @return ArrayList of events
+     */
     private ArrayList<Event> getAllEvents() {
         return allEvents;
     }
 
-    private void drawEventsOnLine() {
-        int i = 0;
-        for (Event e : allEvents) {
-            JLabel label = new JLabel(e.getTitle(), SwingConstants.CENTER);
-            label.setFont(new java.awt.Font("Yu Gothic UI", 3, 17));
-            this.add(label);
-            int nrDays = this.numberOfBlocks(e.getStartDate(), e.getEndDate());
-            int offset = this.numberOfBlocks(new Date(this.year, 00, 01), e.getStartDate()) - 1;
-            label.setLocation(40 + (offset * dayWidth), originY - labelHeight - (numberOfOverlaps(i) * labelHeight));
-            label.setSize((nrDays) * dayWidth, labelHeight);
-            label.setOpaque(true);
-            label.setBackground(new Color(119,171,89));
-            Border border = BorderFactory.createLineBorder(Color.BLACK);
-            label.setBorder(border);
-            label.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent evt){
-                    
-                }
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    label.setBackground(new Color(201,223,138));
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    label.setBackground(new Color(119,171,89));
-                }
-                                
-            });
-            i++;
+    private void determineYOrigin() {
+        int overlaps = this.maxNumberOfoverlaps();
+        if (overlaps > 4) {
+            this.originY += (labelHeight) * (overlaps - 4);
         }
     }
 
+    public void setAllEvents(ArrayList<Event> allEvents) {
+        this.allEvents = allEvents;
+    }
+    
+    
+
+
+    /**
+     * Gets the day width
+     * 
+     * @return Width of one day
+     */
+    public int getDayWidth() {
+        return dayWidth;
+    }
+
+    /**
+     * Gets the Y-origin.
+     * 
+     * @return Y-origin
+     */
+    public int getOriginY() {
+        return originY;
+    }
+
+    /**
+     * Gets the height of a label
+     * 
+     * @return height of a label
+     */
+    public int getLabelHeight() {
+        return labelHeight;
+    }
+    
+    /**
+     * Overrides the paintComponent. Draws the Y-axis. Draws the Y-axis label.
+     * Draws the X-axis label.
+     *
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -142,29 +158,57 @@ public class Timeline extends JPanel {
         g2.setTransform(restoreTransform);
     }
 
+    /**
+     * Draws the the x-axis and the partitioning of the days on this axis.
+     *
+     * @param g Graphics2D object used to draw.
+     */
     private void drawDayLengths(Graphics2D g) {
         for (int i = 0; i <= this.nrDays; i++) {
-            g.draw(new Line2D.Double(40.0 + (dayWidth * i), 270.0, 40.0 + (dayWidth * i), 290.0));
+            g.draw(new Line2D.Double(40.0 + (dayWidth * i), originY - 10, 40.0 + (dayWidth * i), originY + 10));
         }
-        g.draw(new Line2D.Double(40.0, 280.0, 80 + (this.nrDays * dayWidth), 280.0));
+        g.draw(new Line2D.Double(40.0, originY, 80 + (this.nrDays * dayWidth), originY));
     }
 
+    /**
+     * Draws all the the date labels on the correct position and transformation
+     * on the time line.
+     *
+     * @param g Graphics2D object used to draw
+     */
     private void drawDateOnLine(Graphics2D g) {
         GregorianCalendar cal = new GregorianCalendar(this.getYear(), 0, 1);
         g.transform(AffineTransform.getTranslateInstance(35, 0));
         g.transform(AffineTransform.getRotateInstance(90.0 * (Math.PI / 180.0)));
+        g.setColor(Color.BLACK);
         for (int i = 0; i <= this.nrDays; i++) {
+            if (isWeekend(cal)) {
+                g.setColor(Color.red);
+            }
             g.drawString(this.format(cal), originY + 20, i * (-dayWidth));
             cal.add(Calendar.DATE, 1);
+            g.setColor(Color.BLACK);
         }
 
     }
 
+    /**
+     * Checks if a year is a leap year.
+     *
+     * @param year
+     * @return <code>true</code> is the year is a leap year. <code>false</code>
+     * if the year is not a leap year.
+     */
     private boolean isLeapYear(int year) {
         GregorianCalendar cal = new GregorianCalendar();
         return cal.isLeapYear(year);
     }
 
+    /**
+     * Calculates the number of days in the year of the time line object. Sets
+     * the correct number of days.
+     *
+     */
     private void calculateNrDays() {
         if (this.isLeapYear(this.getYear())) {
             this.nrDays = 365;
@@ -173,25 +217,88 @@ public class Timeline extends JPanel {
         }
     }
 
+    /**
+     * Formats the GregorianCalendar Date to a format of 'EE DD MMM'. for
+     * example 'Wed 1 JAN'.
+     *
+     * @param calendar the Gregorian calendar object
+     * @return the date formatted as the correct string
+     */
     private String format(GregorianCalendar calendar) {
-        SimpleDateFormat fmt = new SimpleDateFormat("dd MMMM");
+        SimpleDateFormat fmt = new SimpleDateFormat("EE dd MMM");
         fmt.setCalendar(calendar);
         String dateFormatted = fmt.format(calendar.getTime());
         return dateFormatted;
     }
 
+    /**
+     * Checks if the calendar object is
+     *
+     * @param calendar
+     * @return
+     */
+    private boolean isWeekend(GregorianCalendar cal) {
+        if((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Gets the year of the time line.
+     *
+     * @return the year of the time line
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * Sets the year of the time line.
+     *
+     * @param year
+     */
     public void setYear(int year) {
         this.year = year;
     }
 
-    private int numberOfBlocks(Date start, Date end) {
+    /**
+     * Calculates what the maximum number of overlaps is in the ArrayList of all
+     * events.
+     *
+     * @return maximum number of overlaps in the ArrayList
+     */
+    public int maxNumberOfoverlaps() {
+        int result = 0;
+        int i = 0;
+        for (Event e : this.getAllEvents()) {
+            int numberOfOverlaps = numberOfOverlaps(i);
+            if (numberOfOverlaps > result) {
+                result = numberOfOverlaps;
+            }
+            i++;
+        }
+        return result;
+    }
+
+    /**
+     * Calculate the number of blocks between two numbers.
+     *
+     * @param start startDate of an event
+     * @param end enDate of an event
+     * @return the number of blocks
+     */
+    public int numberOfBlocks(Date start, Date end) {
         return (int) ((end.getTime() - start.getTime()) / 86400000) + 1;
     }
 
+    /**
+     * Check if the endDate overlaps with the startDate of another event.
+     *
+     * @param endEvent1 start Date of an event
+     * @param startEvent2 end Date of an event
+     * @return true if it overlaps, false if it didn't overlap
+     */
     private boolean overLapWithPreviousDate(Date endEvent1, Date startEvent2) {
         boolean overlap;
         if (endEvent1.after(startEvent2) || (!endEvent1.after(startEvent2) && !endEvent1.before(startEvent2))) {
@@ -202,7 +309,17 @@ public class Timeline extends JPanel {
         return overlap;
     }
 
-    private int numberOfOverlaps(int numberOfEvent) {
+    /**
+     * Calculates the number of Overlaps the event at position 'numberOfEvent'
+     * has in the ArrayList. An event overlaps another event if the startDate
+     * overlaps with the previous endDate. If it overlaps with the previous
+     * event we have to keep checking with the previous events if they also
+     * overlap.
+     *
+     * @param numberOfEvent the number of the position in the arraylist
+     * @return the cumulative value that the events overlapped.
+     */
+    public int numberOfOverlaps(int numberOfEvent) {
         int result = 0;
         if (numberOfEvent != 0) {
             int currentComparer = numberOfEvent - 1;
