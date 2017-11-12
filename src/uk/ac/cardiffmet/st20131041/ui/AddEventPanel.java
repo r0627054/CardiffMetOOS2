@@ -14,6 +14,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import org.jdesktop.swingx.JXDatePicker;
+import uk.ac.cardiffmet.st20131041.domain.db.DatabaseException;
 import uk.ac.cardiffmet.st20131041.domain.model.DomainException;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
 import uk.ac.cardiffmet.st20131041.domain.model.Location;
@@ -50,6 +52,7 @@ public class AddEventPanel extends javax.swing.JPanel {
     }
 
     public void loadComboBoxNicknames() {
+        this.getPersonComboBox().removeAllItems();
         for (String s : this.getService().getAllPersonNames()) {
             this.getPersonComboBox().addItem(s);
         }
@@ -99,6 +102,10 @@ public class AddEventPanel extends javax.swing.JPanel {
         addPersonToEventButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
+        startDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        startDateLabel = new javax.swing.JLabel();
+        endDateLabel = new javax.swing.JLabel();
+        endDatePicker = new org.jdesktop.swingx.JXDatePicker();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -106,6 +113,7 @@ public class AddEventPanel extends javax.swing.JPanel {
         descriptionLabel.setText("Description");
 
         locationLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 24)); // NOI18N
+        locationLabel.setForeground(new java.awt.Color(0, 51, 0));
         locationLabel.setText("Location");
 
         descriptionArea.setColumns(20);
@@ -151,6 +159,7 @@ public class AddEventPanel extends javax.swing.JPanel {
         countryField.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
 
         participantsLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 24)); // NOI18N
+        participantsLabel.setForeground(new java.awt.Color(0, 51, 0));
         participantsLabel.setText("Participants");
 
         personComboBox.setModel(new javax.swing.DefaultComboBoxModel<>());
@@ -204,6 +213,12 @@ public class AddEventPanel extends javax.swing.JPanel {
             userTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
+        startDateLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        startDateLabel.setText("End Date");
+
+        endDateLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        endDateLabel.setText("Start Date");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,49 +226,72 @@ public class AddEventPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(locationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(participantsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(personComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(titleField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                .addComponent(titleLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(countryLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(streeteNameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                .addComponent(countryField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-                            .addComponent(streetNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(choosePersonLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(postcodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(postcodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(houseNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(personRoleLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(houseNumberField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(personRoleField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(addPersonToEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(addEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2))
-                .addGap(40, 40, 40))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(participantsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(personComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(countryLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(streeteNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(countryField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(streetNameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(choosePersonLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(houseNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(personRoleLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(houseNumberField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(personRoleField)
+                                                .addComponent(postcodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(postcodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addComponent(addPersonToEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(addEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(locationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(endDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(startDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(locationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -284,9 +322,9 @@ public class AddEventPanel extends javax.swing.JPanel {
                     .addComponent(addPersonToEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -300,7 +338,7 @@ public class AddEventPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addPersonToEventButtonActionPerformed
 
     private void addEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventButtonActionPerformed
-
+        this.allDefaultBorders();
         Event event = new Event();
         Location location = new Location();
         String errors = "";
@@ -315,6 +353,18 @@ public class AddEventPanel extends javax.swing.JPanel {
         } catch (DomainException e) {
             errors += e.getMessage() + "\n";
             this.getTitleField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
+        }
+        try {
+            event.setStartDate(this.getStartDatePicker().getDate());
+        } catch (Exception e) {
+            errors += e.getMessage() + "\n";
+            this.getStartDatePicker().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
+        }
+        try {
+            event.setEndDate(this.getEndDatePicker().getDate());
+        } catch (Exception e) {
+            errors += e.getMessage() + "\n";
+            this.getEndDatePicker().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             location.setCountry(this.getCountryField().getText());
@@ -358,11 +408,15 @@ public class AddEventPanel extends javax.swing.JPanel {
         } catch (DomainException e) {
             errors += e.getMessage() + "\n";
         }
-        if (errors.isEmpty()) {
-            service.addEvent(event);
-            JOptionPane.showMessageDialog(null, "Event succesfully added!");
+        if (!errors.isEmpty()) {
+            JOptionPane.showMessageDialog(null, errors, "Something went wrong.", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, errors);
+            try {
+                service.addEvent(event);
+                JOptionPane.showMessageDialog(null, "Event is successfully added.", "Event successfully added.", JOptionPane.INFORMATION_MESSAGE);
+            } catch (DatabaseException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Something went wrong.", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_addEventButtonActionPerformed
 
@@ -379,36 +433,45 @@ public class AddEventPanel extends javax.swing.JPanel {
         return personRoleField;
     }
 
-    public JTextField getCountryField() {
+    private JTextField getCountryField() {
         return countryField;
     }
 
-    public JTextField getHouseNumberField() {
+    private JTextField getHouseNumberField() {
         return houseNumberField;
     }
 
-    public JTextField getPostcodeField() {
+    private JTextField getPostcodeField() {
         return postcodeField;
     }
 
-    public JTextField getStreeteNameField() {
+    private JTextField getStreeteNameField() {
         return streeteNameField;
     }
 
-    public JTextField getTitleField() {
+    private JTextField getTitleField() {
         return titleField;
     }
-    
-    private void allDefaultBorders(){
-        titleField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
-        descriptionArea.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
-        countryField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
-        postcodeField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
-        streeteNameField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
-        houseNumberField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
-        personRoleField.setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+
+    private JXDatePicker getEndDatePicker() {
+        return endDatePicker;
     }
 
+    private JXDatePicker getStartDatePicker() {
+        return startDatePicker;
+    }
+
+    private void allDefaultBorders() {
+        this.getTitleField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getDescriptionArea().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getCountryField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getPostcodeField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getStreeteNameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getHouseNumberField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getPersonRoleField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getStartDatePicker().setBorder(BorderFactory.createEmptyBorder());
+        this.getEndDatePicker().setBorder(BorderFactory.createEmptyBorder());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addEventButton;
@@ -418,6 +481,8 @@ public class AddEventPanel extends javax.swing.JPanel {
     private javax.swing.JLabel countryLabel;
     private javax.swing.JTextArea descriptionArea;
     private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JLabel endDateLabel;
+    private org.jdesktop.swingx.JXDatePicker endDatePicker;
     private javax.swing.JTextField houseNumberField;
     private javax.swing.JLabel houseNumberLabel;
     private javax.swing.JScrollPane jScrollPane1;
@@ -429,6 +494,8 @@ public class AddEventPanel extends javax.swing.JPanel {
     private javax.swing.JLabel personRoleLabel;
     private javax.swing.JTextField postcodeField;
     private javax.swing.JLabel postcodeLabel;
+    private javax.swing.JLabel startDateLabel;
+    private org.jdesktop.swingx.JXDatePicker startDatePicker;
     private javax.swing.JLabel streetNameLabel1;
     private javax.swing.JTextField streeteNameField;
     private javax.swing.JTextField titleField;

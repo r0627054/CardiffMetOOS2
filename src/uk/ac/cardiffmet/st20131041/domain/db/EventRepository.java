@@ -14,5 +14,7 @@ public interface EventRepository {
     ArrayList<Event> getEvents();
     void setEvents(ArrayList<Event> events);
     void addEvent(Event event);
-    int getNumberOfEvents();        
+    int getNumberOfEvents();
+    Event getEvent(String title);
+    boolean containEventWithTitle(String title);
 }

@@ -104,7 +104,7 @@ public class Person {
      */
     public void setBirthday(Date birthday) {
         if(birthday == null){
-            throw new DomainException("Birthday of a person cannot be null.");
+            throw new DomainException("Please enter a valid birthday.");
         }
         this.birthday = birthday;
     }
@@ -129,7 +129,7 @@ public class Person {
             throw new DomainException("Nickname of a person cannot be null.");
         }
         if(nickname.trim().isEmpty()){
-            throw new DomainException("Nickname of a person cannot be empty");
+            throw new DomainException("Nickname of a person cannot be empty.");
         }
         this.nickname = nickname;
     }

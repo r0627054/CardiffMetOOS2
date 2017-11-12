@@ -6,6 +6,7 @@
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.util.Date;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -134,57 +135,68 @@ public class AddPersonPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersonButtonActionPerformed
+        this.resetAllBorders();
         Person p = new Person();
         String errors = "";
         try {
             p.setForename(this.getFirstNameText());
         } catch (DomainException e) {
-            errors += e.getMessage() + "\n\n";
+            errors += e.getMessage() + "\n";
+            this.getFirstNameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             p.setSurname(this.getSurnameText());
         } catch (DomainException e) {
-            errors += e.getMessage()+ "\n\n";
+            errors += e.getMessage()+ "\n";
+            this.getSurnameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             p.setBirthday(this.getBirthday());
         } catch (DomainException e) {
-            errors += e.getMessage()+ "\n\n";
+            errors += e.getMessage()+ "\n";
+            this.getBirthdayPicker().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             p.setNickname(this.getNicknameText());
         } catch (DomainException e) {
-            errors += e.getMessage() + "\n\n";
+            errors += e.getMessage() + "\n";
+            this.getNicknameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         if(!errors.isEmpty()){
-            JOptionPane.showMessageDialog(null, errors);
+            JOptionPane.showMessageDialog(null, errors, "Something went wrong.", JOptionPane.ERROR_MESSAGE);
         }else{
             try {
                 this.getService().addPerson(p);
+                JOptionPane.showMessageDialog(null, this.getFirstNameText() + " " + this.getSurnameText() + " was successfully added.", "Person successfully added.", JOptionPane.INFORMATION_MESSAGE);
             } catch (DatabaseException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Something went wrong.", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_addPersonButtonActionPerformed
-
-    
-    public String getFirstNameText(){
+        
+    private void resetAllBorders(){
+        this.getFirstNameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getSurnameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getNicknameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        this.getBirthdayPicker().setBorder(BorderFactory.createEmptyBorder());
+    }
+        
+    private String getFirstNameText(){
         return this.getFirstNameField().getText();
     }
     
-    public String getSurnameText(){
+    private String getSurnameText(){
         return this.getSurnameField().getText();
     }
     
-    public String getNicknameText(){
+    private String getNicknameText(){
         return this.getNicknameField().getText();
     }
     
-    public Date getBirthday(){
+    private Date getBirthday(){
         return this.getBirthdayPicker().getDate();
     }
 
-    
     private JXDatePicker getBirthdayPicker() {
         return birthdayPicker;
     }
@@ -201,15 +213,15 @@ public class AddPersonPanel extends javax.swing.JPanel {
         return nicknameField;
     }
 
-    public JButton getAddPersonButton() {
+    private JButton getAddPersonButton() {
         return addPersonButton;
     }
 
-    public EventService getService() {
+    private EventService getService() {
         return service;
     }
 
-    public void setService(EventService service) {
+    private void setService(EventService service) {
         this.service = service;
     }
     

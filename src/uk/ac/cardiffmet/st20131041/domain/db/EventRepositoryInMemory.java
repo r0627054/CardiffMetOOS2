@@ -39,7 +39,7 @@ public class EventRepositoryInMemory implements EventRepository {
     @Override
     public void setEvents(ArrayList<Event> events) {
         if(events == null){
-            throw new DomainException("Cannot set events ArrayList, if null!");
+            throw new DatabaseException("Cannot set events ArrayList, if null!");
         }
         this.events = events;
     }
@@ -53,7 +53,10 @@ public class EventRepositoryInMemory implements EventRepository {
     @Override
     public void addEvent(Event event){
         if(event == null){
-            throw new DomainException("Event cannot be null.");
+            throw new DatabaseException("Event cannot be null.");
+        }
+        if(this.containEventWithTitle(event.getTitle())){
+            throw new DatabaseException("Event already exists with the given title, please choose another title.");
         }
         events.add(event);
     }
@@ -64,7 +67,38 @@ public class EventRepositoryInMemory implements EventRepository {
      */
     @Override
     public int getNumberOfEvents(){
-        return this.events.size();
+        return this.getEvents().size();
     }
+
+    /**
+     * Gets the event with the given title or returns null is there is no event available with the given title.
+     * 
+     * @param title
+     * @return event with given title or null of no event with the given title is found
+     */
+    @Override
+    public Event getEvent(String title) {
+        if(title == null){
+            throw new DatabaseException("Title cannot be null!");
+        }
+        for (Event e : this.getEvents()) {
+            if(e.getTitle().equals(title)){
+                return e;
+            }            
+        }
+        return null;
+    }
+
+    @Override
+    public boolean containEventWithTitle(String title) {
+        if(this.getEvent(title)== null){
+            return false;
+        }else {
+            return true;
+        }
+    }
+    
+       
+    
 
 }

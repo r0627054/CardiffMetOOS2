@@ -91,6 +91,7 @@ public class AppFrame extends javax.swing.JFrame {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setAddEventPanelClickedColor();
         this.swapPanel(addEventPanel);
+        addEventPanel.loadComboBoxNicknames();
     }
 
     private void addEventPanelMouseEntered(java.awt.event.MouseEvent evt) {
@@ -205,31 +206,7 @@ public class AppFrame extends javax.swing.JFrame {
         mainAreaPanel.setLayout(new java.awt.CardLayout());
         mainAreaPanel.add(addEventPanel, "card3");
         mainAreaPanel.add(addPersonPanel, "card2");
-
-        javax.swing.GroupLayout informationPanelLayout = new javax.swing.GroupLayout(informationPanel);
-        informationPanel.setLayout(informationPanelLayout);
-        informationPanelLayout.setHorizontalGroup(
-            informationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 778, Short.MAX_VALUE)
-        );
-        informationPanelLayout.setVerticalGroup(
-            informationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 679, Short.MAX_VALUE)
-        );
-
-        mainAreaPanel.add(informationPanel, "card4");
-
-        javax.swing.GroupLayout timeLinePanelLayout = new javax.swing.GroupLayout(timeLinePanel);
-        timeLinePanel.setLayout(timeLinePanelLayout);
-        timeLinePanelLayout.setHorizontalGroup(
-            timeLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 778, Short.MAX_VALUE)
-        );
-        timeLinePanelLayout.setVerticalGroup(
-            timeLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 679, Short.MAX_VALUE)
-        );
-
+        mainAreaPanel.add(informationPanel, "card5");
         mainAreaPanel.add(timeLinePanel, "card5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

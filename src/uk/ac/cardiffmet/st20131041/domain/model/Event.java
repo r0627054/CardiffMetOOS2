@@ -1,5 +1,6 @@
 package uk.ac.cardiffmet.st20131041.domain.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +15,8 @@ public class Event {
 
     private String title;
     private String description;
-    private CustomDate date;
+    private Date startDate;
+    private Date endDate;
     private HashMap<Person, String> persons = new HashMap<Person, String>();
     private Location location;
 
@@ -29,15 +31,18 @@ public class Event {
      * Parameterised constructor uses title, description, and date. Persons is
      * not a requirement.
      *
-     * @param title title of the event
-     * @param desciption description of the event
-     * @param date date of the event
+     * @param title
+     * @param desciption
+     * @param location
+     * @param startDate
+     * @param endDate
      */
-    public Event(String title, String desciption, CustomDate date, Location location) {
+    public Event(String title, String desciption, Location location, Date startDate, Date endDate) {
         this.setTitle(title);
-        this.setDescription(description);
-        this.setDate(date);
+        this.setDescription(desciption);
         this.setLocation(location);
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
     }
 
     /**
@@ -59,30 +64,40 @@ public class Event {
     }
 
     /**
-     * Gets the date of the event.
+     * Gets the start date of the event
      *
-     * @return the date object of the event
+     * @return start date of the event
      */
-    public CustomDate getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
-    
+
+    /**
+     * Gets the end date of the event
+     *
+     * @return end date of the event.
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
     /**
      * Gets the location of the event.
-     * 
+     *
      * @return the location object of the event
-     */    
+     */
     public Location getLocation() {
         return location;
     }
 
     /**
      * Sets the location of the event.
+     *
      * @exception Throws DomainException if the location of the event is null.
-     * @param location 
+     * @param location
      */
     public void setLocation(Location location) {
-        if(location == null){
+        if (location == null) {
             throw new DomainException("The location of the event cannot be null!");
         }
         this.location = location;
@@ -122,16 +137,35 @@ public class Event {
     }
 
     /**
-     * Sets the date of an event.
+     * Sets the start date of the event.
      *
-     * @exception Throws DomainException if the date is null
-     * @param date
+     * @exception Throws DomainException if the start date is null.
+     * @param startDate
      */
-    public void setDate(CustomDate date) {
-        if (date == null) {
-            throw new DomainException("Event date cannot be null!");
+    public void setStartDate(Date startDate) {
+        if (startDate == null) {
+            throw new DomainException("Please fill in a valid start date");
         }
-        this.date = date;
+        if(this.getEndDate() != null && this.getEndDate().before(startDate)){
+            throw new DomainException("The end date cannot be beforer the start date!");
+        }
+        this.startDate = startDate;
+    }
+
+    /**
+     * Sets the start date of an event.
+     *
+     * @exception Throws DomainException if the endDate is null or if the startdate is after the endDate. 
+     * @param endDate
+     */
+    public void setEndDate(Date endDate) {
+        if (endDate == null) {
+            throw new DomainException("Please fill in a valid end date");
+        }
+        if(this.getStartDate() != null && this.getStartDate().after(endDate) ){
+            throw new DomainException("Start date cannot be after the end date!");
+        }
+        this.endDate = endDate;
     }
 
     /**
@@ -163,36 +197,34 @@ public class Event {
 
     /**
      * returns the list of all Persons affiliated to the event.
-     * 
+     *
      * @return All Persons
      */
     public List<Person> getEveryPerson() {
         return (List<Person>) this.persons.keySet();
     }
-    
+
     /**
-     * returns an hash map with all the persons and the description of the correlation.
-     * 
+     * returns an hash map with all the persons and the description of the
+     * correlation.
+     *
      * @return hash map with persons an link description
      */
-    public HashMap<Person, String> getEveryPersonWithLink(){
+    public HashMap<Person, String> getEveryPersonWithLink() {
         return this.persons;
     }
-    
+
     /**
-     * If hash map persons contains the key, it will be removed.
-     * Removes the link between the person and the event.
-     * 
+     * If hash map persons contains the key, it will be removed. Removes the
+     * link between the person and the event.
+     *
      * @param person person that will be deleted from the hash map
      */
-    public void removePerson(Person person){
-        if(person == null){
+    public void removePerson(Person person) {
+        if (person == null) {
             throw new DomainException("Person cannot be removed because, it is null.");
         }
         this.persons.remove(person);
     }
-
-
-    
 
 }
