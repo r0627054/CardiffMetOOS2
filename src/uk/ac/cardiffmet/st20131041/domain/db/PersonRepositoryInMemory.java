@@ -17,8 +17,8 @@ public class PersonRepositoryInMemory implements PersonRepository{
      */
     public PersonRepositoryInMemory() {
         this.persons = new ArrayList<Person>();
-        this.addPerson(new Person("Dries", "Janse", "Drekke", new Date(2000, 10, 19)));
-        this.addPerson(new Person("Thomas", "Janse", "Tekke", new Date(2000,9,9)));
+        this.addPerson(new Person("Dries", "Janse", "Drekke", new Date(117, 10, 19)));
+        this.addPerson(new Person("Thomas", "Janse", "Tekke", new Date(117,9,9)));
     }
 
     /**

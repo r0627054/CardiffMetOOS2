@@ -47,7 +47,7 @@ public class Timeline extends JPanel {
     public Timeline() {
         this.setLayout(null);
         //testing purpose
-        this.setYear(2020);
+        this.setYear(120);
         this.calculateNrDays();
         determineYOrigin();
         this.setPreferredSize(new Dimension((originX * nrDays) + 125, originY + 150));
@@ -86,13 +86,10 @@ public class Timeline extends JPanel {
     public void setAllEvents(ArrayList<Event> allEvents) {
         this.allEvents = allEvents;
     }
-    
-    
-
 
     /**
      * Gets the day width
-     * 
+     *
      * @return Width of one day
      */
     public int getDayWidth() {
@@ -101,7 +98,7 @@ public class Timeline extends JPanel {
 
     /**
      * Gets the Y-origin.
-     * 
+     *
      * @return Y-origin
      */
     public int getOriginY() {
@@ -110,13 +107,13 @@ public class Timeline extends JPanel {
 
     /**
      * Gets the height of a label
-     * 
+     *
      * @return height of a label
      */
     public int getLabelHeight() {
         return labelHeight;
     }
-    
+
     /**
      * Overrides the paintComponent. Draws the Y-axis. Draws the Y-axis label.
      * Draws the X-axis label.
@@ -238,7 +235,7 @@ public class Timeline extends JPanel {
      * @return
      */
     private boolean isWeekend(GregorianCalendar cal) {
-        if((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) ) {
+        if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)) {
             return true;
         }
         return false;
@@ -259,7 +256,7 @@ public class Timeline extends JPanel {
      * @param year
      */
     public void setYear(int year) {
-        this.year = year;
+        this.year = year - 1900;
     }
 
     /**

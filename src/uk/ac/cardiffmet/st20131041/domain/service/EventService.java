@@ -1,29 +1,37 @@
 package uk.ac.cardiffmet.st20131041.domain.service;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.GregorianCalendar;
 import uk.ac.cardiffmet.st20131041.domain.db.EventRepository;
 import uk.ac.cardiffmet.st20131041.domain.db.EventRepositoryFactory;
 import uk.ac.cardiffmet.st20131041.domain.db.PersonRepository;
 import uk.ac.cardiffmet.st20131041.domain.db.PersonRepositoryFactory;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
+import uk.ac.cardiffmet.st20131041.domain.model.EventStartDateComparator;
 import uk.ac.cardiffmet.st20131041.domain.model.Person;
 
 /**
  * The EventService class keeps track of all the events and persons.
- * 
+ *
  * @author Dries Janse
  * @Version 1.0
  */
 public class EventService {
+
     private EventRepository eventRepository;
     private PersonRepository personRepository;
-    
+
     /**
-     * EventRepository and personRepository will be initialised depending of the repository type.
-     * The constructor uses the EventRepository and PersonRepository for the object creation.
-     * 
-     * @param repositoryType 
+     * EventRepository and personRepository will be initialised depending of the
+     * repository type. The constructor uses the EventRepository and
+     * PersonRepository for the object creation.
+     *
+     * @param repositoryType
      */
-    public EventService(String repositoryType){
+    public EventService(String repositoryType) {
         this.eventRepository = EventRepositoryFactory.getEventRepository(repositoryType);
         this.personRepository = PersonRepositoryFactory.getPersonRepository(repositoryType);
     }
@@ -39,153 +47,164 @@ public class EventService {
 
     /**
      * Gets the personRepository
-     * 
+     *
      * @return personRepository
      */
     public PersonRepository getPersonRepository() {
         return personRepository;
     }
-    
+
     //--------------------------------
     // METHODS OF EVENTREPOSITORY
     //--------------------------------
-    
     /**
      * This method makes us of the method of the eventRepository
+     *
      * @see EventRepository#getEvents()
-     * @return  ArrayList of Events
+     * @return ArrayList of Events
      */
-    public ArrayList<Event> getEvents(){
+    public ArrayList<Event> getEvents() {
         return this.getEventRepository().getEvents();
     }
-        
+
     /**
      * This method makes us of the method of the eventRepository
+     *
      * @see EventRepository#setEvents(java.util.ArrayList)
-     * @param events 
+     * @param events
      */
-    public void setEvents(ArrayList<Event> events){
+    public void setEvents(ArrayList<Event> events) {
         this.getEventRepository().setEvents(events);
     }
-    
+
     /**
      * This method makes us of the method of the eventRepository
-     * @see EventRepository#addEvent(uk.ac.cardiffmet.st20131041.domain.model.Event) 
-     * @param event 
+     *
+     * @see
+     * EventRepository#addEvent(uk.ac.cardiffmet.st20131041.domain.model.Event)
+     * @param event
      */
-    public void addEvent(Event event){
+    public void addEvent(Event event) {
         this.getEventRepository().addEvent(event);
     }
-    
+
     /**
      * This method makes us of the method of the eventRepository
+     *
      * @see EventRepository#getNumberOfEvents()
      * @return number of events
      */
-    public int getNumberOfEvents(){
+    public int getNumberOfEvents() {
         return this.getEventRepository().getNumberOfEvents();
     }
-    
+
     /**
      * This method makes us of the method of the eventRepository
-     * @see EventRepository#getEvent(java.lang.String) 
+     *
+     * @see EventRepository#getEvent(java.lang.String)
      * @param title
-     * @return 
+     * @return
      */
-    public Event getEvent(String title){
+    public Event getEvent(String title) {
         return this.getEventRepository().getEvent(title);
     }
-    
+
     /**
      * This method makes us of the method of the eventRepository
-     * @see EventRepository#containEventWithTitle(java.lang.String) 
+     *
+     * @see EventRepository#containEventWithTitle(java.lang.String)
      * @param title
-     * @return 
+     * @return
      */
-    public boolean containEventWithTitle(String title){
+    public boolean containEventWithTitle(String title) {
         return this.getEventRepository().containEventWithTitle(title);
     }
-    
+
     /**
      * This method makes us of the method of the eventRepository
-     * @see EventRepository#getAllDifferentYears() 
-     * @return 
+     *
+     * @see EventRepository#getAllDifferentYears()
+     * @return
      */
-    public ArrayList<Integer> getAllDifferentYears(){
+    public ArrayList<Integer> getAllDifferentYears() {
         return this.getEventRepository().getAllDifferentYears();
     }
-    
+
     /**
      * This method makes us of the method of the eventRepository
-     * @see EventRepository#getAllEventsOfYear(int) 
+     *
+     * @see EventRepository#getAllEventsOfYear(int)
      * @param year
-     * @return 
+     * @return
      */
-    public ArrayList<Event> getAllEventsOfYear(int year){
-        return this.getEventRepository().getAllEventsOfYear(year);
+    public ArrayList<Event> getAllEventsOfYear(int year) {
+        ArrayList<Event> eventsOfYear = this.getEventRepository().getAllEventsOfYear(year);
+        Collections.sort(eventsOfYear, new EventStartDateComparator());
+        return eventsOfYear;
     }
-    
-    
-    
-    
+
     //--------------------------------
     // METHODS OF PERSONREPOSITORY
     //--------------------------------
-    
     /**
      * This method makes us of the method of the personRepository
+     *
      * @see PersonRepository#getPersons()
-     * @return 
+     * @return
      */
-    public ArrayList<Person> getPersons(){
+    public ArrayList<Person> getPersons() {
         return this.getPersonRepository().getPersons();
     }
-    
+
     /**
      * This method makes us of the method of the personRepository
-     * @see PersonRepository#setPersons(java.util.ArrayList) 
-     * @param persons 
+     *
+     * @see PersonRepository#setPersons(java.util.ArrayList)
+     * @param persons
      */
-    public void setPersons(ArrayList<Person> persons){
+    public void setPersons(ArrayList<Person> persons) {
         this.getPersonRepository().setPersons(persons);
     }
-    
+
     /**
      * This method makes us of the method of the personRepository
-     * @see PersonRepository#addPerson(uk.ac.cardiffmet.st20131041.domain.model.Person) 
-     * @param person 
+     *
+     * @see
+     * PersonRepository#addPerson(uk.ac.cardiffmet.st20131041.domain.model.Person)
+     * @param person
      */
-    public void addPerson(Person person){
+    public void addPerson(Person person) {
         this.getPersonRepository().addPerson(person);
     }
-    
+
     /**
      * This method makes us of the method of the personRepository
+     *
      * @see PersonRepository#getPerson(int)
      * @param index
      * @return Person on given index
      */
-    public Person getPerson(int index){
+    public Person getPerson(int index) {
         return this.getPersonRepository().getPerson(index);
     }
-    
+
     /**
      * This method makes us of the method of the personRepository
+     *
      * @param nickname
      * @return Person with the given nickname
      */
-    public Person getPerson(String nickname){
+    public Person getPerson(String nickname) {
         return this.getPersonRepository().getPerson(nickname);
     }
-    
+
     /**
      * This method makes us of the method of the personRepository
+     *
      * @see PersonRepository#getAllNicknames()
      * @return arraylist with all the nicknames of the users
      */
-    public ArrayList<String> getAllPersonNames(){
+    public ArrayList<String> getAllPersonNames() {
         return this.getPersonRepository().getAllNicknames();
     }
-    
-    
 }

@@ -11,7 +11,7 @@ import java.util.List;
  * @author Dries
  * @version 1.0
  */
-public class Event {
+public class Event{
 
     private String title;
     private String description;

@@ -6,7 +6,6 @@
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.awt.Color;
-import java.awt.Label;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -18,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
-import uk.ac.cardiffmet.st20131041.domain.model.Location;
 import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 
 /**

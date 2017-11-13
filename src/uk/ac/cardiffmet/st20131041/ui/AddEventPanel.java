@@ -5,7 +5,11 @@
  */
 package uk.ac.cardiffmet.st20131041.ui;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -356,6 +360,16 @@ public class AddEventPanel extends javax.swing.JPanel {
         }
         try {
             event.setStartDate(this.getStartDatePicker().getDate());
+            Date date1 = this.getStartDatePicker().getDate();
+            
+            System.out.println("day: " + date1.getDay() + "month: " + date1.getMonth() + "year: " + date1.getYear());
+            Calendar cal = new GregorianCalendar();
+            cal.setTimeInMillis(date1.getTime());            
+            SimpleDateFormat fmt = new SimpleDateFormat("EE dd MMM yyyy");
+            fmt.setCalendar(cal);
+            String dateFormatted = fmt.format(cal.getTime());
+            System.out.println(dateFormatted);
+            
         } catch (Exception e) {
             errors += e.getMessage() + "\n";
             this.getStartDatePicker().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
