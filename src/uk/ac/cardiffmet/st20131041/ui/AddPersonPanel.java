@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.util.Date;
@@ -17,21 +12,31 @@ import uk.ac.cardiffmet.st20131041.domain.model.Person;
 import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 
 /**
+ * Panel used for adding a person object to the model (service)
  *
  * @author Dries Janse
+ * @version 1.0
  */
 public class AddPersonPanel extends javax.swing.JPanel {
 
     private EventService service;
-    
+
     /**
-     * Creates new form AddPersonPanel
+     * Creates new form AddPersonPanel and initializes the components. This
+     * constructor is not used in the program execution. It is only used in the
+     * Netbeans idea, for the designing.
      */
     public AddPersonPanel() {
         initComponents();
     }
-    
-    public AddPersonPanel(EventService service){
+
+    /**
+     * Creates new form AddPersonPanel and initializes the components. It sets
+     * the service.
+     *
+     * @param service
+     */
+    public AddPersonPanel(EventService service) {
         this.setService(service);
         this.initComponents();
     }
@@ -134,6 +139,14 @@ public class AddPersonPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * When the button is clicked the person and all the information will be
+     * checked. If fields are wrongly filled in, the error message will be
+     * displayed. If all fields are correctly filled in, the person will be
+     * added to the model (service)
+     *
+     * @param evt
+     */
     private void addPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersonButtonActionPerformed
         this.resetAllBorders();
         Person p = new Person();
@@ -147,13 +160,13 @@ public class AddPersonPanel extends javax.swing.JPanel {
         try {
             p.setSurname(this.getSurnameText());
         } catch (DomainException e) {
-            errors += e.getMessage()+ "\n";
+            errors += e.getMessage() + "\n";
             this.getSurnameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
             p.setBirthday(this.getBirthday());
         } catch (DomainException e) {
-            errors += e.getMessage()+ "\n";
+            errors += e.getMessage() + "\n";
             this.getBirthdayPicker().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
         try {
@@ -162,9 +175,9 @@ public class AddPersonPanel extends javax.swing.JPanel {
             errors += e.getMessage() + "\n";
             this.getNicknameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
         }
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             JOptionPane.showMessageDialog(null, errors, "Something went wrong.", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             try {
                 this.getService().addPerson(p);
                 JOptionPane.showMessageDialog(null, this.getFirstNameText() + " " + this.getSurnameText() + " was successfully added.", "Person successfully added.", JOptionPane.INFORMATION_MESSAGE);
@@ -173,58 +186,116 @@ public class AddPersonPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_addPersonButtonActionPerformed
-        
-    private void resetAllBorders(){
+
+    /**
+     * Put all the field borders of the panel back to light gray.
+     */
+    private void resetAllBorders() {
         this.getFirstNameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
         this.getSurnameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
         this.getNicknameField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
         this.getBirthdayPicker().setBorder(BorderFactory.createEmptyBorder());
     }
-        
-    private String getFirstNameText(){
+
+    /**
+     * Gets the first name that is entered.
+     *
+     * @return first name that is entered.
+     */
+    private String getFirstNameText() {
         return this.getFirstNameField().getText();
     }
-    
-    private String getSurnameText(){
+
+    /**
+     * Gets the surname that is entered.
+     *
+     * @return surname that is entered.
+     */
+    private String getSurnameText() {
         return this.getSurnameField().getText();
     }
-    
-    private String getNicknameText(){
+
+    /**
+     * Gets the nickname that is entered.
+     *
+     * @return nickname that is entered.
+     */
+    private String getNicknameText() {
         return this.getNicknameField().getText();
     }
-    
-    private Date getBirthday(){
+
+    /**
+     * Gets the (birth) date object that is entered.
+     *
+     * @return birthday that is entered.
+     */
+    private Date getBirthday() {
         return this.getBirthdayPicker().getDate();
     }
 
+    /**
+     * Gets the birthdayPicker.
+     *
+     * @return the JX Birthday picker.
+     */
     private JXDatePicker getBirthdayPicker() {
         return birthdayPicker;
     }
 
+    /**
+     * Gets the firstNameField.
+     *
+     * @return the firstNameField
+     */
     private JTextField getFirstNameField() {
         return firstNameField;
     }
 
+    /**
+     * Gets the surnameField.
+     *
+     * @return surnameField
+     */
     private JTextField getSurnameField() {
         return surnameField;
     }
 
+    /**
+     * Gets the nicknameField
+     *
+     * @return nicknameField
+     */
     private JTextField getNicknameField() {
         return nicknameField;
     }
 
+    /**
+     * Gets the addPersonButton.
+     *
+     * @return the addPersonButton
+     */
     private JButton getAddPersonButton() {
         return addPersonButton;
     }
 
+    /**
+     * Gets the (model) service
+     *
+     * @return the model (service)
+     */
     private EventService getService() {
         return service;
     }
 
+    /**
+     * Sets the (model) service.
+     *
+     * @param service
+     */
     private void setService(EventService service) {
         this.service = service;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPersonButton;
     private javax.swing.JLabel birthdayLabel1;

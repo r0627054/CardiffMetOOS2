@@ -1,87 +1,137 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
 /**
+ * Panel is used for displaying one option. This panel is used in the navigation
+ * bar panel.
  *
  * @author Dries Janse
+ * @version 1.0
  */
 public class OptionPanel extends javax.swing.JPanel {
 
-    private final Color defaultPanelColor = new Color(119,171,89);
-    private final Color defaultHoverPanelColor = new Color(201,223,138);
-    private final Color defaultClickedPanelColor = new Color(54,128,45);
+    private final Color defaultPanelColor = new Color(119, 171, 89);
+    private final Color defaultHoverPanelColor = new Color(201, 223, 138);
+    private final Color defaultClickedPanelColor = new Color(54, 128, 45);
     private String labelText = "Label text";
     private ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("uk/ac/cardiffmet/st20131041/resources/add-contacts.png"));
-    
+
     /**
-     * Creates new form OptionPanel
+     * Creates new form OptionPanel and initializes all its components. This
+     * constructor is not used in the program execution. It is only used in the
+     * Netbeans idea, for the designing.
      */
     public OptionPanel() {
-        //this.icon = new ImageIcon(getClass().getClassLoader().getResource("uk/ac/cardiffmet/st20131041/resources/add-contacts.png"));
         createIcon("uk/ac/cardiffmet/st20131041/resources/add-contacts.png");
         initComponents();
     }
 
-    public OptionPanel(String labelText, String path){
+    /**
+     * Creates new form OptionPanel and initializes all its components. It uses
+     * the text for displaying it in the label, and the sourcepath of the image.
+     *
+     * @param labelText text used for displaying the option.
+     * @param path path to the image
+     */
+    public OptionPanel(String labelText, String path) {
         this.setLabelText(labelText);
         this.createIcon(path);
         this.initComponents();
     }
-    
-    public void setDefaultColor(){
+
+    /**
+     * Sets the default color as background.
+     */
+    public void setDefaultColor() {
         this.setBackground(this.defaultPanelColor);
     }
-    
-    public void setDefaultHoverColor(){
+
+    /**
+     * Sets the default hover color as background.
+     */
+    public void setDefaultHoverColor() {
         this.setBackground(this.defaultHoverPanelColor);
     }
-    
-    public void setDefaultClickedPanelColor(){
+
+    /**
+     * Sets the default clicked color as default
+     */
+    public void setDefaultClickedPanelColor() {
         this.setBackground(this.defaultClickedPanelColor);
-    }    
-    
+    }
+
+    /**
+     * Gets the labelText.
+     */
     public String getLabelText() {
         return labelText;
     }
 
+    /**
+     * Sets the labelText
+     *
+     * @param labelText
+     */
     public void setLabelText(String labelText) {
         this.labelText = labelText;
     }
 
+    /**
+     * Gets the ImageIcon
+     *
+     * @return the ImageIcon
+     */
     public ImageIcon getIcon() {
         return icon;
     }
 
+    /**
+     * Sets the ImageIcon
+     *
+     * @param icon
+     */
     public void setIcon(ImageIcon icon) {
         this.icon = icon;
     }
-    
-    private void createIcon(String path){
+
+    /**
+     * Sets the icon that can be found with the following relative path.
+     *
+     * @param path
+     */
+    private void createIcon(String path) {
         this.setIcon(new ImageIcon(getClass().getClassLoader().getResource(path)));
     }
 
+    /**
+     * Gets the default Color.
+     *
+     * @return the default Color
+     */
     public Color getDefaultPanelColor() {
         return defaultPanelColor;
     }
 
+    /**
+     * Gets the default hover color.
+     *
+     * @return the default hover color.
+     */
     public Color getDefaultHoverPanelColor() {
         return defaultHoverPanelColor;
     }
 
+    /**
+     * Gets the default Clicked color.
+     *
+     * @return the default clicked color.
+     */
     public Color getDefaultClickedPanelColor() {
         return defaultClickedPanelColor;
     }
 
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

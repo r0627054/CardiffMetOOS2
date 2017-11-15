@@ -1,37 +1,47 @@
 package uk.ac.cardiffmet.st20131041.ui;
 
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import uk.ac.cardiffmet.st20131041.domain.model.DomainException;
-import uk.ac.cardiffmet.st20131041.domain.model.Person;
+
 import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 
 /**
+ * JFrame that is used as Facade class for the ui. It holds all the used panels.
  *
  * @author Dries Janse
+ * @version 1.0
  */
 public class AppFrame extends javax.swing.JFrame {
 
     private EventService service;
-    
+
     /**
-     * Creates new form AppFrame
+     * Creates new AppFrame and initializes all its components. This constructor
+     * is not used in the program execution. It is only used in the Netbeans
+     * idea, for the designing.
      */
     public AppFrame() {
         initComponents();
         addListeners();
     }
-    
-    public AppFrame(EventService service){
+
+    /**
+     * Creates new AppFrame it adds all the listeners to the navigation bar.
+     * -sets all the listeners -initialises the compontens -sets the title of
+     * the frame
+     *
+     * @param service
+     */
+    public AppFrame(EventService service) {
         this.setService(service);
         this.initComponents();
         this.addListeners();
         this.getSideBarPanel1().setAddEventPanelClickedColor();
+        this.setTitle("Timeline application of Dries Janse");
     }
 
+    /**
+     * Creates all the listeners used in the navigation bar.
+     */
     public void addListeners() {
         this.getSideBarPanel1().getAddEventPanel().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -61,6 +71,7 @@ public class AppFrame extends javax.swing.JFrame {
         });
         this.getSideBarPanel1().getShowTimeLinePanel().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+
                 showTimeLinePanelMouseClicked(evt);
             }
 
@@ -86,7 +97,14 @@ public class AppFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
+    /**
+     * When the addEventPanel is selected, color all the other panels in their
+     * default colour. Put the button in the default clicked color. Swap the
+     * panels
+     *
+     * @param evt
+     */
     private void addEventPanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setAddEventPanelClickedColor();
@@ -94,84 +112,185 @@ public class AppFrame extends javax.swing.JFrame {
         addEventPanel.loadComboBoxNicknames();
     }
 
+    /**
+     * When the mouse enters the panel, the panel will be set to the default
+     * hover color.
+     *
+     * @param evt
+     */
     private void addEventPanelMouseEntered(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAddEventPanelDefaultHoverColor();
     }
 
+    /**
+     * When the mouse enters the panel, the panel will be set to the default
+     * hover color.
+     *
+     * @param evt
+     */
     private void addEventPanelMouseExited(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAddEventPanelDefaultColor();
     }
 
+    /**
+     * When the addPersonPanel is selected, color all the other panels in their
+     * default colour. Put the button in the default clicked color. Swap the
+     * panels
+     *
+     * @param evt
+     */
     private void addPersonPanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setAddPersonPanelClickedColor();
         this.swapPanel(addPersonPanel);
     }
-        
+
+    /**
+     * When the mouse enters the panel, the panel will be set to the default
+     * hover color.
+     *
+     * @param evt
+     */
     private void addPersonPanelMouseEntered(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAddPersonPanelDefaultHoverColor();
     }
 
+    /**
+     * When the mouse enters the panel, the panel will be set to the default
+     * hover color.
+     *
+     * @param evt
+     */
     private void addPersonPanelMouseExited(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAddPersonPanelDefaultColor();
     }
 
+    /**
+     * When the showTimeLinePanel is selected, color all the other panels in
+     * their default colour. Put the button in the default clicked color. Swap
+     * the panels Load all the years into the panel Draw an up to date timeline
+     *
+     * @param evt
+     */
     private void showTimeLinePanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setShowTimeLinePanelClickedColor();
         this.swapPanel(timeLinePanel);
         timeLinePanel.loadYearsInComboBox();
+        timeLinePanel.drawNewTimeLineWithLastSelectedYear();
     }
 
+    /**
+     * When the mouse enters the panel, the panel will be set to the default
+     * hover color.
+     *
+     * @param evt
+     */
     private void showTimeLinePanelMouseEntered(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setShowTimeLinePanelDefaultHoverColor();
     }
 
+    /**
+     * When the mouse enters the panel, the panel will be set to the default
+     * hover color.
+     *
+     * @param evt
+     */
     private void showTimeLinePanelMouseExited(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setShowTimeLinePanelDefaultColor();
     }
 
+    /**
+     * When the showTimeLinePanel is selected, color all the other panels in
+     * their default colour. Put the button in the default clicked color. Swap
+     * the panels
+     *
+     * @param evt
+     */
     private void informationPanelMouseClicked(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setAllPanelsDefaultColor();
         this.getSideBarPanel1().setInformationPanelClickedColor();
         this.swapPanel(informationPanel);
     }
 
+    /**
+     * When the mouse enters the panel, the panel will be set to the default
+     * hover color.
+     *
+     * @param evt
+     */
     private void informationPanelMouseEntered(java.awt.event.MouseEvent evt) {
         this.getSideBarPanel1().setInformationPanelDefaultHoverColor();
     }
 
+    /**
+     * When the mouse enters the panel, the panel will be set to the default
+     * hover color.
+     *
+     * @param evt
+     */
     private void informationPanelMouseExited(java.awt.event.MouseEvent evt) {
-       this.getSideBarPanel1().setInformationPanelDefaultColor();
+        this.getSideBarPanel1().setInformationPanelDefaultColor();
     }
 
+    /**
+     * Gets the headerPanel
+     *
+     * @return the headerPanel
+     */
     public HeaderPanel getHeaderPanel1() {
         return headerPanel;
     }
 
+    /**
+     * Gets the sideBarPanel
+     *
+     * @return gets the sideBarPanel
+     */
     public SideBarPanel getSideBarPanel1() {
         return sideBarPanel;
     }
 
+    /**
+     * Gets the addPersonPanel
+     *
+     * @return the addPersonPanel
+     */
     public AddPersonPanel getAddPersonPanel1() {
         return addPersonPanel;
     }
 
+    /**
+     * Gets the service (model)
+     *
+     * @return the service (model)
+     */
     public EventService getService() {
         return service;
     }
 
+    /**
+     * Sets the service
+     *
+     * @param service
+     */
     private void setService(EventService service) {
         this.service = service;
     }
-    
-    private void swapPanel(JPanel p){
+
+    /**
+     * SwapPanel will set the given panel visible and put the others to the
+     * background.
+     *
+     * @param p
+     */
+    private void swapPanel(JPanel p) {
         this.mainAreaPanel.removeAll();
         this.mainAreaPanel.add(p);
         this.mainAreaPanel.repaint();
         this.mainAreaPanel.revalidate();
     }
-      
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

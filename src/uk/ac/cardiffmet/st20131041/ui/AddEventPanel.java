@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.text.SimpleDateFormat;
@@ -10,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -23,38 +17,63 @@ import uk.ac.cardiffmet.st20131041.domain.db.DatabaseException;
 import uk.ac.cardiffmet.st20131041.domain.model.DomainException;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
 import uk.ac.cardiffmet.st20131041.domain.model.Location;
-import uk.ac.cardiffmet.st20131041.domain.model.Person;
 import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 
 /**
+ * Panel used for adding a person object to the model (service)
  *
  * @author Dries Janse
+ * @Version 1.0
  */
 public class AddEventPanel extends javax.swing.JPanel {
 
     private EventService service;
 
     /**
-     * Creates new form AddEventPanel
+     * Creates new form AddEventPanel and initializes all its components. This
+     * constructor is not used in the program execution. It is only used in the
+     * Netbeans idea, for the designing.
      */
     public AddEventPanel() {
         initComponents();
     }
 
+    /**
+     * Creates new form AddEventPanel and initializes all its components. It
+     * loads the all the nicknames in the combobox.
+     *
+     * @param service
+     */
     public AddEventPanel(EventService service) {
         this.setService(service);
         this.initComponents();
         this.loadComboBoxNicknames();
     }
 
+    /**
+     * Gets the service.
+     *
+     * @return the service class
+     */
     public EventService getService() {
         return service;
     }
 
+    /**
+     * Sets the service
+     *
+     * @param service
+     */
     public void setService(EventService service) {
         this.service = service;
     }
 
+    /**
+     * Removes all the items of the personCombobox. Otherwise same person
+     * nicknames can be present. Load all the person person names in the
+     * combobox.
+     *
+     */
     public void loadComboBoxNicknames() {
         this.getPersonComboBox().removeAllItems();
         for (String s : this.getService().getAllPersonNames()) {
@@ -62,14 +81,29 @@ public class AddEventPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Gets the ComboBox object that holds the names of all the people.
+     *
+     * @return the ComboBox that holds the names of all the people.
+     */
     public JComboBox<String> getPersonComboBox() {
         return personComboBox;
     }
 
+    /**
+     * Gets the JTextArea that holds the description of the event.
+     *
+     * @return the JTextArea that holds the description of the event.
+     */
     public JTextArea getDescriptionArea() {
         return descriptionArea;
     }
 
+    /**
+     * Gets the JTable that holds all added user to the event and their link.
+     *
+     * @return the JTable that holds all added user to the event and their link.
+     */
     public JTable getUserTable() {
         return userTable;
     }
@@ -332,6 +366,11 @@ public class AddEventPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Button that will add the entered name and their link to the person table.
+     *
+     * @param evt
+     */
     private void addPersonToEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersonToEventButtonActionPerformed
         String selectedNickname = (String) this.getPersonComboBox().getSelectedItem();
         String description = this.getPersonRoleField().getText();
@@ -341,6 +380,14 @@ public class AddEventPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addPersonToEventButtonActionPerformed
 
+    /**
+     * When the button is clicked the event and all the information will be
+     * checked. If fields are wrongly filled in, the error message will be
+     * displayed. If all fields are correctly filled in, the event will be added
+     * to the model (service)
+     *
+     * @param evt
+     */
     private void addEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventButtonActionPerformed
         this.allDefaultBorders();
         Event event = new Event();
@@ -361,15 +408,15 @@ public class AddEventPanel extends javax.swing.JPanel {
         try {
             event.setStartDate(this.getStartDatePicker().getDate());
             Date date1 = this.getStartDatePicker().getDate();
-            
+
             System.out.println("day: " + date1.getDay() + "month: " + date1.getMonth() + "year: " + date1.getYear());
             Calendar cal = new GregorianCalendar();
-            cal.setTimeInMillis(date1.getTime());            
+            cal.setTimeInMillis(date1.getTime());
             SimpleDateFormat fmt = new SimpleDateFormat("EE dd MMM yyyy");
             fmt.setCalendar(cal);
             String dateFormatted = fmt.format(cal.getTime());
             System.out.println(dateFormatted);
-            
+
         } catch (Exception e) {
             errors += e.getMessage() + "\n";
             this.getStartDatePicker().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.red, null));
@@ -434,6 +481,11 @@ public class AddEventPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addEventButtonActionPerformed
 
+    /**
+     * Gets an ArrayList with all the usernamesthat were added to the event.
+     *
+     * @return
+     */
     private ArrayList<String> getAllUsernamesAdded() {
         ArrayList<String> addedUsers = new ArrayList<>();
         int rows = this.getUserTable().getRowCount();
@@ -443,38 +495,81 @@ public class AddEventPanel extends javax.swing.JPanel {
         return addedUsers;
     }
 
+    /**
+     * Gets the personRoleField
+     *
+     * @return the personRoleField
+     */
     private JTextField getPersonRoleField() {
         return personRoleField;
     }
 
+    /**
+     * Gets the countryField
+     *
+     * @return the countryField
+     */
     private JTextField getCountryField() {
         return countryField;
     }
 
+    /**
+     * Gets the houseNumberField
+     *
+     * @return the houseNumberField
+     */
     private JTextField getHouseNumberField() {
         return houseNumberField;
     }
 
+    /**
+     * Gets the postcodeField
+     *
+     * @return the postcodeField
+     */
     private JTextField getPostcodeField() {
         return postcodeField;
     }
 
+    /**
+     * Gets the streetNameField.
+     *
+     * @return the streetNameField
+     */
     private JTextField getStreeteNameField() {
         return streeteNameField;
     }
 
+    /**
+     * Gets the titleField
+     *
+     * @return the titleField
+     */
     private JTextField getTitleField() {
         return titleField;
     }
 
+    /**
+     * Gets the EndDatePicker
+     *
+     * @return the endDatePicker
+     */
     private JXDatePicker getEndDatePicker() {
         return endDatePicker;
     }
 
+    /**
+     * Gets the StartDatePicker
+     *
+     * @return the StartDatePicker
+     */
     private JXDatePicker getStartDatePicker() {
         return startDatePicker;
     }
 
+    /**
+     * Put all the field borders of the panel back to light gray.
+     */
     private void allDefaultBorders() {
         this.getTitleField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
         this.getDescriptionArea().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));

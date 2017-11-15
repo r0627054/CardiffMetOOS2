@@ -3,31 +3,23 @@ package uk.ac.cardiffmet.st20131041.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
-import uk.ac.cardiffmet.st20131041.domain.model.Location;
 
 /**
+ * JPanel that holds the time line.
  *
  * @author Dries Janse
+ * @version 1.0
  */
 public class Timeline extends JPanel {
 
@@ -40,21 +32,23 @@ public class Timeline extends JPanel {
     private int labelHeight = 50;
 
     /**
-     * This constructor is only used for testing purpose. It uses mock events
-     * and a mock year of 2020.
-     *
+     * Creates new form AddEventPanel and initializes all its components. This
+     * constructor is not used in the program execution. It is only used in the
+     * Netbeans idea, for the designing. It is also used for testing purpose
      */
     public Timeline() {
         this.setLayout(null);
         //testing purpose
         this.setYear(120);
+        this.allEvents = new ArrayList<Event>();
         this.calculateNrDays();
         determineYOrigin();
         this.setPreferredSize(new Dimension((originX * nrDays) + 125, originY + 150));
     }
 
     /**
-     *
+     * Constructor that hold accepts the events and the year.
+     * 
      * @param allEvents an ArrayList of all the events in the given year.
      * @param year the year for which the time line is drawn
      */
@@ -76,6 +70,9 @@ public class Timeline extends JPanel {
         return allEvents;
     }
 
+    /**
+     * Calculates and sets the originY.
+     */
     private void determineYOrigin() {
         int overlaps = this.maxNumberOfoverlaps();
         if (overlaps > 4) {
@@ -83,6 +80,10 @@ public class Timeline extends JPanel {
         }
     }
 
+    /**
+     * Sets allEvents that will be used on the time line.
+     * @param allEvents 
+     */
     public void setAllEvents(ArrayList<Event> allEvents) {
         this.allEvents = allEvents;
     }
@@ -229,10 +230,10 @@ public class Timeline extends JPanel {
     }
 
     /**
-     * Checks if the calendar object is
+     * Checks if the calendar object is in the weekend
      *
      * @param calendar
-     * @return
+     * @return if it is weekend or not.
      */
     private boolean isWeekend(GregorianCalendar cal) {
         if ((cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) || (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)) {
@@ -270,8 +271,12 @@ public class Timeline extends JPanel {
         int i = 0;
         for (Event e : this.getAllEvents()) {
             int numberOfOverlaps = numberOfOverlaps(i);
+            int numberOfCumulativeOverlaps = this.numberOfCumulativeOverlaps(i);
             if (numberOfOverlaps > result) {
                 result = numberOfOverlaps;
+            }
+            if (numberOfCumulativeOverlaps > result) {
+                result = numberOfCumulativeOverlaps;
             }
             i++;
         }
@@ -340,4 +345,26 @@ public class Timeline extends JPanel {
         }
         return result;
     }
+
+    /**
+     *
+     * @param numberOfEvent
+     * @return
+     */
+    public int numberOfCumulativeOverlaps(int numberOfEvent) {
+        int result = 0;
+        if (numberOfEvent != 0) {
+            int previousEventNumber = numberOfEvent - 1;
+            Event currentEvent = this.getAllEvents().get(numberOfEvent);
+            while (previousEventNumber >= 0) {
+                Event preciousEvent = this.getAllEvents().get(previousEventNumber);
+                if (overLapWithPreviousDate(preciousEvent.getEndDate(), currentEvent.getStartDate())) {
+                    result++;
+                }
+                previousEventNumber--;
+            }
+        }
+        return result;
+    }
+
 }

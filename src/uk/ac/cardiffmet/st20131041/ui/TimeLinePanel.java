@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.awt.Color;
@@ -11,17 +6,25 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map.Entry;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
+import uk.ac.cardiffmet.st20131041.domain.model.Person;
 import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 
 /**
+ * Panel used for showing the time line and the information of the clicked
+ * event.
  *
  * @author Dries Janse
+ * @version 1.0
  */
 public class TimeLinePanel extends javax.swing.JPanel {
 
@@ -31,13 +34,20 @@ public class TimeLinePanel extends javax.swing.JPanel {
     private ArrayList<JLabel> allEventLabels = new ArrayList<JLabel>();
 
     /**
-     * Creates new form TimeLinePanel
+     * Creates new form TimeLinePanel and initializes all its components. This
+     * constructor is not used in the program execution. It is only used in the
+     * Netbeans idea, for the designing.
      */
     public TimeLinePanel() {
         initComponents();
         loadYearsInComboBox();
     }
 
+    /**
+     * Creates new form TimeLinePanel and initializes all its components.
+     *
+     * @param service
+     */
     public TimeLinePanel(EventService service) {
         this.setService(service);
         this.setEventsOfYear(service.getAllEventsOfYear(this.getInitialYear()));
@@ -47,6 +57,12 @@ public class TimeLinePanel extends javax.swing.JPanel {
         drawEvents(this.getEventsOfYear());
     }
 
+    /**
+     * Gets the initial year. This is the first year of all the different years.
+     * If there are no event the timeline for 2017 will be drawn.
+     *
+     * @return
+     */
     public int getInitialYear() {
         if (this.getService().getAllDifferentYears().size() == 0) {
             return 2017;
@@ -55,22 +71,45 @@ public class TimeLinePanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Gets the service (model)
+     *
+     * @return
+     */
     private EventService getService() {
         return service;
     }
 
+    /**
+     * Sets the service (model)
+     *
+     * @param service
+     */
     private void setService(EventService service) {
         this.service = service;
     }
 
+    /**
+     * Gets the ArrayList that holds all the Event of the selected year.
+     *
+     * @return ArrayList of Event of that year
+     */
     public ArrayList<Event> getEventsOfYear() {
         return EventsOfYear;
     }
 
+    /**
+     * Sets the ArrayList that holds all the Event of the selected year.
+     *
+     * @param EventsOfYear ArrayList of Event of that year
+     */
     public void setEventsOfYear(ArrayList<Event> EventsOfYear) {
         this.EventsOfYear = EventsOfYear;
     }
 
+    /**
+     * Load all the possible years into the combobox.
+     */
     public void loadYearsInComboBox() {
         this.getYearComboBox().removeAllItems();
         for (int s : this.getService().getAllDifferentYears()) {
@@ -78,10 +117,20 @@ public class TimeLinePanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Gets the yearComboBox
+     *
+     * @return
+     */
     private JComboBox<String> getYearComboBox() {
         return yearComboBox;
     }
 
+    /**
+     * Sets the yearCombox
+     *
+     * @param yearComboBox
+     */
     private void setYearComboBox(JComboBox<String> yearComboBox) {
         this.yearComboBox = yearComboBox;
     }
@@ -100,6 +149,9 @@ public class TimeLinePanel extends javax.swing.JPanel {
             int nrDays = this.getTimeline().numberOfBlocks(e.getStartDate(), e.getEndDate());
             int offset = this.getTimeline().numberOfBlocks(new Date(this.getTimeline().getYear(), 00, 01), e.getStartDate()) - 1;
             int numberOfOverlaps = this.getTimeline().numberOfOverlaps(i);
+            if (numberOfOverlaps < this.getTimeline().numberOfCumulativeOverlaps(i)) {
+                numberOfOverlaps = this.getTimeline().numberOfCumulativeOverlaps(i);
+            }
             label.setLocation(40 + (offset * this.getTimeline().getDayWidth()), this.getTimeline().getOriginY() - this.getTimeline().getLabelHeight() - (numberOfOverlaps * this.getTimeline().getLabelHeight()));
             label.setSize((nrDays) * this.getTimeline().getDayWidth(), this.getTimeline().getLabelHeight());
             label.setOpaque(true);
@@ -112,13 +164,19 @@ public class TimeLinePanel extends javax.swing.JPanel {
                     Event e = service.getEvent(label.getText());
                     getTitleValueLabel().setText(e.getTitle());
                     getDescriptionValueLabel().setText(e.getDescription());
-                    SimpleDateFormat format = new SimpleDateFormat("dd MMMM");          
+                    SimpleDateFormat format = new SimpleDateFormat("dd MMMM");
                     getStartDateValueLabel().setText(format.format(e.getStartDate()));
                     getEndDateValueLabel().setText(format.format(e.getEndDate()));
                     getCountryValueLabel().setText(e.getLocation().getCountry());
                     getPostcodeValueLabel().setText(e.getLocation().getPostcode());
                     getStreetNameValueLabel().setText(e.getLocation().getStreetName());
-                    getHouseNumberValueLabel().setText(e.getLocation().getHouseNumber());                   
+                    getHouseNumberValueLabel().setText(e.getLocation().getHouseNumber());
+
+                    //show persons which are linked with the event
+                    deletePersonLinkTableContents();
+                    for (Entry<Person, String> entry : e.getEveryPersonWithLink().entrySet()) {
+                        insertRowInPersonLinkTable(entry.getKey().getForename() + " " + entry.getKey().getSurname(), entry.getValue());
+                    }
                 }
 
                 @Override
@@ -136,46 +194,101 @@ public class TimeLinePanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Gets the time line object.
+     *
+     * @return
+     */
     public Timeline getTimeline() {
         return timeline;
     }
 
+    /**
+     * Gets the selected year.
+     *
+     * @return the selected year
+     */
     private int getSelectedYear() {
         return selectedYear;
     }
 
+    /**
+     * Sets the selected year
+     *
+     * @param selectedYear
+     */
     private void setSelectedYear(int selectedYear) {
         this.selectedYear = selectedYear;
     }
 
+    /**
+     * Gets the descriptionValueLabel
+     *
+     * @return the descriptionValueLabel
+     */
     public JLabel getDescriptionValueLabel() {
         return descriptionValueLabel;
     }
 
+    /**
+     * Gets the TitleValueLabel
+     *
+     * @return the titleValueLabel
+     */
     public JLabel getTitleValueLabel() {
         return titleValueLabel;
     }
 
+    /**
+     * Gets the countryValueLabel
+     *
+     * @return the countryValueLabel
+     */
     public JLabel getCountryValueLabel() {
         return countryValueLabel;
     }
 
+    /**
+     * Gets the endDateValueLabel
+     *
+     * @return the endDateValue
+     */
     public JLabel getEndDateValueLabel() {
         return endDateValueLabel;
     }
 
+    /**
+     * Gets the houseNumberValueLabel
+     *
+     * @return houseNumberValueLabel
+     */
     public JLabel getHouseNumberValueLabel() {
         return houseNumberValueLabel;
     }
 
+    /**
+     * Gets the postcodeValueLabel
+     *
+     * @return postcodeValueLabel
+     */
     public JLabel getPostcodeValueLabel() {
         return postcodeValueLabel;
     }
 
+    /**
+     * Gets the StartDateValueLabel
+     *
+     * @return StartDateValueLabel
+     */
     public JLabel getStartDateValueLabel() {
         return startDateValueLabel;
     }
 
+    /**
+     * Gets the streetNameValueLabel
+     *
+     * @return streetNameValueLabel
+     */
     public JLabel getStreetNameValueLabel() {
         return streetNameValueLabel;
     }
@@ -216,19 +329,11 @@ public class TimeLinePanel extends javax.swing.JPanel {
         postcodeValueLabel = new javax.swing.JLabel();
         jScrollPane10 = new javax.swing.JScrollPane();
         streetNameValueLabel = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        PersonLinkTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout timelineLayout = new javax.swing.GroupLayout(timeline);
-        timeline.setLayout(timelineLayout);
-        timelineLayout.setHorizontalGroup(
-            timelineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9000, Short.MAX_VALUE)
-        );
-        timelineLayout.setVerticalGroup(
-            timelineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9000, Short.MAX_VALUE)
-        );
 
         jScrollPane1.setViewportView(timeline);
 
@@ -247,13 +352,13 @@ public class TimeLinePanel extends javax.swing.JPanel {
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
 
         countryValueLabel.setBackground(new java.awt.Color(255, 255, 255));
-        countryValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        countryValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jScrollPane2.setViewportView(countryValueLabel);
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
 
         titleValueLabel.setBackground(new java.awt.Color(255, 255, 255));
-        titleValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        titleValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jScrollPane3.setViewportView(titleValueLabel);
 
         endDateLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
@@ -265,13 +370,13 @@ public class TimeLinePanel extends javax.swing.JPanel {
         jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
 
         endDateValueLabel.setBackground(new java.awt.Color(255, 255, 255));
-        endDateValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        endDateValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jScrollPane4.setViewportView(endDateValueLabel);
 
         jScrollPane5.setBackground(new java.awt.Color(255, 255, 255));
 
         startDateValueLabel.setBackground(new java.awt.Color(255, 255, 255));
-        startDateValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        startDateValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jScrollPane5.setViewportView(startDateValueLabel);
 
         PostcodeLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
@@ -289,129 +394,189 @@ public class TimeLinePanel extends javax.swing.JPanel {
         jScrollPane6.setBackground(new java.awt.Color(255, 255, 255));
 
         houseNumberValueLabel.setBackground(new java.awt.Color(255, 255, 255));
-        houseNumberValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        houseNumberValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jScrollPane6.setViewportView(houseNumberValueLabel);
 
         jScrollPane8.setBackground(new java.awt.Color(255, 255, 255));
 
         descriptionValueLabel.setBackground(new java.awt.Color(255, 255, 255));
-        descriptionValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        descriptionValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jScrollPane8.setViewportView(descriptionValueLabel);
 
         jScrollPane9.setBackground(new java.awt.Color(255, 255, 255));
 
         postcodeValueLabel.setBackground(new java.awt.Color(255, 255, 255));
-        postcodeValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        postcodeValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jScrollPane9.setViewportView(postcodeValueLabel);
 
         jScrollPane10.setBackground(new java.awt.Color(255, 255, 255));
 
         streetNameValueLabel.setBackground(new java.awt.Color(255, 255, 255));
-        streetNameValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 17)); // NOI18N
+        streetNameValueLabel.setFont(new java.awt.Font("Yu Gothic UI", 3, 12)); // NOI18N
         jScrollPane10.setViewportView(streetNameValueLabel);
+
+        PersonLinkTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Person", "Link"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        PersonLinkTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(PersonLinkTable);
+        if (PersonLinkTable.getColumnModel().getColumnCount() > 0) {
+            PersonLinkTable.getColumnModel().getColumn(1).setMinWidth(400);
+        }
+
+        jButton1.setBackground(new java.awt.Color(255, 51, 51));
+        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 1, 17)); // NOI18N
+        jButton1.setText("Delete Event");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(countryLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(11, 11, 11)
-                                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(PostcodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(7, 7, 7)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(startDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(endDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(1, 1, 1)
-                                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(streetNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(houseNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addContainerGap())
+                                .addGap(1, 1, 1)
+                                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(startDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(endDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(countryLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(PostcodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(streetNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(houseNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(7, 7, 7)
+                                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(yearComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleLabel)
                     .addComponent(descriptionLabel)
                     .addComponent(startDateLabel)
                     .addComponent(endDateLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5)
+                        .addComponent(jScrollPane4)
+                        .addComponent(jScrollPane3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PostcodeLabel)
                             .addComponent(countryLabel)
+                            .addComponent(PostcodeLabel)
                             .addComponent(streetNameLabel)
                             .addComponent(houseNumberLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(130, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                            .addComponent(jScrollPane9)
+                            .addComponent(jScrollPane6)))
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * If another year gets selected redraw the time line.
+     * @param evt 
+     */
     private void yearComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearComboBoxActionPerformed
         if (this.getYearComboBox().getSelectedItem() != null && this.selectedYear != 0 && Integer.parseInt((String) this.getYearComboBox().getSelectedItem()) != this.selectedYear) {
             drawNewTimeLine(Integer.parseInt((String) this.getYearComboBox().getSelectedItem()));
+            deleteAllInformationOfLabels();
         }
     }//GEN-LAST:event_yearComboBoxActionPerformed
 
+    /**
+     * When the person clickes the deleteButton, than the selected event will be deleted.
+     * @param evt 
+     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (getTitleValueLabel() != null && this.getTitleValueLabel().getText() != null && !this.getTitleValueLabel().getText().trim().isEmpty()) {
+            this.getService().removeEvent(getTitleValueLabel().getText());
+            //drawNewTimeLine(Integer.parseInt((String) this.getYearComboBox().getSelectedItem()));
+            drawNewTimeLineWithLastSelectedYear();
+            JOptionPane.showMessageDialog(null, "Event is deleted", "Event deleted now.", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * Draws a new time line with the last selected year.
+     */
+    public void drawNewTimeLineWithLastSelectedYear() {
+        this.drawNewTimeLine(Integer.parseInt((String) this.getYearComboBox().getSelectedItem()));
+    }
+
+    /**
+     * Draws a new time line of the given year
+     * @param year 
+     */
     private void drawNewTimeLine(int year) {
         this.setSelectedYear(year);
         this.setEventsOfYear(service.getAllEventsOfYear(year));
@@ -425,7 +590,61 @@ public class TimeLinePanel extends javax.swing.JPanel {
         this.drawEvents(this.getEventsOfYear());
     }
 
+    /**
+     * Gets the table with persons and their link to the event.
+     * @return JTable with persons and their links
+     */
+    private JTable getPersonLinkTable() {
+        return PersonLinkTable;
+    }
+
+    /**
+     * Sets the personLinkTable.
+     * @param PersonLinkTable 
+     */
+    private void setPersonLinkTable(JTable PersonLinkTable) {
+        this.PersonLinkTable = PersonLinkTable;
+    }
+
+    /**
+     * Inserts a row in the personLinkTable 
+     * @param person person for the first column
+     * @param link link with the person and the event in the second column
+     */
+    public void insertRowInPersonLinkTable(String person, String link) {
+        DefaultTableModel model = (DefaultTableModel) this.getPersonLinkTable().getModel();
+        model.addRow(new Object[]{person, link});
+    }
+
+    /**
+     * Delete all the contents of the personLinktable
+     */
+    public void deletePersonLinkTableContents() {
+        DefaultTableModel dm = (DefaultTableModel) this.getPersonLinkTable().getModel();
+        int rowCount = dm.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            dm.removeRow(i);
+        }
+    }
+
+    /**
+     * Deletes all the contents in the information labels.
+     */
+    private void deleteAllInformationOfLabels() {
+        getTitleValueLabel().setText("");
+        getDescriptionValueLabel().setText("");
+        getStartDateValueLabel().setText("");
+        getEndDateValueLabel().setText("");
+        getCountryValueLabel().setText("");
+        getPostcodeValueLabel().setText("");
+        getStreetNameValueLabel().setText("");
+        getHouseNumberValueLabel().setText("");
+        deletePersonLinkTableContents();
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable PersonLinkTable;
     private javax.swing.JLabel PostcodeLabel;
     private javax.swing.JLabel countryLabel;
     private javax.swing.JLabel countryValueLabel;
@@ -435,6 +654,7 @@ public class TimeLinePanel extends javax.swing.JPanel {
     private javax.swing.JLabel endDateValueLabel;
     private javax.swing.JLabel houseNumberLabel;
     private javax.swing.JLabel houseNumberValueLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
@@ -442,6 +662,7 @@ public class TimeLinePanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel postcodeValueLabel;

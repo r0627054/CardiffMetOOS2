@@ -1,121 +1,195 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.cardiffmet.st20131041.ui;
 
 import java.util.ArrayList;
-import javax.swing.JPanel;
 
 /**
+ * Panel used as side bar in the application Frame.
  *
  * @author Dries Janse
+ * @version 1.0
  */
 public class SideBarPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form SideBarPanel
+     * Creates new form SideBarPanel -initialises all the components
+     * -initialises all the panels
      */
     public SideBarPanel() {
         initComponents();
         initAllPanels();
     }
 
+    /**
+     * Gets the addEventPanel
+     *
+     * @return addEventPanel
+     */
     public OptionPanel getAddEventPanel() {
         return addEventPanel;
     }
 
+    /**
+     * Gets the addPersonPanel
+     *
+     * @return addPersonPanel
+     */
     public OptionPanel getAddPersonPanel() {
         return addPersonPanel;
     }
 
+    /**
+     * Gets the informationPanel
+     *
+     * @return InformationPanel
+     */
     public OptionPanel getInformationPanel() {
         return informationPanel;
     }
 
+    /**
+     * Gets the showTimeLinePanel
+     *
+     * @return showTimeLinePanel
+     */
     public OptionPanel getShowTimeLinePanel() {
         return showTimeLinePanel;
     }
-    
-    public void setAddEventPanelDefaultColor(){
+
+    /**
+     * Sets the addEventPanel to its default color.
+     */
+    public void setAddEventPanelDefaultColor() {
         this.setDefaultPanelColor(this.getAddEventPanel());
     }
-    
-    public void setAddEventPanelDefaultHoverColor(){
+
+    /**
+     * Sets the addEventPanel to its default hover color.
+     */
+    public void setAddEventPanelDefaultHoverColor() {
         this.setDefaultHoverPanelColor(this.getAddEventPanel());
     }
-    
-    public void setAddEventPanelClickedColor(){
+
+    /**
+     * Sets the addEventPanel to its default clicked color.
+     */
+    public void setAddEventPanelClickedColor() {
         this.getAddEventPanel().setDefaultClickedPanelColor();
     }
-    
-    public void setAddPersonPanelDefaultColor(){
+
+    /**
+     * Sets the addPersonPanel to its default color.
+     */
+    public void setAddPersonPanelDefaultColor() {
         this.setDefaultPanelColor(this.getAddPersonPanel());
     }
-    
-    public void setAddPersonPanelDefaultHoverColor(){
+
+    /**
+     * Sets the addPersonPanel to its default hover color.
+     */
+    public void setAddPersonPanelDefaultHoverColor() {
         this.setDefaultHoverPanelColor(this.getAddPersonPanel());
     }
-    
-    public void setAddPersonPanelClickedColor(){
+
+    /**
+     * Sets the addPersonPanel to its default clicked color.
+     */
+    public void setAddPersonPanelClickedColor() {
         this.getAddPersonPanel().setDefaultClickedPanelColor();
     }
-    
-    public void setInformationPanelDefaultColor(){
+
+    /**
+     * Sets the informationPanel to its default color.
+     */
+    public void setInformationPanelDefaultColor() {
         this.setDefaultPanelColor(this.getInformationPanel());
     }
-    
-    public void setInformationPanelDefaultHoverColor(){
+
+    /**
+     * Sets the informationPanel to its default hover color.
+     */
+    public void setInformationPanelDefaultHoverColor() {
         this.setDefaultHoverPanelColor(this.getInformationPanel());
     }
-    
-    public void setInformationPanelClickedColor(){
+
+    /**
+     * Sets the informationPanel to its default clicked color.
+     */
+    public void setInformationPanelClickedColor() {
         this.getInformationPanel().setDefaultClickedPanelColor();
     }
-    
-    public void setShowTimeLinePanelDefaultColor(){
+
+    /**
+     * Sets the showTimeLinePanel to its default color.
+     */
+    public void setShowTimeLinePanelDefaultColor() {
         this.setDefaultPanelColor(this.getShowTimeLinePanel());
     }
-    
-    public void setShowTimeLinePanelDefaultHoverColor(){
+
+    /**
+     * Sets the showTimeLinePanel to its default hover color.
+     */
+    public void setShowTimeLinePanelDefaultHoverColor() {
         this.setDefaultHoverPanelColor(this.getShowTimeLinePanel());
     }
-    
-    public void setShowTimeLinePanelClickedColor(){
+
+    /**
+     * Sets the showTimeLinePanel to its default clicked color.
+     */
+    public void setShowTimeLinePanelClickedColor() {
         this.getShowTimeLinePanel().setDefaultClickedPanelColor();
     }
-    
-    private void initAllPanels(){
+
+    /**
+     * add all panels to the allPanelsArray.
+     */
+    private void initAllPanels() {
         allPanels = new ArrayList();
         allPanels.add(this.getAddEventPanel());
         allPanels.add(this.getAddPersonPanel());
         allPanels.add(this.getInformationPanel());
         allPanels.add(this.getShowTimeLinePanel());
     }
-    
-    private ArrayList<OptionPanel> getAllPanels(){
+
+    /**
+     * Get all the panels in the ArrayList
+     *
+     * @return the allPanels ArrayList
+     */
+    private ArrayList<OptionPanel> getAllPanels() {
         return this.allPanels;
     }
-     
-    public void setAllPanelsDefaultColor(){
-        for(OptionPanel panel :this.getAllPanels()){
+
+    /**
+     * Sets all the panels to their default color.
+     */
+    public void setAllPanelsDefaultColor() {
+        for (OptionPanel panel : this.getAllPanels()) {
             panel.setDefaultColor();
         }
     }
-    
-    private void setDefaultPanelColor(OptionPanel p){
-        if(p.getDefaultClickedPanelColor() != p.getBackground()){
+
+    /**
+     * Sets the given panel to their default color.
+     *
+     * @param p the given panel to set to their default color.
+     */
+    private void setDefaultPanelColor(OptionPanel p) {
+        if (p.getDefaultClickedPanelColor() != p.getBackground()) {
             p.setDefaultColor();
         }
     }
-    
-    private void setDefaultHoverPanelColor(OptionPanel p){
-        if(p.getDefaultClickedPanelColor() != p.getBackground()){
+
+    /**
+     * Sets the given panel to their default hover color.
+     *
+     * @param p the given panel to set their default hover color.
+     */
+    private void setDefaultHoverPanelColor(OptionPanel p) {
+        if (p.getDefaultClickedPanelColor() != p.getBackground()) {
             p.setDefaultHoverColor();
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -178,9 +252,8 @@ public class SideBarPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private ArrayList<OptionPanel> allPanels;
-            
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private uk.ac.cardiffmet.st20131041.ui.OptionPanel addEventPanel;
     private uk.ac.cardiffmet.st20131041.ui.OptionPanel addPersonPanel;

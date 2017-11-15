@@ -1,13 +1,13 @@
 package uk.ac.cardiffmet.st20131041.domain.db;
 
 /**
- * The DatabaseException class is an unchecked runtime exception class. It is used in the
- * database classes, it gets thrown if invalid input is provided.
+ * The DatabaseException class is an unchecked runtime exception class. It is
+ * used in the database classes, it gets thrown if invalid input is provided.
  *
- * @author Dries
+ * @author Dries Janse
  * @version 1.0
  */
-public class DatabaseException extends RuntimeException{
+public class DatabaseException extends RuntimeException {
 
     /**
      * Construct a new database exception with no detail message and no cause.
@@ -16,8 +16,9 @@ public class DatabaseException extends RuntimeException{
     }
 
     /**
-     * Construct a new database exception with the given detail message and no cause.
-     * 
+     * Construct a new database exception with the given detail message and no
+     * cause.
+     *
      * @param message error message
      */
     public DatabaseException(String message) {
@@ -25,8 +26,9 @@ public class DatabaseException extends RuntimeException{
     }
 
     /**
-     * Construct a new database exception with the given detail message and the given cause.
-     * 
+     * Construct a new database exception with the given detail message and the
+     * given cause.
+     *
      * @param message the error message
      * @param cause the error cause
      */
@@ -35,8 +37,9 @@ public class DatabaseException extends RuntimeException{
     }
 
     /**
-     * Construct a new database exception with the given cause and the default message.
-     * 
+     * Construct a new database exception with the given cause and the default
+     * message.
+     *
      * @param cause the error cause
      */
     public DatabaseException(Throwable cause) {

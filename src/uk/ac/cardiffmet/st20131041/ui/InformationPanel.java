@@ -1,18 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.cardiffmet.st20131041.ui;
 
 /**
+ * Panel with information, you can upload and download the data.
  *
  * @author Dries Janse
+ * @version 1.0
  */
 public class InformationPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form InformationPanel
+     * Creates new form InformationPanel and initializes all its components.
+     * This constructor is not used in the program execution. It is only used in
+     * the Netbeans idea, for the designing.
      */
     public InformationPanel() {
         initComponents();

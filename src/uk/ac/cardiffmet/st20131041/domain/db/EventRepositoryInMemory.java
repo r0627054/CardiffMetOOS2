@@ -3,9 +3,9 @@ package uk.ac.cardiffmet.st20131041.domain.db;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import uk.ac.cardiffmet.st20131041.domain.model.DomainException;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
 import uk.ac.cardiffmet.st20131041.domain.model.Location;
+import uk.ac.cardiffmet.st20131041.domain.model.Person;
 
 /**
  * The EventRepository class keeps track of all the events in an in memory
@@ -20,14 +20,18 @@ public class EventRepositoryInMemory implements EventRepository {
 
     /**
      * The empty constructor initialises the event ArrayList.
+     * Added dummy events used to be shown during the demo.
      */
     public EventRepositoryInMemory() {
         this.events = new ArrayList<Event>();
         this.addEvent(new Event("Title1", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(120, 00, 02), new Date(120, 00, 03)));
         this.addEvent(new Event("Title2", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(120, 00, 05), new Date(120, 00, 23)));
-        this.addEvent(new Event("Title3", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 11), new Date(117, 00, 16)));
+        Event e = new Event("Title3", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 11), new Date(117, 00, 16));
+        e.addPerson(new Person("Dries", "Janse", "Drekke", new Date(117, 10, 19)), "helping");
+        e.addPerson(new Person("Thomas", "Janse", "Tekke", new Date(117, 9, 9)), "organiser");
+        this.addEvent(e);
         this.addEvent(new Event("Title99", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 02), new Date(117, 00, 12)));
-                this.addEvent(new Event("Title39", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 15), new Date(117, 00, 18)));
+        this.addEvent(new Event("Title39", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 15), new Date(117, 00, 18)));
         this.addEvent(new Event("Title9900", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 21), new Date(117, 00, 25)));
         this.addEvent(new Event("Title4", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(118, 00, 05), new Date(118, 00, 23)));
     }
@@ -129,7 +133,7 @@ public class EventRepositoryInMemory implements EventRepository {
     public ArrayList<Integer> getAllDifferentYears() {
         ArrayList<Integer> allYears = new ArrayList<>();
         for (Event e : this.getEvents()) {
-            int year = e.getStartDate().getYear() + 1900 ;
+            int year = e.getStartDate().getYear() + 1900;
             if (!allYears.contains(year)) {
                 allYears.add(year);
             }
@@ -146,13 +150,28 @@ public class EventRepositoryInMemory implements EventRepository {
      */
     @Override
     public ArrayList<Event> getAllEventsOfYear(int year) {
-        int correctYear = year -1900;
+        int correctYear = year - 1900;
         ArrayList<Event> yearEvents = new ArrayList<>();
         for (Event e : this.getEvents()) {
             if (e.getStartDate().getYear() == correctYear) {
                 yearEvents.add(e);
-             }
+            }
         }
         return yearEvents;
+    }
+
+    /**
+     * Deletes the event with the given title out of the ArrayList.
+     *
+     * @param title title of the event
+     */
+    @Override
+    public void removeEvent(String title) {
+        for (Event e : this.getEvents()) {
+            if (e.getTitle().equals(title)) {
+                this.events.remove(e);
+                break;
+            }
+        }
     }
 }

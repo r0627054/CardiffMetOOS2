@@ -1,10 +1,7 @@
 package uk.ac.cardiffmet.st20131041.domain.service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import uk.ac.cardiffmet.st20131041.domain.db.EventRepository;
 import uk.ac.cardiffmet.st20131041.domain.db.EventRepositoryFactory;
 import uk.ac.cardiffmet.st20131041.domain.db.PersonRepository;
@@ -135,12 +132,22 @@ public class EventService {
      *
      * @see EventRepository#getAllEventsOfYear(int)
      * @param year
-     * @return
+     * @return a sorted ArrayList of all the events of the year.
      */
     public ArrayList<Event> getAllEventsOfYear(int year) {
         ArrayList<Event> eventsOfYear = this.getEventRepository().getAllEventsOfYear(year);
         Collections.sort(eventsOfYear, new EventStartDateComparator());
         return eventsOfYear;
+    }
+
+    /**
+     * This method makes us of the method of the eventRepository
+     *
+     * @see EventRepository#removeEvent(java.lang.String)
+     * @param title
+     */
+    public void removeEvent(String title) {
+        this.getEventRepository().removeEvent(title);
     }
 
     //--------------------------------
