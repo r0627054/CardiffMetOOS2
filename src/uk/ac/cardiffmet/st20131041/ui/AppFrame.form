@@ -31,7 +31,7 @@
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="headerPanel" max="32767" attributes="0"/>
-                  <Component id="mainAreaPanel" max="32767" attributes="0"/>
+                  <Component id="mainAreaPanel" pref="875" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -44,7 +44,7 @@
                   <Group type="102" attributes="0">
                       <Component id="headerPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="mainAreaPanel" max="32767" attributes="0"/>
+                      <Component id="mainAreaPanel" pref="821" max="32767" attributes="0"/>
                   </Group>
                   <Component id="sideBarPanel" max="32767" attributes="0"/>
               </Group>
@@ -99,16 +99,19 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="uk.ac.cardiffmet.st20131041.ui.InformationPanel" name="informationPanel">
+        <Component class="uk.ac.cardiffmet.st20131041.ui.TimeLinePanel" name="timeLinePanel">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel(this.getService())"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="card5"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="uk.ac.cardiffmet.st20131041.ui.TimeLinePanel" name="timeLinePanel">
+        <Component class="uk.ac.cardiffmet.st20131041.ui.InformationPanel" name="informationPanel">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel(this.getService())"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new uk.ac.cardiffmet.st20131041.ui.InformationPanel(this.getService())"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">

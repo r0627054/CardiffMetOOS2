@@ -39,8 +39,12 @@ public class TimeLinePanel extends javax.swing.JPanel {
      * Netbeans idea, for the designing.
      */
     public TimeLinePanel() {
+        this.setService(new EventService("MEMORY"));
+        this.setEventsOfYear(service.getAllEventsOfYear(this.getInitialYear()));
+        this.setSelectedYear(this.getInitialYear());
         initComponents();
         loadYearsInComboBox();
+        drawEvents(this.getEventsOfYear());
     }
 
     /**
@@ -544,7 +548,8 @@ public class TimeLinePanel extends javax.swing.JPanel {
 
     /**
      * If another year gets selected redraw the time line.
-     * @param evt 
+     *
+     * @param evt
      */
     private void yearComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearComboBoxActionPerformed
         if (this.getYearComboBox().getSelectedItem() != null && this.selectedYear != 0 && Integer.parseInt((String) this.getYearComboBox().getSelectedItem()) != this.selectedYear) {
@@ -554,8 +559,10 @@ public class TimeLinePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_yearComboBoxActionPerformed
 
     /**
-     * When the person clickes the deleteButton, than the selected event will be deleted.
-     * @param evt 
+     * When the person clickes the deleteButton, than the selected event will be
+     * deleted.
+     *
+     * @param evt
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (getTitleValueLabel() != null && this.getTitleValueLabel().getText() != null && !this.getTitleValueLabel().getText().trim().isEmpty()) {
@@ -575,7 +582,8 @@ public class TimeLinePanel extends javax.swing.JPanel {
 
     /**
      * Draws a new time line of the given year
-     * @param year 
+     *
+     * @param year
      */
     private void drawNewTimeLine(int year) {
         this.setSelectedYear(year);
@@ -592,6 +600,7 @@ public class TimeLinePanel extends javax.swing.JPanel {
 
     /**
      * Gets the table with persons and their link to the event.
+     *
      * @return JTable with persons and their links
      */
     private JTable getPersonLinkTable() {
@@ -600,14 +609,16 @@ public class TimeLinePanel extends javax.swing.JPanel {
 
     /**
      * Sets the personLinkTable.
-     * @param PersonLinkTable 
+     *
+     * @param PersonLinkTable
      */
     private void setPersonLinkTable(JTable PersonLinkTable) {
         this.PersonLinkTable = PersonLinkTable;
     }
 
     /**
-     * Inserts a row in the personLinkTable 
+     * Inserts a row in the personLinkTable
+     *
      * @param person person for the first column
      * @param link link with the person and the event in the second column
      */

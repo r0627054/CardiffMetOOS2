@@ -1,5 +1,6 @@
 package uk.ac.cardiffmet.st20131041.domain.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import uk.ac.cardiffmet.st20131041.domain.db.EventRepository;
@@ -7,6 +8,10 @@ import uk.ac.cardiffmet.st20131041.domain.db.EventRepositoryFactory;
 import uk.ac.cardiffmet.st20131041.domain.db.PersonRepository;
 import uk.ac.cardiffmet.st20131041.domain.db.PersonRepositoryFactory;
 import uk.ac.cardiffmet.st20131041.domain.model.Event;
+import uk.ac.cardiffmet.st20131041.domain.model.EventFileReader;
+import uk.ac.cardiffmet.st20131041.domain.model.EventFileReaderJSON;
+import uk.ac.cardiffmet.st20131041.domain.model.EventFileWriter;
+import uk.ac.cardiffmet.st20131041.domain.model.EventFileWriterJSON;
 import uk.ac.cardiffmet.st20131041.domain.model.EventStartDateComparator;
 import uk.ac.cardiffmet.st20131041.domain.model.Person;
 
@@ -20,17 +25,22 @@ public class EventService {
 
     private EventRepository eventRepository;
     private PersonRepository personRepository;
-
+    private EventFileReader eventFileReader;
+    private EventFileWriter eventFileWriter;
+    
     /**
      * EventRepository and personRepository will be initialised depending of the
      * repository type. The constructor uses the EventRepository and
      * PersonRepository for the object creation.
-     *
+     * It also creates an eventFileReader and eventFileWriter.
+     * 
      * @param repositoryType
      */
     public EventService(String repositoryType) {
         this.eventRepository = EventRepositoryFactory.getEventRepository(repositoryType);
         this.personRepository = PersonRepositoryFactory.getPersonRepository(repositoryType);
+        this.eventFileReader = new EventFileReaderJSON();
+        this.eventFileWriter = new EventFileWriterJSON();
     }
 
     /**
@@ -214,4 +224,29 @@ public class EventService {
     public ArrayList<String> getAllPersonNames() {
         return this.getPersonRepository().getAllNicknames();
     }
+    
+    //--------------------------------
+    // METHODS OF FILE READER/WRITER
+    //--------------------------------
+
+    private EventFileReader getEventFileReader() {
+        return eventFileReader;
+    }
+
+    private EventFileWriter getEventFileWriter() {
+        return eventFileWriter;
+    }
+    
+    public ArrayList<Event> getAllEventsOfFile(File file){
+        return this.getEventFileReader().getAllEventsOfFile(file);
+    }
+    
+    private String writeEvents(ArrayList<Event> allEvents){
+        return this.getEventFileWriter().writeEvents(allEvents);
+    }
+    
+    public String writeAllEvents(){
+        return this.getEventFileWriter().writeEvents(this.getEvents());
+    }
+    
 }

@@ -305,8 +305,8 @@ public class AppFrame extends javax.swing.JFrame {
         mainAreaPanel = new javax.swing.JPanel();
         addEventPanel = new uk.ac.cardiffmet.st20131041.ui.AddEventPanel(this.getService());
         addPersonPanel = new uk.ac.cardiffmet.st20131041.ui.AddPersonPanel(this.getService());
-        informationPanel = new uk.ac.cardiffmet.st20131041.ui.InformationPanel();
         timeLinePanel = new uk.ac.cardiffmet.st20131041.ui.TimeLinePanel(this.getService());
+        informationPanel = new uk.ac.cardiffmet.st20131041.ui.InformationPanel(this.getService());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(857, 587));
@@ -326,8 +326,8 @@ public class AppFrame extends javax.swing.JFrame {
         mainAreaPanel.setLayout(new java.awt.CardLayout());
         mainAreaPanel.add(addEventPanel, "card3");
         mainAreaPanel.add(addPersonPanel, "card2");
-        mainAreaPanel.add(informationPanel, "card5");
         mainAreaPanel.add(timeLinePanel, "card5");
+        mainAreaPanel.add(informationPanel, "card5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -338,7 +338,7 @@ public class AppFrame extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +348,7 @@ public class AppFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE))
                     .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 

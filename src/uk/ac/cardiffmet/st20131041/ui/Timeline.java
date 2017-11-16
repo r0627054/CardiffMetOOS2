@@ -48,7 +48,7 @@ public class Timeline extends JPanel {
 
     /**
      * Constructor that hold accepts the events and the year.
-     * 
+     *
      * @param allEvents an ArrayList of all the events in the given year.
      * @param year the year for which the time line is drawn
      */
@@ -82,7 +82,8 @@ public class Timeline extends JPanel {
 
     /**
      * Sets allEvents that will be used on the time line.
-     * @param allEvents 
+     *
+     * @param allEvents
      */
     public void setAllEvents(ArrayList<Event> allEvents) {
         this.allEvents = allEvents;
@@ -269,16 +270,18 @@ public class Timeline extends JPanel {
     public int maxNumberOfoverlaps() {
         int result = 0;
         int i = 0;
-        for (Event e : this.getAllEvents()) {
-            int numberOfOverlaps = numberOfOverlaps(i);
-            int numberOfCumulativeOverlaps = this.numberOfCumulativeOverlaps(i);
-            if (numberOfOverlaps > result) {
-                result = numberOfOverlaps;
+        if (this.getAllEvents() != null) {
+            for (Event e : this.getAllEvents()) {
+                int numberOfOverlaps = numberOfOverlaps(i);
+                int numberOfCumulativeOverlaps = this.numberOfCumulativeOverlaps(i);
+                if (numberOfOverlaps > result) {
+                    result = numberOfOverlaps;
+                }
+                if (numberOfCumulativeOverlaps > result) {
+                    result = numberOfCumulativeOverlaps;
+                }
+                i++;
             }
-            if (numberOfCumulativeOverlaps > result) {
-                result = numberOfCumulativeOverlaps;
-            }
-            i++;
         }
         return result;
     }
