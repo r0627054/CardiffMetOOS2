@@ -29,4 +29,6 @@ public interface EventRepository {
     ArrayList<Event> getAllEventsOfYear(int year);
 
     void removeEvent(String title);
+    
+    void addEvents(ArrayList<Event> eventList);
 }

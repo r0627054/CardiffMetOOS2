@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import uk.ac.cardiffmet.st20131041.domain.model.DomainException;
 import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 
 /**
@@ -15,27 +17,38 @@ import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 public class InformationPanel extends javax.swing.JPanel {
 
     private EventService service;
-    
+
     /**
-     * Creates new InformationPanel and initializes all its components. This constructor
-     * is not used in the program execution. It is only used in the Netbeans
-     * idea, for the designing.
+     * Creates new InformationPanel and initializes all its components. This
+     * constructor is not used in the program execution. It is only used in the
+     * Netbeans idea, for the designing.
      */
     public InformationPanel() {
         this.service = new EventService("MEMORY");
         initComponents();
+        this.fileChoosersInitialise();
     }
-    
-    public InformationPanel(EventService service){
+
+    public InformationPanel(EventService service) {
         this.service = service;
         initComponents();
+        this.fileChoosersInitialise();
     }
 
     private EventService getService() {
         return service;
     }
-    
-    
+
+    private void fileChoosersInitialise() {
+        this.saveFileChooser.setDialogTitle("Save all events!");
+        this.saveFileChooser.setAcceptAllFileFilterUsed(false);
+        this.saveFileChooser.addChoosableFileFilter(new FileTypeFilter(".json", "JSON file"));
+        this.uploadFileChooser.setDialogTitle("Upload a data file!");
+        FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("json files (*.json)", "json");
+        this.uploadFileChooser.addChoosableFileFilter(jsonFilter);
+        this.uploadFileChooser.setFileFilter(jsonFilter);
+        this.uploadFileChooser.setAcceptAllFileFilterUsed(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,28 +119,36 @@ public class InformationPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
-        this.uploadFileChooser.setDialogTitle("Upload a data file!");
+
         this.uploadFileChooser.showOpenDialog(null);
-        File f = this.uploadFileChooser.getSelectedFile();
-        this.getService().getAllEventsOfFile(f);
-        JOptionPane.showMessageDialog(null, f.getName() + " was successfully uploaded!", "Upload success", JOptionPane.INFORMATION_MESSAGE);
+        File f;
+        try {
+            f = this.uploadFileChooser.getSelectedFile();
+            //this.getService().getAllEventsOfFile(f);
+            this.getService().saveAllEventsOfFile(f);
+            JOptionPane.showMessageDialog(null, "Events where successfully uploaded!", "Upload success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (DomainException e) {
+            JOptionPane.showMessageDialog(null, "We could not upload the file, please try again!", "Something went wrong", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_uploadButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        this.saveFileChooser.setDialogTitle("Save all events!");
-        this.saveFileChooser.setAcceptAllFileFilterUsed(false);
-        this.saveFileChooser.addChoosableFileFilter(new FileTypeFilter(".text", "Text file"));
-        this.saveFileChooser.addChoosableFileFilter(new FileTypeFilter(".json", "JSON file"));
         this.saveFileChooser.showSaveDialog(null);
-        File file = this.saveFileChooser.getSelectedFile();
         try {
-            FileWriter fw = new FileWriter(file.getPath());
+            File file = this.saveFileChooser.getSelectedFile();
+            File fileWithExtension = new File(file.toString() + ".json");
+            
+            FileWriter fw = new FileWriter(fileWithExtension.getPath());
             fw.write(service.writeAllEvents());
             fw.flush();
             fw.close();
+            JOptionPane.showMessageDialog(null, "File successfully saved", "Saving success", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "We could not save the file, please try again!", "Something went wrong", JOptionPane.ERROR_MESSAGE);
         }
+        
+
     }//GEN-LAST:event_saveButtonActionPerformed
 
 

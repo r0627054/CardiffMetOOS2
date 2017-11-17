@@ -27,13 +27,13 @@ public class EventService {
     private PersonRepository personRepository;
     private EventFileReader eventFileReader;
     private EventFileWriter eventFileWriter;
-    
+
     /**
      * EventRepository and personRepository will be initialised depending of the
      * repository type. The constructor uses the EventRepository and
-     * PersonRepository for the object creation.
-     * It also creates an eventFileReader and eventFileWriter.
-     * 
+     * PersonRepository for the object creation. It also creates an
+     * eventFileReader and eventFileWriter.
+     *
      * @param repositoryType
      */
     public EventService(String repositoryType) {
@@ -224,11 +224,14 @@ public class EventService {
     public ArrayList<String> getAllPersonNames() {
         return this.getPersonRepository().getAllNicknames();
     }
-    
+
+    public boolean containsPerson(String nickname) {
+        return getAllPersonNames().contains(nickname);
+    }
+
     //--------------------------------
     // METHODS OF FILE READER/WRITER
     //--------------------------------
-
     private EventFileReader getEventFileReader() {
         return eventFileReader;
     }
@@ -236,17 +239,32 @@ public class EventService {
     private EventFileWriter getEventFileWriter() {
         return eventFileWriter;
     }
-    
-    public ArrayList<Event> getAllEventsOfFile(File file){
+
+    public ArrayList<Event> getAllEventsOfFile(File file) {
         return this.getEventFileReader().getAllEventsOfFile(file);
     }
-    
-    private String writeEvents(ArrayList<Event> allEvents){
+
+    public void saveAllEventsOfFile(File file) {
+        ArrayList<Event> allImportEvents = this.getAllEventsOfFile(file);
+        for (Event e : allImportEvents) {
+            for (Person p : e.getEveryPerson()) {
+                if (!this.containsPerson(p.getNickname())) {
+                    this.addPerson(p);
+                }
+            }
+        }
+        this.addAllEvents(allImportEvents);
+    }
+
+    private String writeEvents(ArrayList<Event> allEvents) {
         return this.getEventFileWriter().writeEvents(allEvents);
     }
-    
-    public String writeAllEvents(){
+
+    public String writeAllEvents() {
         return this.getEventFileWriter().writeEvents(this.getEvents());
     }
-    
+
+    private void addAllEvents(ArrayList<Event> eventList) {
+        this.getEventRepository().addEvents(eventList);
+    }
 }

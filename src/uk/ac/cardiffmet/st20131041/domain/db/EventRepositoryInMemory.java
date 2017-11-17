@@ -174,4 +174,9 @@ public class EventRepositoryInMemory implements EventRepository {
             }
         }
     }
+
+    @Override
+    public void addEvents(ArrayList<Event> eventList) {
+        this.getEvents().addAll(eventList);
+    }
 }

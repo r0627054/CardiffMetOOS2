@@ -33,7 +33,9 @@ public class EventFileWriterJSON implements EventFileWriter{
                 personObject.put("birthday", entry.getKey().getBirthday().getTime());
                 personObject.put("nickname", entry.getKey().getNickname());
                 JSONObject personLinkObject = new JSONObject();
-                personLinkObject.put(personObject, entry.getValue());
+                //personLinkObject.put(personObject, entry.getValue());
+                personLinkObject.put("person", personObject);
+                personLinkObject.put("link", entry.getValue());
                 personArray.add(personLinkObject);
             }
             eventObject.put("persons", personArray);

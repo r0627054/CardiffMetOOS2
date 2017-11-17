@@ -3,6 +3,7 @@ package uk.ac.cardiffmet.st20131041.domain.model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The event class keeps track of an event. An Event has a title, description,
@@ -200,8 +201,8 @@ public class Event{
      *
      * @return All Persons
      */
-    public List<Person> getEveryPerson() {
-        return (List<Person>) this.persons.keySet();
+    public Set<Person> getEveryPerson() {
+        return  this.persons.keySet();
     }
 
     /**

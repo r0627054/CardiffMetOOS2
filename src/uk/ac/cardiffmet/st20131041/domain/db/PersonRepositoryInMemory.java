@@ -110,4 +110,9 @@ public class PersonRepositoryInMemory implements PersonRepository {
         }
         return nicknameArray;
     }
+
+    @Override
+    public void addPersons(ArrayList<Person> personsList) {
+        this.getPersons().addAll(personsList);
+    }
 }
