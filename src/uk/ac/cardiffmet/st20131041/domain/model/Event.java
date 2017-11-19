@@ -178,7 +178,7 @@ public class Event {
             throw new DomainException("The end date cannot be beforer the start date!");
         }
         if (this.getEndDate() != null && this.getEndDate().getYear() != startDate.getYear()) {
-            throw new DomainException("Start date and the end date must be in the same year.");
+            throw new DomainException("Start date and the end date must be in the same year. Please split the event.");
         }
         this.startDate = startDate;
     }
@@ -201,7 +201,7 @@ public class Event {
             throw new DomainException("Start date cannot be after the end date!");
         }
         if (this.getStartDate() != null && this.getStartDate().getYear() != endDate.getYear()) {
-            throw new DomainException("Start date and the end date must be in the same year.");
+            throw new DomainException("Start date and the end date must be in the same year. Please split the event.");
         }
         this.endDate = endDate;
     }

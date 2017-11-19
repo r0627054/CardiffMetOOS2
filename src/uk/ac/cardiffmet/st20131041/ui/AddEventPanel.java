@@ -479,6 +479,7 @@ public class AddEventPanel extends javax.swing.JPanel {
             try {
                 service.addEvent(event);
                 JOptionPane.showMessageDialog(null, "Event is successfully added.", "Event successfully added.", JOptionPane.INFORMATION_MESSAGE);
+                resetAllFields();
             } catch (DatabaseException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Something went wrong.", JOptionPane.ERROR_MESSAGE);
             }
@@ -588,6 +589,25 @@ public class AddEventPanel extends javax.swing.JPanel {
         this.getPersonRoleField().setBorder(BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
         this.getStartDatePicker().setBorder(BorderFactory.createEmptyBorder());
         this.getEndDatePicker().setBorder(BorderFactory.createEmptyBorder());
+    }
+    
+    /**
+     * Puts all the fields with no value.
+     */
+    public void resetAllFields() {
+        this.getTitleField().setText("");
+        this.getDescriptionArea().setText("");
+        this.getCountryField().setText("");
+        this.getPostcodeField().setText("");
+        this.getStreeteNameField().setText("");
+        this.getHouseNumberField().setText("");
+        this.getPersonRoleField().setText("");
+        
+        DefaultTableModel dm = (DefaultTableModel) this.getUserTable().getModel();
+        int rowCount = dm.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            dm.removeRow(i);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
