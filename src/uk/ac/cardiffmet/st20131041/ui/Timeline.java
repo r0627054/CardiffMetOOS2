@@ -23,12 +23,39 @@ import uk.ac.cardiffmet.st20131041.domain.model.Event;
  */
 public class Timeline extends JPanel {
 
+    /**
+     * An ArrayList of Events that are displayed on the time line
+     */
     private ArrayList<Event> allEvents;
+
+    /**
+     * The with that is used for displaying one day
+     */
     private int dayWidth = 40;
+
+    /**
+     * The X-coordinate of the origin
+     */
     private int originX = 40;
+
+    /**
+     * The Y-coordinate of the origin
+     */
     private int originY = 280;
+
+    /**
+     * The number of days in the given year (think about leap years)
+     */
     private int nrDays;
+
+    /**
+     * The year that the time line is drawn
+     */
     private int year;
+
+    /**
+     * The height of the label displaying the event
+     */
     private int labelHeight = 50;
 
     /**
@@ -352,9 +379,12 @@ public class Timeline extends JPanel {
     }
 
     /**
+     * Calculates if some previous events overlaps. If it overlaps with the
+     * current event we have to check how much the previous events overlaps and
+     * add 1 because has to be 1 higher.
      *
      * @param numberOfEvent
-     * @return
+     * @return the cumulative value that the events overlapped
      */
     public int numberOfCumulativeOverlaps(int numberOfEvent) {
         int result = 0;
@@ -366,7 +396,7 @@ public class Timeline extends JPanel {
                 if (overLapWithPreviousDate(preciousEvent.getEndDate(), currentEvent.getStartDate())) {
                     //result++;
                     int tempResult = this.numberOfOverlaps(previousEventNumber) + 1;
-                    if(tempResult > result){
+                    if (tempResult > result) {
                         result = tempResult;
                     }
                 }

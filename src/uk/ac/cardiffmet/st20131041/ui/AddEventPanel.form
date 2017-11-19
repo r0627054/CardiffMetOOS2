@@ -24,68 +24,69 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="participantsLabel" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="countryLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Component id="countryField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="personRoleLabel" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="postcodeLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                          <Component id="postcodeField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="streeteNameField" min="-2" pref="180" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Component id="locationLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="titleField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <Component id="titleLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="endDateLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Component id="startDatePicker" min="-2" pref="180" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="startDateLabel" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Component id="endDatePicker" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
+                                  <Component id="streetNameLabel1" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="houseNumberLabel" min="-2" pref="123" max="-2" attributes="0"/>
+                          <Component id="houseNumberField" min="-2" pref="70" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="addEventButton" min="-2" pref="169" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="576" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="personComboBox" min="-2" pref="180" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="personRoleField" min="-2" pref="180" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="addPersonToEventButton" min="-2" pref="169" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="choosePersonLabel1" min="-2" pref="132" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="219" max="-2" attributes="0"/>
                           <Component id="descriptionLabel" min="-2" pref="115" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="participantsLabel" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="personComboBox" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="countryLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                          <Component id="streeteNameField" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="countryField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="streetNameLabel1" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <Component id="choosePersonLabel1" min="-2" pref="132" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="houseNumberLabel" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="personRoleLabel" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="houseNumberField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="personRoleField" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="postcodeLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                              <Component id="postcodeField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="addPersonToEventButton" min="-2" pref="169" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <Component id="addEventButton" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
-                              <Component id="locationLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="titleField" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <Component id="titleLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="endDateLabel" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <Component id="startDatePicker" min="-2" pref="180" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="startDateLabel" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <Component id="endDatePicker" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="80" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -113,43 +114,39 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="locationLabel" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="countryLabel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="postcodeLabel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="postcodeLabel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="streetNameLabel1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="houseNumberLabel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="countryLabel" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="postcodeField" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="countryField" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="houseNumberLabel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="streetNameLabel1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="streeteNameField" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="houseNumberField" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="participantsLabel" min="-2" pref="34" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="personRoleLabel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="choosePersonLabel1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="personRoleLabel" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="personComboBox" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="personRoleField" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="addPersonToEventButton" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="96" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="addEventButton" min="-2" pref="39" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -279,7 +276,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="houseNumberField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Enter event house number."/>
+        <Property name="text" type="java.lang.String" value="number."/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -289,6 +286,9 @@
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="houseNumberFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="countryField">
       <Properties>

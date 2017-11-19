@@ -13,6 +13,9 @@ import uk.ac.cardiffmet.st20131041.domain.model.Person;
  */
 public class PersonRepositoryInMemory implements PersonRepository {
 
+    /**
+     * An in memory ArrayList of persons
+     */
     private ArrayList<Person> persons;
 
     /**
@@ -21,8 +24,10 @@ public class PersonRepositoryInMemory implements PersonRepository {
      */
     public PersonRepositoryInMemory() {
         this.persons = new ArrayList<Person>();
-        this.addPerson(new Person("Dries", "Janse", "Drekke", new Date(117, 10, 19)));
-        this.addPerson(new Person("Thomas", "Janse", "Tekke", new Date(117, 9, 9)));
+        this.addPerson(new Person("Harry", "Smith", "HarryS", new Date(87, 10, 19)));
+        this.addPerson(new Person("Thomas", "Jones", "ThomasJ", new Date(77, 9, 9)));
+        this.addPerson(new Person("Oliver", "Williams", "OliverW", new Date(60, 5, 5)));
+        this.addPerson(new Person("Henry", "Brown", "HenryB", new Date(90, 5, 5)));
     }
 
     /**
@@ -111,8 +116,17 @@ public class PersonRepositoryInMemory implements PersonRepository {
         return nicknameArray;
     }
 
+    /**
+     * Adds an ArrayList of Persons to the current ArrayList.
+     *
+     * @param personsList the ArrayListOfPersons that need to be added.
+     * @throws Throws a DatabaseException if personList is null.
+     */
     @Override
     public void addPersons(ArrayList<Person> personsList) {
+        if(personsList == null){
+            throw new DatabaseException("PersonsList cannot be null.");
+        }
         this.getPersons().addAll(personsList);
     }
 }

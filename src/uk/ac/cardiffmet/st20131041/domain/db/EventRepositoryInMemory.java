@@ -16,24 +16,59 @@ import uk.ac.cardiffmet.st20131041.domain.model.Person;
  */
 public class EventRepositoryInMemory implements EventRepository {
 
+    /**
+     * In memory ArrayList of events.
+     */
     private ArrayList<Event> events;
 
     /**
-     * The empty constructor initialises the event ArrayList.
-     * Added dummy events used to be shown during the demo.
+     * The empty constructor initialises the event ArrayList. Added dummy events
+     * used to be shown during the demo.
      */
     public EventRepositoryInMemory() {
         this.events = new ArrayList<Event>();
-        this.addEvent(new Event("Title1", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(120, 00, 02), new Date(120, 00, 03)));
-        this.addEvent(new Event("Title2", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(120, 00, 05), new Date(120, 00, 23)));
-        Event e = new Event("Title3", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 11), new Date(117, 00, 16));
-        e.addPerson(new Person("Dries", "Janse", "Drekke", new Date(117, 10, 19)), "helping");
-        e.addPerson(new Person("Thomas", "Janse", "Tekke", new Date(117, 9, 9)), "organiser");
-        this.addEvent(e);
-        this.addEvent(new Event("Title99", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 02), new Date(117, 00, 12)));
-        this.addEvent(new Event("Title39", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 15), new Date(117, 00, 18)));
-        this.addEvent(new Event("Title9900", "Description qdsf qsdf qsdf qsdf qsdf qsdf qsdf qsdf qsdf  sdf", new Location("country", "postcode", "streetName", "houseNumber"), new Date(117, 00, 21), new Date(117, 00, 25)));
-        this.addEvent(new Event("Title4", "Description", new Location("country", "postcode", "streetName", "houseNumber"), new Date(118, 00, 05), new Date(118, 00, 23)));
+
+        //exampleEvent1
+        Event exampleEvent1 = new Event("Cardifferent Historic Pub Tour", "This historical walking, talking and drinking tour will take you on a journey celebrating the people of Wales and their stories within the setting of it's capital city Cardiff.", new Location("United Kingdom", "CF10 1 AY", "Duke Street", "14"), new Date(117, 00, 11), new Date(117, 00, 16));
+        exampleEvent1.addPerson(new Person("Thomas", "Jones", "ThomasJ", new Date(77, 9, 9)), "Organiser");
+        this.addEvent(exampleEvent1);
+
+        //exampleEvent2
+        Event exampleEvent2 = new Event("Son of a Preacher Man", "Dates and information not yet released", new Location("United Kingdom", "CF24", "Queen St", "5"), new Date(120, 00, 02), new Date(120, 00, 06));
+        exampleEvent2.addPerson(new Person("Henry", "Brown", "HenryB", new Date(90, 5, 5)), "Organiser");
+        exampleEvent2.addPerson(new Person("Oliver", "Williams", "OliverW", new Date(60, 5, 5)), "Sales Coordinator");
+        this.addEvent(exampleEvent2);
+
+        //exampleEvent3
+        Event exampleEvent3 = new Event("Our House", "Did you know? - Now you can buy Theatre Tokens at the Cardiff Tourist Information Centre, for use at the New Theatre, St David's Hall, Sherman Theatre and theatres across the UK From the writer of smash hits Calendar Girls and Kinky Boots comes the feel good, Olivier Award-winning MADNESS…", new Location("United Kingdom", "CF10 3LN", "Park Pl", "1"), new Date(120, 00, 05), new Date(120, 00, 23));
+        exampleEvent3.addPerson(new Person("Oliver", "Williams", "OliverW", new Date(60, 5, 5)), "Coordinator");
+        exampleEvent3.addPerson(new Person("Harry", "Smith", "HarryS", new Date(87, 10, 19)), "Event Executive");
+        this.addEvent(exampleEvent3);
+
+        //exampleEvent4
+        Event exampleEvent4 = new Event("The Sound of Music", "One of the greatest musicals of all time returns to the stage in this magnificent five star production to enchant the young and the young at heart.", new Location("United Kingdom", "CF10 3LN", "Park Pl", "1"), new Date(117, 00, 02), new Date(117, 00, 12));
+        exampleEvent4.addPerson(new Person("Oliver", "Williams", "OliverW", new Date(60, 5, 5)), "Coordinator");
+        exampleEvent4.addPerson(new Person("Harry", "Smith", "HarryS", new Date(87, 10, 19)), "Event Staff");
+        this.addEvent(exampleEvent4);
+
+        //exampleEvent5
+        Event exampleEvent5 = new Event("Sunset Boulevard", "Andrew Lloyd Webber's Tony Award®-winning (Best Musical, Best Original Score & Best Book of a Musical) masterpiece Sunset Boulevard, directed by Nikolai Foster and starring Ria Jones as Norma Desmond, is coming to the Centre. One of the all-time great musicals, Sunset Boulevard is a compelling story of romance and…", new Location("United Kingdom", "CF10 5AL", "Bute Pl", "1"), new Date(117, 00, 15), new Date(117, 00, 18));
+        exampleEvent5.addPerson(new Person("Thomas", "Jones", "ThomasJ", new Date(77, 9, 9)), "Organiser");
+        exampleEvent5.addPerson(new Person("Oliver", "Williams", "OliverW", new Date(60, 5, 5)), "Sales Coordinator");
+        this.addEvent(exampleEvent5);
+
+        //exampleEvent6
+        Event exampleEvent6 = new Event("Nina", "A Unity Theatre and Riksteatern co-production with Young Vic Backed by a brilliant band, Olivier Award-nominated actress Josette Bushell-Mingo (Disney's The Lion King) mixes story and song as she draws together tales from the life of Nina Simone and her own extraordinary career. Touching upon the 1960's civil rights movement,…", new Location("United Kingdom", "CF10 3ER", "North Rd", "8"), new Date(117, 00, 21), new Date(117, 00, 25));
+        exampleEvent6.addPerson(new Person("Thomas", "Jones", "ThomasJ", new Date(77, 9, 9)), "Staff");
+        exampleEvent6.addPerson(new Person("Oliver", "Williams", "OliverW", new Date(60, 5, 5)), "Organiser");
+        this.addEvent(exampleEvent6);
+
+        //exampleEvent7
+        Event exampleEvent7 = new Event("Classics for All", "Did you know? - Now you can buy Theatre Tokens at the Cardiff Tourist Information Centre, for use at St David's Hall, New Theatre, Sherman Theatre and theatres across the UK Cardiff Philharmonic Orchestra Michael Bell \" Conductor Sara Trickey - Violin Two contrasting symphonies begin and close this concert.", new Location("United Kingdom", "CF10 1AH", "The Hayes", "10"), new Date(118, 00, 05), new Date(118, 00, 23));
+        exampleEvent7.addPerson(new Person("Oliver", "Williams", "OliverW", new Date(60, 5, 5)), "Coordinator");
+        exampleEvent7.addPerson(new Person("Harry", "Smith", "HarryS", new Date(87, 10, 19)), "Event Staff");
+        this.addEvent(exampleEvent7);
+
     }
 
     /**
@@ -49,7 +84,7 @@ public class EventRepositoryInMemory implements EventRepository {
     /**
      * Sets the ArrayList with Events.
      *
-     * @exception Throws DomainException if ArrayList with Events is null.
+     * @exception Throws DatabaseException if ArrayList with Events is null.
      * @param events the ArrayList with events
      */
     @Override
@@ -63,7 +98,7 @@ public class EventRepositoryInMemory implements EventRepository {
     /**
      * Adds an Event to the ArrayList with all the events.
      *
-     * @exception Throws DomainException if the event is null.
+     * @exception Throws DatabaseException if the event is null.
      * @param event the Event that will be added to the ArrayList
      */
     @Override
@@ -91,6 +126,7 @@ public class EventRepositoryInMemory implements EventRepository {
      * Gets the event with the given title or returns null is there is no event
      * available with the given title.
      *
+     * @exception Throws DatabaseException if the title is null.
      * @param title
      * @return event with given title or null of no event with the given title
      * is found
@@ -163,10 +199,14 @@ public class EventRepositoryInMemory implements EventRepository {
     /**
      * Deletes the event with the given title out of the ArrayList.
      *
+     * @exception Throws DatabaseException if the title is null.
      * @param title title of the event
      */
     @Override
     public void removeEvent(String title) {
+        if (title == null) {
+            throw new DatabaseException("Title cannot be null.");
+        }
         for (Event e : this.getEvents()) {
             if (e.getTitle().equals(title)) {
                 this.events.remove(e);
@@ -175,8 +215,17 @@ public class EventRepositoryInMemory implements EventRepository {
         }
     }
 
+    /**
+     * Adds an ArrayList of Events.
+     *
+     * @exception Throws DatabaseException if the eventList is null
+     * @param eventList the ArrayList of Events that has to be added
+     */
     @Override
     public void addEvents(ArrayList<Event> eventList) {
+        if (eventList == null) {
+            throw new DatabaseException("EventList cannot be null!");
+        }
         this.getEvents().addAll(eventList);
     }
 }

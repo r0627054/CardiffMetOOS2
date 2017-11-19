@@ -23,9 +23,24 @@ import uk.ac.cardiffmet.st20131041.domain.model.Person;
  */
 public class EventService {
 
+    /**
+     * The repository, where all the events are stored
+     */
     private EventRepository eventRepository;
+    
+    /**
+     * The repository, where all the persons are stored
+     */
     private PersonRepository personRepository;
+    
+    /**
+     * The File reader that will read all the events of file in a format
+     */
     private EventFileReader eventFileReader;
+    
+    /**
+     * The writer that can make a string in a given format of the events 
+     */
     private EventFileWriter eventFileWriter;
 
     /**

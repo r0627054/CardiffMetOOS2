@@ -12,10 +12,29 @@ import javax.swing.ImageIcon;
  */
 public class OptionPanel extends javax.swing.JPanel {
 
+    /**
+     * The default color the panel has.
+     */
     private final Color defaultPanelColor = new Color(119, 171, 89);
+    
+    /**
+     * The default color the panel has when hovering
+     */
     private final Color defaultHoverPanelColor = new Color(201, 223, 138);
+    
+    /**
+     * The default color the panel has when clicked.
+     */
     private final Color defaultClickedPanelColor = new Color(54, 128, 45);
+    
+    /**
+     * The default text the panel has.
+     */
     private String labelText = "Label text";
+    
+    /**
+     * The default Icon the panel has.
+     */
     private ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("uk/ac/cardiffmet/st20131041/resources/add-contacts.png"));
 
     /**

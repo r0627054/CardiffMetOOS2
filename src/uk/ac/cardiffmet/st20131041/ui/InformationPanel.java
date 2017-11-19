@@ -16,6 +16,9 @@ import uk.ac.cardiffmet.st20131041.domain.service.EventService;
  */
 public class InformationPanel extends javax.swing.JPanel {
 
+    /**
+     * The service that is used for the events.
+     */
     private EventService service;
 
     /**
@@ -130,7 +133,7 @@ public class InformationPanel extends javax.swing.JPanel {
         } catch (DomainException e) {
             JOptionPane.showMessageDialog(null, "We could not upload the file, please try again!", "Something went wrong", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_uploadButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
@@ -138,7 +141,7 @@ public class InformationPanel extends javax.swing.JPanel {
         try {
             File file = this.saveFileChooser.getSelectedFile();
             File fileWithExtension = new File(file.toString() + ".json");
-            
+
             FileWriter fw = new FileWriter(fileWithExtension.getPath());
             fw.write(service.writeAllEvents());
             fw.flush();
@@ -147,7 +150,7 @@ public class InformationPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "We could not save the file, please try again!", "Something went wrong", JOptionPane.ERROR_MESSAGE);
         }
-        
+
 
     }//GEN-LAST:event_saveButtonActionPerformed
 

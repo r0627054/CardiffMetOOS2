@@ -12,13 +12,36 @@ import java.util.Set;
  * @author Dries
  * @version 1.0
  */
-public class Event{
+public class Event {
 
+    /**
+     * Title of an Event.
+     */
     private String title;
+
+    /**
+     * Description of an Event
+     */
     private String description;
+    
+    /**
+     * Start Date Object of an event.
+     */
     private Date startDate;
+    
+    /**
+     * End Date Object of an event.
+     */
     private Date endDate;
+    
+    /**
+     * A HashMap that stores the person and their link with the event.
+     */
     private HashMap<Person, String> persons = new HashMap<Person, String>();
+    
+    /**
+     * Location (object) of an event.
+     */
     private Location location;
 
     /**
@@ -141,14 +164,21 @@ public class Event{
      * Sets the start date of the event.
      *
      * @exception Throws DomainException if the start date is null.
+     * @exception Throws DomainException if the start date is after the end
+     * Date.
+     * @exception Throws DomainException if start and end date are not in the
+     * same year.
      * @param startDate
      */
     public void setStartDate(Date startDate) {
         if (startDate == null) {
             throw new DomainException("Please fill in a valid start date");
         }
-        if(this.getEndDate() != null && this.getEndDate().before(startDate)){
+        if (this.getEndDate() != null && this.getEndDate().before(startDate)) {
             throw new DomainException("The end date cannot be beforer the start date!");
+        }
+        if (this.getEndDate() != null && this.getEndDate().getYear() != startDate.getYear()) {
+            throw new DomainException("Start date and the end date must be in the same year.");
         }
         this.startDate = startDate;
     }
@@ -156,15 +186,22 @@ public class Event{
     /**
      * Sets the start date of an event.
      *
-     * @exception Throws DomainException if the endDate is null or if the startdate is after the endDate. 
+     * @exception Throws DomainException if the endDate is null.
+     * @exception Throws DomainException if the start date is after the end
+     * Date.
+     * @exception Throws DomainException if start and end date are not in the
+     * same year.
      * @param endDate
      */
     public void setEndDate(Date endDate) {
         if (endDate == null) {
             throw new DomainException("Please fill in a valid end date");
         }
-        if(this.getStartDate() != null && this.getStartDate().after(endDate) ){
+        if (this.getStartDate() != null && this.getStartDate().after(endDate)) {
             throw new DomainException("Start date cannot be after the end date!");
+        }
+        if (this.getStartDate() != null && this.getStartDate().getYear() != endDate.getYear()) {
+            throw new DomainException("Start date and the end date must be in the same year.");
         }
         this.endDate = endDate;
     }
@@ -202,7 +239,7 @@ public class Event{
      * @return All Persons
      */
     public Set<Person> getEveryPerson() {
-        return  this.persons.keySet();
+        return this.persons.keySet();
     }
 
     /**

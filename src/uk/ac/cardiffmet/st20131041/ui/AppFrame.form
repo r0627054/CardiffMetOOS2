@@ -4,7 +4,10 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[857, 587]"/>
+      <Dimension value="[1200, 875]"/>
+    </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1200, 875]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -31,7 +34,7 @@
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="headerPanel" max="32767" attributes="0"/>
-                  <Component id="mainAreaPanel" pref="875" max="32767" attributes="0"/>
+                  <Component id="mainAreaPanel" pref="880" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -44,7 +47,7 @@
                   <Group type="102" attributes="0">
                       <Component id="headerPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="mainAreaPanel" pref="821" max="32767" attributes="0"/>
+                      <Component id="mainAreaPanel" pref="709" max="32767" attributes="0"/>
                   </Group>
                   <Component id="sideBarPanel" max="32767" attributes="0"/>
               </Group>
@@ -75,11 +78,22 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[880, 640]"/>
+        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
         <Component class="uk.ac.cardiffmet.st20131041.ui.AddEventPanel" name="addEventPanel">
+          <Properties>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1000, 736]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1000, 744]"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new uk.ac.cardiffmet.st20131041.ui.AddEventPanel(this.getService())"/>
           </AuxValues>

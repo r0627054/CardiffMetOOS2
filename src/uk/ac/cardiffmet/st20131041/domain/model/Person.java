@@ -11,9 +11,24 @@ import java.util.Objects;
  */
 public class Person {
 
+    /**
+     * Forename of a person
+     */
     private String forename;
+    
+    /**
+     * surname of a person
+     */
     private String surname;
+    
+    /**
+     * Birthday of a person
+     */
     private Date birthday;
+    
+    /**
+     * Nickname of person
+     */
     private String nickname;
     
     /**

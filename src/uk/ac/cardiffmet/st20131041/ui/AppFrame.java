@@ -12,6 +12,9 @@ import uk.ac.cardiffmet.st20131041.domain.service.EventService;
  */
 public class AppFrame extends javax.swing.JFrame {
 
+    /**
+     * The service that is used for the events.
+     */
     private EventService service;
 
     /**
@@ -309,7 +312,8 @@ public class AppFrame extends javax.swing.JFrame {
         informationPanel = new uk.ac.cardiffmet.st20131041.ui.InformationPanel(this.getService());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(857, 587));
+        setMinimumSize(new java.awt.Dimension(1200, 875));
+        setPreferredSize(new java.awt.Dimension(1200, 875));
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
@@ -323,7 +327,11 @@ public class AppFrame extends javax.swing.JFrame {
         );
 
         mainAreaPanel.setBackground(new java.awt.Color(255, 255, 255));
+        mainAreaPanel.setMinimumSize(new java.awt.Dimension(880, 640));
         mainAreaPanel.setLayout(new java.awt.CardLayout());
+
+        addEventPanel.setMinimumSize(new java.awt.Dimension(1000, 736));
+        addEventPanel.setPreferredSize(new java.awt.Dimension(1000, 744));
         mainAreaPanel.add(addEventPanel, "card3");
         mainAreaPanel.add(addPersonPanel, "card2");
         mainAreaPanel.add(timeLinePanel, "card5");
@@ -338,7 +346,7 @@ public class AppFrame extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE)))
+                    .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +356,7 @@ public class AppFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE))
+                        .addComponent(mainAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
                     .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 

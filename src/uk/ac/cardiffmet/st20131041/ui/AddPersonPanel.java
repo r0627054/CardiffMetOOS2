@@ -19,6 +19,9 @@ import uk.ac.cardiffmet.st20131041.domain.service.EventService;
  */
 public class AddPersonPanel extends javax.swing.JPanel {
 
+    /**
+     * The service that is used for the events.
+     */
     private EventService service;
 
     /**
@@ -135,7 +138,7 @@ public class AddPersonPanel extends javax.swing.JPanel {
                     .addComponent(nicknameField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(addPersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

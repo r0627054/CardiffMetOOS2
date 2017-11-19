@@ -13,17 +13,56 @@ import uk.ac.cardiffmet.st20131041.domain.model.Person;
  */
 public interface PersonRepository {
 
+    /**
+     * Gets the ArrayList with all persons in it.
+     *
+     * @return ArrayList with all persons.
+     */
     ArrayList<Person> getPersons();
 
+    /**
+     * Sets the ArrayList of all persons.
+     *
+     * @param persons the ArrayList with Persons
+     */
     void setPersons(ArrayList<Person> persons);
 
+    /**
+     * Adds a Person to the ArrayList with all the events.
+     *
+     * @param person
+     */
     void addPerson(Person person);
 
+    /**
+     * Gets the Person object at the given index.
+     *
+     * @param index the index of the person object in the ArrayList.
+     * @return the person object at the given index.
+     */
     Person getPerson(int index);
 
+    /**
+     * Gets the person with the given nickname
+     *
+     * @param nickname the nickname of the person
+     * @return the person object with the given nickname
+     */
     Person getPerson(String nickname);
 
+    /**
+     * Gets the person with the given nickname
+     *
+     * @param nickname the nickname of the person
+     * @return the person object with the given nickname
+     * @throws Throws a DatabaseException if nickname is null
+     */
     ArrayList<String> getAllNicknames();
-    
+
+    /**
+     * Adds an ArrayList of Persons to the repository.
+     *
+     * @param personsList the ArrayListOfPersons that need to be added.
+     */
     void addPersons(ArrayList<Person> personsList);
 }

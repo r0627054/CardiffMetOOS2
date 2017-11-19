@@ -8,9 +8,24 @@ package uk.ac.cardiffmet.st20131041.domain.model;
  */
 public class Location {
 
+    /**
+     * Country of a location
+     */
     private String country;
+
+    /**
+     * postcode of a location
+     */
     private String postcode;
+
+    /**
+     * street name of a location
+     */
     private String streetName;
+
+    /**
+     * house number/ bus number of location
+     */
     private String houseNumber;
 
     /**
