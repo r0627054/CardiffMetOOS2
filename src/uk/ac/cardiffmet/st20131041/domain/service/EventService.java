@@ -308,8 +308,10 @@ public class EventService {
                     this.addPerson(p);
                 }
             }
+            if(!containEventWithTitle(e.getTitle())){
+                this.addEvent(e);
+            }
         }
-        this.addAllEvents(allImportEvents);
     }
 
     /**
