@@ -12,5 +12,12 @@ import java.util.ArrayList;
  */
 public interface EventFileReader {
 
+    /**
+     * Reads a file and extracts all the events of this File. Exports the
+     * readable events of the file to an ArrayList.
+     *
+     * @param file File that contains Events in a given format.
+     * @return ArrayList of Events
+     */
     ArrayList<Event> getAllEventsOfFile(File file);
 }

@@ -65,7 +65,7 @@ public class EventService {
     // METHODS OF EVENTREPOSITORY
     //--------------------------------
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see EventRepository#getEvents()
      * @return ArrayList of Events
@@ -75,7 +75,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see EventRepository#setEvents(java.util.ArrayList)
      * @param events
@@ -85,7 +85,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see
      * EventRepository#addEvent(uk.ac.cardiffmet.st20131041.domain.model.Event)
@@ -96,7 +96,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see EventRepository#getNumberOfEvents()
      * @return number of events
@@ -106,7 +106,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see EventRepository#getEvent(java.lang.String)
      * @param title
@@ -117,7 +117,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see EventRepository#containEventWithTitle(java.lang.String)
      * @param title
@@ -128,7 +128,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see EventRepository#getAllDifferentYears()
      * @return
@@ -138,7 +138,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see EventRepository#getAllEventsOfYear(int)
      * @param year
@@ -151,7 +151,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the eventRepository
+     * This method makes use of the method of the eventRepository
      *
      * @see EventRepository#removeEvent(java.lang.String)
      * @param title
@@ -160,11 +160,22 @@ public class EventService {
         this.getEventRepository().removeEvent(title);
     }
 
+    /**
+     * Will add all the given events to the program.
+     * This method makes use of the method of the eventRepository
+     *
+     * @see EventRepository#addEvents(java.util.ArrayList) 
+     * @param eventList list of events to add.
+     */
+    private void addAllEvents(ArrayList<Event> eventList) {
+        this.getEventRepository().addEvents(eventList);
+    }
+    
     //--------------------------------
     // METHODS OF PERSONREPOSITORY
     //--------------------------------
     /**
-     * This method makes us of the method of the personRepository
+     * This method makes use of the method of the personRepository
      *
      * @see PersonRepository#getPersons()
      * @return
@@ -174,7 +185,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the personRepository
+     * This method makes use of the method of the personRepository
      *
      * @see PersonRepository#setPersons(java.util.ArrayList)
      * @param persons
@@ -184,7 +195,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the personRepository
+     * This method makes use of the method of the personRepository
      *
      * @see
      * PersonRepository#addPerson(uk.ac.cardiffmet.st20131041.domain.model.Person)
@@ -195,7 +206,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the personRepository
+     * This method makes use of the method of the personRepository
      *
      * @see PersonRepository#getPerson(int)
      * @param index
@@ -206,7 +217,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the personRepository
+     * This method makes use of the method of the personRepository
      *
      * @param nickname
      * @return Person with the given nickname
@@ -216,7 +227,7 @@ public class EventService {
     }
 
     /**
-     * This method makes us of the method of the personRepository
+     * This method makes use of the method of the personRepository
      *
      * @see PersonRepository#getAllNicknames()
      * @return arraylist with all the nicknames of the users
@@ -225,6 +236,13 @@ public class EventService {
         return this.getPersonRepository().getAllNicknames();
     }
 
+    /**
+     * Checks if the personRepository contains a person with the given nickname.
+     *
+     * @param nickname
+     * @return <code>true</code> if it contains a person with the given
+     * nickname, else otherwise.
+     */
     public boolean containsPerson(String nickname) {
         return getAllPersonNames().contains(nickname);
     }
@@ -232,18 +250,41 @@ public class EventService {
     //--------------------------------
     // METHODS OF FILE READER/WRITER
     //--------------------------------
+    /**
+     * Gets the EventFileReader
+     *
+     * @return the EventFileReader
+     */
     private EventFileReader getEventFileReader() {
         return eventFileReader;
     }
 
+    /**
+     * Gets the EventFileWriter
+     *
+     * @return the EventFileWriter
+     */
     private EventFileWriter getEventFileWriter() {
         return eventFileWriter;
     }
 
+    /**
+     * Returns all the Events that can be subtracted from the file. This method
+     * makes use of the method of the EventFileReader
+     *
+     * @see EventFileReader#getAllEventsOfFile(java.io.File)
+     * @param file
+     * @return an ArrayList of Events that can be subtracted from the file.
+     */
     public ArrayList<Event> getAllEventsOfFile(File file) {
         return this.getEventFileReader().getAllEventsOfFile(file);
     }
 
+    /**
+     * Saves all the that can be subtracted from the file.
+     *
+     * @param file that contains events
+     */
     public void saveAllEventsOfFile(File file) {
         ArrayList<Event> allImportEvents = this.getAllEventsOfFile(file);
         for (Event e : allImportEvents) {
@@ -256,15 +297,30 @@ public class EventService {
         this.addAllEvents(allImportEvents);
     }
 
+    /**
+     * Gets a (JSON) String of events of all the given events.
+     *
+     * This method makes use of the method of the EventFileWriter
+     *
+     * @see EventFileWriter#writeEvents(java.util.ArrayList)
+     * @param allEvents list of events which need to be transfered to a (JSON) String.
+     * @return String of Events
+     */
     private String writeEvents(ArrayList<Event> allEvents) {
         return this.getEventFileWriter().writeEvents(allEvents);
     }
 
+    /**
+     * Gets a (JSON) String of events of all the events the running application uses.
+     * 
+     * This method makes use of the method of the EventFileWriter.
+     *
+     * @see EventFileWriter#writeEvents(java.util.ArrayList)
+     * @return String of all the events
+     */
     public String writeAllEvents() {
         return this.getEventFileWriter().writeEvents(this.getEvents());
     }
 
-    private void addAllEvents(ArrayList<Event> eventList) {
-        this.getEventRepository().addEvents(eventList);
-    }
+
 }
