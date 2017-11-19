@@ -590,6 +590,8 @@ public class TimeLinePanel extends javax.swing.JPanel {
         this.setEventsOfYear(service.getAllEventsOfYear(year));
         this.getTimeline().setYear(this.getSelectedYear());
         this.getTimeline().setAllEvents(this.getEventsOfYear());
+        //verandert
+        this.getTimeline().determineYOrigin();
         this.getTimeline().repaint();
         for (JLabel label : this.allEventLabels) {
             this.getTimeline().remove(label);

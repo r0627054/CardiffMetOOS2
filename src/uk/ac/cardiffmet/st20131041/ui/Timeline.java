@@ -73,10 +73,12 @@ public class Timeline extends JPanel {
     /**
      * Calculates and sets the originY.
      */
-    private void determineYOrigin() {
+    public void determineYOrigin() {
         int overlaps = this.maxNumberOfoverlaps();
         if (overlaps > 4) {
             this.originY += (labelHeight) * (overlaps - 4);
+            //verandert
+            this.setPreferredSize(new Dimension((originX * nrDays) + 125, originY + 150));
         }
     }
 
@@ -362,7 +364,11 @@ public class Timeline extends JPanel {
             while (previousEventNumber >= 0) {
                 Event preciousEvent = this.getAllEvents().get(previousEventNumber);
                 if (overLapWithPreviousDate(preciousEvent.getEndDate(), currentEvent.getStartDate())) {
-                    result++;
+                    //result++;
+                    int tempResult = this.numberOfOverlaps(previousEventNumber) + 1;
+                    if(tempResult > result){
+                        result = tempResult;
+                    }
                 }
                 previousEventNumber--;
             }
