@@ -81,8 +81,11 @@ public class OptionPanel extends javax.swing.JPanel {
         this.setBackground(this.defaultClickedPanelColor);
     }
 
+
     /**
      * Gets the labelText.
+     * 
+     * @return the lavelText
      */
     public String getLabelText() {
         return labelText;
@@ -91,7 +94,7 @@ public class OptionPanel extends javax.swing.JPanel {
     /**
      * Sets the labelText
      *
-     * @param labelText
+     * @param labelText the text that needs to be displayed.
      */
     public void setLabelText(String labelText) {
         this.labelText = labelText;
@@ -109,7 +112,7 @@ public class OptionPanel extends javax.swing.JPanel {
     /**
      * Sets the ImageIcon
      *
-     * @param icon
+     * @param icon the ImageIcon object to, display on the panel.
      */
     public void setIcon(ImageIcon icon) {
         this.icon = icon;

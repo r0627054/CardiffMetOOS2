@@ -7,7 +7,7 @@ import java.util.Objects;
  * A person can be created and standalone, but is eventually used to affiliate with an event.
  * 
  * @author Dries
- * @Version 1.0
+ * @version 1.0
  */
 public class Person {
 
@@ -43,7 +43,9 @@ public class Person {
      * 
      * @param forename forename of the person
      * @param surname surname of the person
+     * @param nickname the nickname of the person
      * @param birthday birthday object of the person
+     * 
      */
     public Person(String forename, String surname, String nickname, Date birthday) {
         this.setForename(forename);
@@ -64,8 +66,8 @@ public class Person {
     /**
      * Sets the forename of the person.
      * 
-     * @exception Throws DomainException if the forename is null of empty.
-     * @param forename 
+     * Throws DomainException if the forename is null of empty.
+     * @param forename the forename of a person.
      */
     public void setForename(String forename) {
         if(forename == null){
@@ -89,7 +91,7 @@ public class Person {
     /**
      * Sets the surname of the person.
      * 
-     * @exception Throws DomainException if the surname is null or empty.
+     * Throws DomainException if the surname is null or empty.
      * @param surname surname of the person
      */
     public void setSurname(String surname) {
@@ -114,8 +116,8 @@ public class Person {
     /**
      * Sets the birthday (date object) of the person.
      * 
-     * @exception Throws DomainException if the birthday object is null
-     * @param birthday 
+     * Throws DomainException if the birthday object is null
+     * @param birthday the date of birth (object) of a person
      */
     public void setBirthday(Date birthday) {
         if(birthday == null){
@@ -127,7 +129,7 @@ public class Person {
     /**
      * Gets the (unique name) nickname of the person.
      * 
-     * @return 
+     * @return the nickname of the person
      */
     public String getNickname() {
         return nickname;
@@ -136,8 +138,8 @@ public class Person {
     /**
      * Sets the (unique name) nickname of the person.
      * 
-     * @exception  Throws DomainException if the nickname is null or empty.
-     * @param nickname 
+     *  Throws DomainException if the nickname is null or empty.
+     * @param nickname the nickname of a person
      */
     public void setNickname(String nickname) {
         if(nickname == null){

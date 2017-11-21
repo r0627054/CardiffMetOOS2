@@ -25,8 +25,8 @@ public class FileTypeFilter extends FileFilter {
      * Creating a fileTypeFilter can be done by giving the description and
      * corresponding extension
      *
-     * @param extension
-     * @param description
+     * @param extension the file extension
+     * @param description the description of the extension
      */
     public FileTypeFilter(String extension, String description) {
         this.extension = extension;
@@ -34,8 +34,8 @@ public class FileTypeFilter extends FileFilter {
     }
 
     /**
-     * {@inheritdoc}
-     * 
+     * {@inheritDoc}
+     *
      * It accepts directories and files with the given extension.
      *
      * @param f Given/selected file
@@ -51,7 +51,7 @@ public class FileTypeFilter extends FileFilter {
 
     /**
      * Gets the description with the extension in brackets.
-     * 
+     *
      * @return a custom description with the extension in brackets.
      */
     @Override

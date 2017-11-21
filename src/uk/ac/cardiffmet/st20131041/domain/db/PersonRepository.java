@@ -30,7 +30,7 @@ public interface PersonRepository {
     /**
      * Adds a Person to the ArrayList with all the events.
      *
-     * @param person
+     * @param person the person object that needs to be added.
      */
     void addPerson(Person person);
 
@@ -51,11 +51,9 @@ public interface PersonRepository {
     Person getPerson(String nickname);
 
     /**
-     * Gets the person with the given nickname
+     * Gets the nicknames of all the persons
      *
-     * @param nickname the nickname of the person
-     * @return the person object with the given nickname
-     * @throws Throws a DatabaseException if nickname is null
+     * @return an ArrayList of nicknames
      */
     ArrayList<String> getAllNicknames();
 

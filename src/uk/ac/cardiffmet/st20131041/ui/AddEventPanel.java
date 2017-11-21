@@ -23,7 +23,7 @@ import uk.ac.cardiffmet.st20131041.domain.service.EventService;
  * Panel used for adding a person object to the model (service)
  *
  * @author Dries Janse
- * @Version 1.0
+ * @version 1.0
  */
 public class AddEventPanel extends javax.swing.JPanel {
 
@@ -45,7 +45,7 @@ public class AddEventPanel extends javax.swing.JPanel {
      * Creates new form AddEventPanel and initializes all its components. It
      * loads the all the nicknames in the combobox.
      *
-     * @param service
+     * @param service the service (facade) of the model
      */
     public AddEventPanel(EventService service) {
         this.setService(service);
@@ -65,7 +65,7 @@ public class AddEventPanel extends javax.swing.JPanel {
     /**
      * Sets the service
      *
-     * @param service
+     * @param service the service (facade) of the model
      */
     public void setService(EventService service) {
         this.service = service;

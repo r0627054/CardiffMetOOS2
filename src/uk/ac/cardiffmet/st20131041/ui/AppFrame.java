@@ -32,7 +32,7 @@ public class AppFrame extends javax.swing.JFrame {
      * -sets all the listeners -initialises the compontens -sets the title of
      * the frame
      *
-     * @param service
+     * @param service the service (facade) of the model
      */
     public AppFrame(EventService service) {
         this.setService(service);

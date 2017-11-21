@@ -9,7 +9,7 @@ import uk.ac.cardiffmet.st20131041.domain.model.Person;
  * ArrayList.
  *
  * @author Dries Janse
- * @Version 1.0
+ * @version 1.0
  */
 public class PersonRepositoryInMemory implements PersonRepository {
 
@@ -43,7 +43,8 @@ public class PersonRepositoryInMemory implements PersonRepository {
     /**
      * Sets the ArrayList of all persons.
      *
-     * @exception Throws DatabaseException if ArrayList with persons is null.
+     * Throws DatabaseException if ArrayList with persons is null.
+     *
      * @param persons the ArrayList with Persons
      */
     @Override
@@ -57,8 +58,9 @@ public class PersonRepositoryInMemory implements PersonRepository {
     /**
      * Adds a Person to the ArrayList with all the events.
      *
-     * @exception Throws DatabaseExecption if the Person object is null.
-     * @param person
+     * Throws DatabaseExecption if the Person object is null.
+     *
+     * @param person the person object that needs to be added.
      */
     @Override
     public void addPerson(Person person) {
@@ -86,8 +88,8 @@ public class PersonRepositoryInMemory implements PersonRepository {
      * Gets the person with the given nickname
      *
      * @param nickname the nickname of the person
-     * @return the person object with the given nickname
-     * @throws Throws a DatabaseException if nickname is null
+     * @return the person object with the given nickname Throws a
+     * DatabaseException if nickname is null
      */
     @Override
     public Person getPerson(String nickname) {
@@ -119,12 +121,12 @@ public class PersonRepositoryInMemory implements PersonRepository {
     /**
      * Adds an ArrayList of Persons to the current ArrayList.
      *
-     * @param personsList the ArrayListOfPersons that need to be added.
-     * @throws Throws a DatabaseException if personList is null.
+     * @param personsList the ArrayListOfPersons that need to be added. Throws a
+     * DatabaseException if personList is null.
      */
     @Override
     public void addPersons(ArrayList<Person> personsList) {
-        if(personsList == null){
+        if (personsList == null) {
             throw new DatabaseException("PersonsList cannot be null.");
         }
         this.getPersons().addAll(personsList);

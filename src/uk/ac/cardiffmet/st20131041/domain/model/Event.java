@@ -23,22 +23,22 @@ public class Event {
      * Description of an Event
      */
     private String description;
-    
+
     /**
      * Start Date Object of an event.
      */
     private Date startDate;
-    
+
     /**
      * End Date Object of an event.
      */
     private Date endDate;
-    
+
     /**
      * A HashMap that stores the person and their link with the event.
      */
     private HashMap<Person, String> persons = new HashMap<Person, String>();
-    
+
     /**
      * Location (object) of an event.
      */
@@ -55,11 +55,11 @@ public class Event {
      * Parameterised constructor uses title, description, and date. Persons is
      * not a requirement.
      *
-     * @param title
-     * @param desciption
-     * @param location
-     * @param startDate
-     * @param endDate
+     * @param title the title of the event
+     * @param desciption the description of the event
+     * @param location the location (object) of the event
+     * @param startDate the start date (object) of the event
+     * @param endDate the end date (object) of the event
      */
     public Event(String title, String desciption, Location location, Date startDate, Date endDate) {
         this.setTitle(title);
@@ -117,8 +117,9 @@ public class Event {
     /**
      * Sets the location of the event.
      *
-     * @exception Throws DomainException if the location of the event is null.
-     * @param location
+     * Throws DomainException if the location of the event is null.
+     *
+     * @param location the location (object) of the event
      */
     public void setLocation(Location location) {
         if (location == null) {
@@ -130,9 +131,9 @@ public class Event {
     /**
      * Sets the title of an event.
      *
-     * @exception Throws DomainException if the title of the event is null or
-     * empty
-     * @param title
+     * Throws DomainException if the title of the event is null or empty
+     *
+     * @param title the title of the event
      */
     public void setTitle(String title) {
         if (title == null) {
@@ -147,8 +148,9 @@ public class Event {
     /**
      * Sets de description of the event.
      *
-     * @exception Throws DomainException if the description is null or empty.
-     * @param description
+     * Throws DomainException if the description is null or empty.
+     *
+     * @param description the description of the event
      */
     public void setDescription(String description) {
         if (description == null) {
@@ -163,12 +165,11 @@ public class Event {
     /**
      * Sets the start date of the event.
      *
-     * @exception Throws DomainException if the start date is null.
-     * @exception Throws DomainException if the start date is after the end
-     * Date.
-     * @exception Throws DomainException if start and end date are not in the
-     * same year.
-     * @param startDate
+     * Throws DomainException if the start date is null. Throws DomainException
+     * if the start date is after the end Date. Throws DomainException if start
+     * and end date are not in the same year.
+     *
+     * @param startDate the start date of the event
      */
     public void setStartDate(Date startDate) {
         if (startDate == null) {
@@ -186,12 +187,11 @@ public class Event {
     /**
      * Sets the start date of an event.
      *
-     * @exception Throws DomainException if the endDate is null.
-     * @exception Throws DomainException if the start date is after the end
-     * Date.
-     * @exception Throws DomainException if start and end date are not in the
-     * same year.
-     * @param endDate
+     * Throws DomainException if the endDate is null. Throws DomainException if
+     * the start date is after the end Date. Throws DomainException if start and
+     * end date are not in the same year.
+     *
+     * @param endDate the end date of the object
      */
     public void setEndDate(Date endDate) {
         if (endDate == null) {
@@ -225,8 +225,8 @@ public class Event {
     /**
      * Adds a person to the event with an empty description.
      *
-     * @see addPerson(Person, String)
-     *
+     * @see #addPerson(uk.ac.cardiffmet.st20131041.domain.model.Person,
+     * java.lang.String)
      * @param person person affiliated to the event
      */
     public void addPerson(Person person) {

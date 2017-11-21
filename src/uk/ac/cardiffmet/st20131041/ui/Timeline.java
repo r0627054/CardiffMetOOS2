@@ -112,7 +112,8 @@ public class Timeline extends JPanel {
     /**
      * Sets allEvents that will be used on the time line.
      *
-     * @param allEvents
+     * @param allEvents ArrayList of all the events that needs to be drawn on
+     * the time line.
      */
     public void setAllEvents(ArrayList<Event> allEvents) {
         this.allEvents = allEvents;
@@ -146,10 +147,11 @@ public class Timeline extends JPanel {
     }
 
     /**
-     * Overrides the paintComponent. Draws the Y-axis. Draws the Y-axis label.
-     * Draws the X-axis label.
      *
-     * @param g
+     * {@inheritDoc} Overrides the paintComponent. Draws the Y-axis. Draws the
+     * Y-axis label. Draws the X-axis label.
+     *
+     * @param g the Graphics object
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -284,7 +286,7 @@ public class Timeline extends JPanel {
     /**
      * Sets the year of the time line.
      *
-     * @param year
+     * @param year the year of the time line.
      */
     public void setYear(int year) {
         this.year = year - 1900;
@@ -383,7 +385,8 @@ public class Timeline extends JPanel {
      * current event we have to check how much the previous events overlaps and
      * add 1 because has to be 1 higher.
      *
-     * @param numberOfEvent
+     * @param numberOfEvent the number event were the cumulative overlap needs
+     * to be calculated of.
      * @return the cumulative value that the events overlapped
      */
     public int numberOfCumulativeOverlaps(int numberOfEvent) {

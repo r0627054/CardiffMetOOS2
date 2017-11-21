@@ -12,7 +12,7 @@ import uk.ac.cardiffmet.st20131041.domain.model.Person;
  * ArrayList.
  *
  * @author Dries Janse
- * @Version 1.0
+ * @version 1.0
  */
 public class EventRepositoryInMemory implements EventRepository {
 
@@ -84,7 +84,8 @@ public class EventRepositoryInMemory implements EventRepository {
     /**
      * Sets the ArrayList with Events.
      *
-     * @exception Throws DatabaseException if ArrayList with Events is null.
+     * Throws DatabaseException if ArrayList with Events is null.
+     *
      * @param events the ArrayList with events
      */
     @Override
@@ -98,7 +99,8 @@ public class EventRepositoryInMemory implements EventRepository {
     /**
      * Adds an Event to the ArrayList with all the events.
      *
-     * @exception Throws DatabaseException if the event is null.
+     * Throws DatabaseException if the event is null.
+     *
      * @param event the Event that will be added to the ArrayList
      */
     @Override
@@ -126,8 +128,9 @@ public class EventRepositoryInMemory implements EventRepository {
      * Gets the event with the given title or returns null is there is no event
      * available with the given title.
      *
-     * @exception Throws DatabaseException if the title is null.
-     * @param title
+     * Throws DatabaseException if the title is null.
+     *
+     * @param title the title of the event
      * @return event with given title or null of no event with the given title
      * is found
      */
@@ -147,7 +150,7 @@ public class EventRepositoryInMemory implements EventRepository {
     /**
      * Checks if there is an event with the given title.
      *
-     * @param title
+     * @param title the title of the event
      * @return <code>true</code> if title is found in the ArrayList,
      * <code>false</code> is no event exists with the given title.
      */
@@ -199,7 +202,8 @@ public class EventRepositoryInMemory implements EventRepository {
     /**
      * Deletes the event with the given title out of the ArrayList.
      *
-     * @exception Throws DatabaseException if the title is null.
+     * Throws DatabaseException if the title is null.
+     *
      * @param title title of the event
      */
     @Override
@@ -218,7 +222,8 @@ public class EventRepositoryInMemory implements EventRepository {
     /**
      * Adds an ArrayList of Events.
      *
-     * @exception Throws DatabaseException if the eventList is null
+     * Throws DatabaseException if the eventList is null
+     *
      * @param eventList the ArrayList of Events that has to be added
      */
     @Override

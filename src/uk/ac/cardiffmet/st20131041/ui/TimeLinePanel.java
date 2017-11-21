@@ -65,7 +65,7 @@ public class TimeLinePanel extends javax.swing.JPanel {
     /**
      * Creates new form TimeLinePanel and initializes all its components.
      *
-     * @param service
+     * @param service the model facade service.
      */
     public TimeLinePanel(EventService service) {
         this.setService(service);
@@ -78,9 +78,9 @@ public class TimeLinePanel extends javax.swing.JPanel {
 
     /**
      * Gets the initial year. This is the first year of all the different years.
-     * If there are no event the timeline for 2017 will be drawn.
+     * If there are no event the time line for 2017 will be drawn.
      *
-     * @return
+     * @return the initial year value
      */
     public int getInitialYear() {
         if (this.getService().getAllDifferentYears().size() == 0) {
@@ -216,7 +216,7 @@ public class TimeLinePanel extends javax.swing.JPanel {
     /**
      * Gets the time line object.
      *
-     * @return
+     * @return the full time line panel object.
      */
     public Timeline getTimeline() {
         return timeline;

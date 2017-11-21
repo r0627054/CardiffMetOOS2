@@ -8,7 +8,7 @@ import uk.ac.cardiffmet.st20131041.domain.model.Event;
  * example this can be a database, an in memory ArrayList, for testing...
  *
  * @author Dries Janse
- * @Version 1.0
+ * @version 1.0
  */
 public interface EventRepository {
 
@@ -44,7 +44,7 @@ public interface EventRepository {
      * Gets the event with the given title or returns null is there is no event
      * available with the given title.
      *
-     * @param title
+     * @param title the title of the event
      * @return event with given title or null of no event with the given title
      * is found
      */
@@ -53,7 +53,7 @@ public interface EventRepository {
     /**
      * Checks if there is an event with the given title.
      *
-     * @param title
+     * @param title the title of the event
      * @return <code>true</code> if title is found in the ArrayList,
      * <code>false</code> is no event exists with the given title.
      */
@@ -71,6 +71,7 @@ public interface EventRepository {
      * year.
      *
      * @return ArrayList with all events of given year
+     * @param year the year for which we need to find all the events for.
      */
     ArrayList<Event> getAllEventsOfYear(int year);
 

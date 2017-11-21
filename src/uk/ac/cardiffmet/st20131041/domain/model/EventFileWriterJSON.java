@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+
 /**
  * EventFileWriterJSON is a class that implements the EventFileWriter interface.
  * It converts all the given events to a string in the JSON format.

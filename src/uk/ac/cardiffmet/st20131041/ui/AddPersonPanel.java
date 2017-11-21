@@ -37,7 +37,7 @@ public class AddPersonPanel extends javax.swing.JPanel {
      * Creates new form AddPersonPanel and initializes the components. It sets
      * the service.
      *
-     * @param service
+     * @param service the service (facade) of the model
      */
     public AddPersonPanel(EventService service) {
         this.setService(service);

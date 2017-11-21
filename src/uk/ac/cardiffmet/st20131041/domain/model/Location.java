@@ -63,7 +63,8 @@ public class Location {
     /**
      * Sets the name of the country.
      *
-     * @exception Throws DomainException if the country is null or empty.
+     * Throws DomainException if the country is null or empty.
+     *
      * @param country name of the country
      */
     public void setCountry(String country) {
@@ -88,7 +89,8 @@ public class Location {
     /**
      * Sets the postcode of the location.
      *
-     * @exception Throws DomainException if the postcode is null or empty.
+     * Throws DomainException if the postcode is null or empty.
+     *
      * @param postcode name of the postcode
      */
     public void setPostcode(String postcode) {
@@ -113,9 +115,9 @@ public class Location {
     /**
      * Sets the name of the street
      *
-     * @exception Throws DomainException if the name of the street is null or
-     * empty.
-     * @param streetName
+     * Throws DomainException if the name of the street is null or empty.
+     *
+     * @param streetName The street name of a location.
      */
     public void setStreetName(String streetName) {
         if (streetName == null) {
@@ -139,9 +141,10 @@ public class Location {
     /**
      * Sets the number of the house.
      *
-     * @exception Throws DomainException if the number of the house is null or
-     * empty.
-     * @param houseNumber
+     * Throws DomainException if the number of the house is null or empty.
+     *
+     * @param houseNumber the house number (and post letter/number) of the
+     * location
      */
     public void setHouseNumber(String houseNumber) {
         if (houseNumber == null) {
