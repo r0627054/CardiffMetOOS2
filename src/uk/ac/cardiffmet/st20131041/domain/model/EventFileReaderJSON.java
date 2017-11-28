@@ -30,6 +30,9 @@ public class EventFileReaderJSON implements EventFileReader {
      */
     @Override
     public ArrayList<Event> getAllEventsOfFile(File file) {
+        if(file == null){
+            throw new DomainException("File cannot be null!");
+        }
         JSONParser parser = new JSONParser();
         JSONArray eventArray = null;
         ArrayList<Event> events = new ArrayList<>();
