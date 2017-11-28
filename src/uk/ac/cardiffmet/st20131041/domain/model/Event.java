@@ -3,6 +3,7 @@ package uk.ac.cardiffmet.st20131041.domain.model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -263,6 +264,57 @@ public class Event {
             throw new DomainException("Person cannot be removed because, it is null.");
         }
         this.persons.remove(person);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.title);
+        hash = 79 * hash + Objects.hashCode(this.description);
+        hash = 79 * hash + Objects.hashCode(this.startDate);
+        hash = 79 * hash + Objects.hashCode(this.endDate);
+        hash = 79 * hash + Objects.hashCode(this.persons);
+        hash = 79 * hash + Objects.hashCode(this.location);
+        return hash;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Event other = (Event) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.startDate, other.startDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.endDate, other.endDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.persons, other.persons)) {
+            return false;
+        }
+        if (!Objects.equals(this.location, other.location)) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -17,12 +17,34 @@ public class PersonRepositoryInMemory implements PersonRepository {
      * An in memory ArrayList of persons
      */
     private ArrayList<Person> persons;
-
+    
+    /**
+     * the uniqueInstance used for singleton design pattern 
+     */
+    private volatile static PersonRepositoryInMemory uniqueInstance;
+    
+    /**
+     * Used to only create one instance of the class.
+     * 
+     * @return a new instance of PersonRepositoryInMemory. 
+     */
+    public static PersonRepositoryInMemory getInstance(){
+        if(uniqueInstance == null){
+            synchronized (PersonRepositoryInMemory.class) {
+                if(uniqueInstance == null){
+                    uniqueInstance = new PersonRepositoryInMemory();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+    
+    
     /**
      * The empty constructor initialises the person ArrayList. Load already
      * created persons, for demo purpose.
      */
-    public PersonRepositoryInMemory() {
+    private PersonRepositoryInMemory() {
         this.persons = new ArrayList<Person>();
         this.addPerson(new Person("Harry", "Smith", "HarryS", new Date(87, 10, 19)));
         this.addPerson(new Person("Thomas", "Jones", "ThomasJ", new Date(77, 9, 9)));

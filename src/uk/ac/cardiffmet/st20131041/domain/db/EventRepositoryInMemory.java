@@ -22,10 +22,32 @@ public class EventRepositoryInMemory implements EventRepository {
     private ArrayList<Event> events;
 
     /**
+     * the uniqueInstance used for singleton design pattern
+     */
+    private volatile static EventRepositoryInMemory uniqueInstance;
+
+    /**
+     * Used to only create one instance of the class.
+     * 
+     * @return a new instance of EventRepositoryInMemory. 
+     */
+    public static EventRepositoryInMemory getInstance(){
+        if(uniqueInstance == null){
+            synchronized (EventRepositoryInMemory.class) {
+                if(uniqueInstance == null){
+                    uniqueInstance = new EventRepositoryInMemory();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+    
+    
+    /**
      * The empty constructor initialises the event ArrayList. Added dummy events
      * used to be shown during the demo.
      */
-    public EventRepositoryInMemory() {
+    private EventRepositoryInMemory() {
         this.events = new ArrayList<Event>();
 
         //exampleEvent1
@@ -164,7 +186,7 @@ public class EventRepositoryInMemory implements EventRepository {
     }
 
     /**
-     * Get an ArrayList with all the different Years in.
+     * Get a sorted ArrayList with all the different Years in.
      *
      * @return ArrayList with year is.
      */

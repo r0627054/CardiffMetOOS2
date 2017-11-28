@@ -1,5 +1,7 @@
 package uk.ac.cardiffmet.st20131041.domain.model;
 
+import java.util.Objects;
+
 /**
  * The location class keeps track of the address of a location.
  *
@@ -155,4 +157,48 @@ public class Location {
         }
         this.houseNumber = houseNumber;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.country);
+        hash = 53 * hash + Objects.hashCode(this.postcode);
+        hash = 53 * hash + Objects.hashCode(this.streetName);
+        hash = 53 * hash + Objects.hashCode(this.houseNumber);
+        return hash;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Location other = (Location) obj;
+        if (!Objects.equals(this.country, other.country)) {
+            return false;
+        }
+        if (!Objects.equals(this.postcode, other.postcode)) {
+            return false;
+        }
+        if (!Objects.equals(this.streetName, other.streetName)) {
+            return false;
+        }
+        if (!Objects.equals(this.houseNumber, other.houseNumber)) {
+            return false;
+        }
+        return true;
+    }
+
 }

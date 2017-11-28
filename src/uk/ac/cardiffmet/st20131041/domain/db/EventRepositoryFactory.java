@@ -20,7 +20,7 @@ public class EventRepositoryFactory {
     public static EventRepository getEventRepository(String type) {
         switch (type) {
             case "MEMORY":
-                return new EventRepositoryInMemory();
+                return EventRepositoryInMemory.getInstance();
             default:
                 return null;
         }

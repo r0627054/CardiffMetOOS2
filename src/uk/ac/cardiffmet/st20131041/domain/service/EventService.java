@@ -63,7 +63,7 @@ public class EventService {
      *
      * @return eventRepositroy
      */
-    public EventRepository getEventRepository() {
+    private EventRepository getEventRepository() {
         return eventRepository;
     }
 
@@ -72,7 +72,7 @@ public class EventService {
      *
      * @return personRepository
      */
-    public PersonRepository getPersonRepository() {
+    private PersonRepository getPersonRepository() {
         return personRepository;
     }
 

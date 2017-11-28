@@ -4,12 +4,16 @@ import uk.ac.cardiffmet.st20131041.domain.service.EventService;
 import uk.ac.cardiffmet.st20131041.ui.AppFrame;
 
 /**
- *
+ * Starts the application
  * @author Dries Janse
  * @version 1.0
  */
 public class App {
 
+    /**
+     * the main method that starts the application
+     * @param args  parameter
+     */
     public static void main(String[] args) {
 
         /* Set the Nimbus look and feel */

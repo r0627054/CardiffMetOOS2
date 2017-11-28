@@ -20,7 +20,7 @@ public class PersonRepositoryFactory {
     public static PersonRepository getPersonRepository(String type) {
         switch (type) {
             case "MEMORY":
-                return new PersonRepositoryInMemory();
+                return PersonRepositoryInMemory.getInstance();
             default:
                 return null;
         }
