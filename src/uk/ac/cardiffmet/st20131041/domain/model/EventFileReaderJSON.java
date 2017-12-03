@@ -98,7 +98,6 @@ public class EventFileReaderJSON implements EventFileReader {
         } catch (Exception e1) {
             throw new DomainException("The JSON string file contains errors, there is an mistake in the String.");
         }
-
         return events;
     }
 

@@ -181,6 +181,7 @@ public class AppFrame extends javax.swing.JFrame {
         this.swapPanel(timeLinePanel);
         timeLinePanel.loadYearsInComboBox();
         timeLinePanel.drawNewTimeLineWithLastSelectedYear();
+        timeLinePanel.deleteAllInformationOfLabels();
     }
 
     /**

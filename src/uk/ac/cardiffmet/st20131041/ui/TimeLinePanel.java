@@ -583,7 +583,7 @@ public class TimeLinePanel extends javax.swing.JPanel {
             this.getService().removeEvent(getTitleValueLabel().getText());
             //drawNewTimeLine(Integer.parseInt((String) this.getYearComboBox().getSelectedItem()));
             drawNewTimeLineWithLastSelectedYear();
-            JOptionPane.showMessageDialog(null, "Event is deleted", "Event deleted now.", JOptionPane.INFORMATION_MESSAGE);
+            this.deleteAllInformationOfLabels();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -591,7 +591,15 @@ public class TimeLinePanel extends javax.swing.JPanel {
      * Draws a new time line with the last selected year.
      */
     public void drawNewTimeLineWithLastSelectedYear() {
-        this.drawNewTimeLine(Integer.parseInt((String) this.getYearComboBox().getSelectedItem()));
+        int year = 2017;
+        try {
+            year = Integer.parseInt((String) this.getYearComboBox().getSelectedItem());
+            
+        } catch (Exception e) {
+            year = 2017;
+            JOptionPane.showMessageDialog(null, "Wrong year in timeline", "There is no year data, no timeline could be drawn.", JOptionPane.ERROR_MESSAGE);
+        }
+        this.drawNewTimeLine(year);
     }
 
     /**
@@ -657,7 +665,7 @@ public class TimeLinePanel extends javax.swing.JPanel {
     /**
      * Deletes all the contents in the information labels.
      */
-    private void deleteAllInformationOfLabels() {
+    public void deleteAllInformationOfLabels() {
         getTitleValueLabel().setText("");
         getDescriptionValueLabel().setText("");
         getStartDateValueLabel().setText("");
